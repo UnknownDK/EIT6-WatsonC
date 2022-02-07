@@ -1,0 +1,1360 @@
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building file: "../src/csl_gpt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpt.d_raw" --obj_directory="src"  "../src/csl_gpt.c"
+Finished building: "../src/csl_gpt.c"
+ 
+Building file: "../src/csl_irqplug.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_irqplug.d_raw" --obj_directory="src"  "../src/csl_irqplug.asm"
+Finished building: "../src/csl_irqplug.asm"
+ 
+Building file: "../src/csl_gpio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpio.d_raw" --obj_directory="src"  "../src/csl_gpio.c"
+Finished building: "../src/csl_gpio.c"
+ 
+Building file: "../src/csl_dat.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dat.d_raw" --obj_directory="src"  "../src/csl_dat.c"
+Finished building: "../src/csl_dat.c"
+ 
+Building file: "../src/csl_intc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_intc.d_raw" --obj_directory="src"  "../src/csl_intc.c"
+Finished building: "../src/csl_intc.c"
+ 
+Building file: "../src/csl_audioClass.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_audioClass.d_raw" --obj_directory="src"  "../src/csl_audioClass.c"
+Finished building: "../src/csl_audioClass.c"
+ 
+Building file: "../src/csl_cdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_cdc.d_raw" --obj_directory="src"  "../src/csl_cdc.c"
+Finished building: "../src/csl_cdc.c"
+ 
+Building file: "../src/csl_i2c.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2c.d_raw" --obj_directory="src"  "../src/csl_i2c.c"
+Finished building: "../src/csl_i2c.c"
+ 
+Building file: "../src/csl_i2s.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2s.d_raw" --obj_directory="src"  "../src/csl_i2s.c"
+Finished building: "../src/csl_i2s.c"
+ 
+Building file: "../src/csl_lcdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_lcdc.d_raw" --obj_directory="src"  "../src/csl_lcdc.c"
+Finished building: "../src/csl_lcdc.c"
+ 
+Building file: "../src/csl_mem.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mem.d_raw" --obj_directory="src"  "../src/csl_mem.c"
+Finished building: "../src/csl_mem.c"
+ 
+Building file: "../src/csl_dma.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dma.d_raw" --obj_directory="src"  "../src/csl_dma.c"
+Finished building: "../src/csl_dma.c"
+ 
+Building file: "../src/csl_pll.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_pll.d_raw" --obj_directory="src"  "../src/csl_pll.c"
+Finished building: "../src/csl_pll.c"
+ 
+Building file: "../src/csl_mmcsd_ataIf.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd_ataIf.d_raw" --obj_directory="src"  "../src/csl_mmcsd_ataIf.c"
+Finished building: "../src/csl_mmcsd_ataIf.c"
+ 
+Building file: "../src/vectors.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/vectors.d_raw" --obj_directory="src"  "../src/vectors.asm"
+Finished building: "../src/vectors.asm"
+ 
+Building file: "../src/csl_rtc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_rtc.d_raw" --obj_directory="src"  "../src/csl_rtc.c"
+Finished building: "../src/csl_rtc.c"
+ 
+Building file: "../src/csl_spi.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_spi.d_raw" --obj_directory="src"  "../src/csl_spi.c"
+"../src/csl_spi.c", line 293: warning #64-D: shift count is too large
+Finished building: "../src/csl_spi.c"
+ 
+Building file: "../src/csl_wdt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_wdt.d_raw" --obj_directory="src"  "../src/csl_wdt.c"
+Finished building: "../src/csl_wdt.c"
+ 
+Building file: "../src/csl_sar.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sar.d_raw" --obj_directory="src"  "../src/csl_sar.c"
+Finished building: "../src/csl_sar.c"
+ 
+Building file: "../src/csl_nand.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_nand.d_raw" --obj_directory="src"  "../src/csl_nand.c"
+Finished building: "../src/csl_nand.c"
+ 
+Building file: "../src/csl_uart.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_uart.d_raw" --obj_directory="src"  "../src/csl_uart.c"
+Finished building: "../src/csl_uart.c"
+ 
+Building file: "../src/csl_sdio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sdio.d_raw" --obj_directory="src"  "../src/csl_sdio.c"
+Finished building: "../src/csl_sdio.c"
+ 
+Building file: "../src/csl_usb.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_usb.d_raw" --obj_directory="src"  "../src/csl_usb.c"
+"../src/csl_usb.c", line 3131: warning #552-D: variable "curInterfaceNum" was set but never used
+Finished building: "../src/csl_usb.c"
+ 
+Building file: "../src/csl_msc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_msc.d_raw" --obj_directory="src"  "../src/csl_msc.c"
+Finished building: "../src/csl_msc.c"
+ 
+Building file: "../src/csl_mmcsd.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd.d_raw" --obj_directory="src"  "../src/csl_mmcsd.c"
+Finished building: "../src/csl_mmcsd.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd"  -lrts55x.lib 
+<Linking>
+ 
+ undefined       first referenced
+  symbol             in file     
+ ---------       ----------------
+ _EZDSP5535_init ./main.obj      
+ _led_test       ./main.obj      
+ 
+error #10234-D: unresolved symbols remain
+ 
+error #10010: errors encountered during linking; "helloWorld.out" not built
+>> Compilation failure
+makefile:168: recipe for target 'helloWorld.out' failed
+gmake[1]: *** [helloWorld.out] Error 1
+makefile:164: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd"  -lrts55x.lib 
+<Linking>
+ 
+ undefined       first referenced
+  symbol             in file     
+ ---------       ----------------
+ _EZDSP5535_init ./main.obj      
+ _led_test       ./main.obj      
+ 
+error #10234-D: unresolved symbols remain
+ 
+error #10010: errors encountered during linking; "helloWorld.out" not built
+>> Compilation failure
+makefile:168: recipe for target 'helloWorld.out' failed
+gmake[1]: *** [helloWorld.out] Error 1
+makefile:164: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd"  -lrts55x.lib 
+<Linking>
+ 
+ undefined       first referenced
+  symbol             in file     
+ ---------       ----------------
+ _EZDSP5535_init ./main.obj      
+ _led_test       ./main.obj      
+ 
+error #10234-D: unresolved symbols remain
+ 
+error #10010: errors encountered during linking; "helloWorld.out" not built
+>> Compilation failure
+makefile:168: recipe for target 'helloWorld.out' failed
+gmake[1]: *** [helloWorld.out] Error 1
+gmake: *** [all] Error 2
+makefile:164: recipe for target 'all' failed
+
+**** Build Finished ****
+
+**** Clean-only build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 clean -O 
+ 
+DEL /F  "helloWorld.hex"  "helloWorld.out" 
+DEL /F "main.obj" "src\csl_audioClass.obj" "src\csl_cdc.obj" "src\csl_dat.obj" "src\csl_dma.obj" "src\csl_gpio.obj" "src\csl_gpt.obj" "src\csl_i2c.obj" "src\csl_i2s.obj" "src\csl_intc.obj" "src\csl_irqplug.obj" "src\csl_lcdc.obj" "src\csl_mem.obj" "src\csl_mmcsd.obj" "src\csl_mmcsd_ataIf.obj" "src\csl_msc.obj" "src\csl_nand.obj" "src\csl_pll.obj" "src\csl_rtc.obj" "src\csl_sar.obj" "src\csl_sdio.obj" "src\csl_spi.obj" "src\csl_uart.obj" "src\csl_usb.obj" "src\csl_wdt.obj" "src\vectors.obj" 
+DEL /F "main.d" "src\csl_audioClass.d" "src\csl_cdc.d" "src\csl_dat.d" "src\csl_dma.d" "src\csl_gpio.d" "src\csl_gpt.d" "src\csl_i2c.d" "src\csl_i2s.d" "src\csl_intc.d" "src\csl_lcdc.d" "src\csl_mem.d" "src\csl_mmcsd.d" "src\csl_mmcsd_ataIf.d" "src\csl_msc.d" "src\csl_nand.d" "src\csl_pll.d" "src\csl_rtc.d" "src\csl_sar.d" "src\csl_sdio.d" "src\csl_spi.d" "src\csl_uart.d" "src\csl_usb.d" "src\csl_wdt.d" 
+DEL /F "src\csl_irqplug.d" "src\vectors.d" 
+Could Not Find C:\Users\nikol\workspace_v11\helloWorld\Debug\helloWorld.hex
+Could Not Find C:\Users\nikol\workspace_v11\helloWorld\Debug\src\csl_irqplug.d
+Finished clean
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building file: "../src/csl_gpt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpt.d_raw" --obj_directory="src"  "../src/csl_gpt.c"
+Finished building: "../src/csl_gpt.c"
+ 
+Building file: "../src/csl_irqplug.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_irqplug.d_raw" --obj_directory="src"  "../src/csl_irqplug.asm"
+Finished building: "../src/csl_irqplug.asm"
+ 
+Building file: "../src/csl_gpio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpio.d_raw" --obj_directory="src"  "../src/csl_gpio.c"
+Finished building: "../src/csl_gpio.c"
+ 
+Building file: "../src/csl_dat.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dat.d_raw" --obj_directory="src"  "../src/csl_dat.c"
+Finished building: "../src/csl_dat.c"
+ 
+Building file: "../src/csl_audioClass.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_audioClass.d_raw" --obj_directory="src"  "../src/csl_audioClass.c"
+Finished building: "../src/csl_audioClass.c"
+ 
+Building file: "../src/csl_cdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_cdc.d_raw" --obj_directory="src"  "../src/csl_cdc.c"
+Finished building: "../src/csl_cdc.c"
+ 
+Building file: "../src/csl_intc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_intc.d_raw" --obj_directory="src"  "../src/csl_intc.c"
+Finished building: "../src/csl_intc.c"
+ 
+Building file: "../src/csl_mem.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mem.d_raw" --obj_directory="src"  "../src/csl_mem.c"
+Finished building: "../src/csl_mem.c"
+ 
+Building file: "../src/csl_i2c.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2c.d_raw" --obj_directory="src"  "../src/csl_i2c.c"
+Finished building: "../src/csl_i2c.c"
+ 
+Building file: "../src/csl_lcdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_lcdc.d_raw" --obj_directory="src"  "../src/csl_lcdc.c"
+Finished building: "../src/csl_lcdc.c"
+ 
+Building file: "../src/csl_i2s.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2s.d_raw" --obj_directory="src"  "../src/csl_i2s.c"
+Finished building: "../src/csl_i2s.c"
+ 
+Building file: "../src/csl_dma.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dma.d_raw" --obj_directory="src"  "../src/csl_dma.c"
+Finished building: "../src/csl_dma.c"
+ 
+Building file: "../src/csl_mmcsd_ataIf.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd_ataIf.d_raw" --obj_directory="src"  "../src/csl_mmcsd_ataIf.c"
+Finished building: "../src/csl_mmcsd_ataIf.c"
+ 
+Building file: "../src/csl_pll.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_pll.d_raw" --obj_directory="src"  "../src/csl_pll.c"
+Finished building: "../src/csl_pll.c"
+ 
+Building file: "../src/vectors.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/vectors.d_raw" --obj_directory="src"  "../src/vectors.asm"
+Finished building: "../src/vectors.asm"
+ 
+Building file: "../src/csl_rtc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_rtc.d_raw" --obj_directory="src"  "../src/csl_rtc.c"
+Finished building: "../src/csl_rtc.c"
+ 
+Building file: "../src/csl_spi.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_spi.d_raw" --obj_directory="src"  "../src/csl_spi.c"
+"../src/csl_spi.c", line 293: warning #64-D: shift count is too large
+Finished building: "../src/csl_spi.c"
+ 
+Building file: "../src/csl_sar.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sar.d_raw" --obj_directory="src"  "../src/csl_sar.c"
+Finished building: "../src/csl_sar.c"
+ 
+Building file: "../src/csl_wdt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_wdt.d_raw" --obj_directory="src"  "../src/csl_wdt.c"
+Finished building: "../src/csl_wdt.c"
+ 
+Building file: "../src/csl_nand.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_nand.d_raw" --obj_directory="src"  "../src/csl_nand.c"
+Finished building: "../src/csl_nand.c"
+ 
+Building file: "../src/csl_uart.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_uart.d_raw" --obj_directory="src"  "../src/csl_uart.c"
+Finished building: "../src/csl_uart.c"
+ 
+Building file: "../src/csl_sdio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sdio.d_raw" --obj_directory="src"  "../src/csl_sdio.c"
+Finished building: "../src/csl_sdio.c"
+ 
+Building file: "../src/csl_usb.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_usb.d_raw" --obj_directory="src"  "../src/csl_usb.c"
+"../src/csl_usb.c", line 3131: warning #552-D: variable "curInterfaceNum" was set but never used
+Finished building: "../src/csl_usb.c"
+ 
+Building file: "../src/csl_msc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_msc.d_raw" --obj_directory="src"  "../src/csl_msc.c"
+Finished building: "../src/csl_msc.c"
+ 
+Building file: "../src/csl_mmcsd.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd.d_raw" --obj_directory="src"  "../src/csl_mmcsd.c"
+Finished building: "../src/csl_mmcsd.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd"  -lrts55x.lib 
+<Linking>
+ 
+ undefined       first referenced
+  symbol             in file     
+ ---------       ----------------
+ _EZDSP5535_init ./main.obj      
+ _led_test       ./main.obj      
+ 
+error #10234-D: unresolved symbols remain
+ 
+error #10010: errors encountered during linking; "helloWorld.out" not built
+>> Compilation failure
+makefile:168: recipe for target 'helloWorld.out' failed
+gmake[1]: *** [helloWorld.out] Error 1
+makefile:164: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd"  -lrts55x.lib 
+<Linking>
+ 
+ undefined       first referenced
+  symbol             in file     
+ ---------       ----------------
+ _EZDSP5535_init ./main.obj      
+ _led_test       ./main.obj      
+ 
+error #10234-D: unresolved symbols remain
+ 
+error #10010: errors encountered during linking; "helloWorld.out" not built
+>> Compilation failure
+makefile:168: recipe for target 'helloWorld.out' failed
+gmake[1]: *** [helloWorld.out] Error 1
+makefile:164: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd"  -lrts55x.lib 
+<Linking>
+ 
+ undefined       first referenced
+  symbol             in file     
+ ---------       ----------------
+ _EZDSP5535_init ./main.obj      
+ 
+error #10234-D: unresolved symbols remain
+error #10010: errors encountered during linking; "helloWorld.out" not built
+ 
+>> Compilation failure
+makefile:168: recipe for target 'helloWorld.out' failed
+gmake[1]: *** [helloWorld.out] Error 1
+makefile:164: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+ 
+ 
+ undefined first referenced
+>> Compilation failure
+makefile:171: recipe for target 'helloWorld.out' failed
+  symbol       in file     
+ --------- ----------------
+ _led_test ./main.obj      
+ 
+error #10234-D: unresolved symbols remain
+error #10010: errors encountered during linking; "helloWorld.out" not built
+gmake[1]: *** [helloWorld.out] Error 1
+gmake: *** [all] Error 2
+makefile:167: recipe for target 'all' failed
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building file: "../src/lcdc_panel.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/lcdc_panel.d_raw" --obj_directory="src"  "../src/lcdc_panel.c"
+Finished building: "../src/lcdc_panel.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/lcdc_panel.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+warning #10247-D: creating output section ".buffer2" without a SECTIONS
+   specification
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building file: "../src/csl_irqplug.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_irqplug.d_raw" --obj_directory="src"  "../src/csl_irqplug.asm"
+Finished building: "../src/csl_irqplug.asm"
+ 
+Building file: "../src/csl_gpt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpt.d_raw" --obj_directory="src"  "../src/csl_gpt.c"
+Finished building: "../src/csl_gpt.c"
+ 
+Building file: "../src/csl_gpio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpio.d_raw" --obj_directory="src"  "../src/csl_gpio.c"
+Finished building: "../src/csl_gpio.c"
+ 
+Building file: "../src/csl_intc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_intc.d_raw" --obj_directory="src"  "../src/csl_intc.c"
+Finished building: "../src/csl_intc.c"
+ 
+Building file: "../src/csl_dat.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dat.d_raw" --obj_directory="src"  "../src/csl_dat.c"
+Finished building: "../src/csl_dat.c"
+ 
+Building file: "../src/csl_i2c.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2c.d_raw" --obj_directory="src"  "../src/csl_i2c.c"
+Finished building: "../src/csl_i2c.c"
+ 
+Building file: "../src/csl_audioClass.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_audioClass.d_raw" --obj_directory="src"  "../src/csl_audioClass.c"
+Finished building: "../src/csl_audioClass.c"
+ 
+Building file: "../src/csl_cdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_cdc.d_raw" --obj_directory="src"  "../src/csl_cdc.c"
+Finished building: "../src/csl_cdc.c"
+ 
+Building file: "../src/csl_mem.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mem.d_raw" --obj_directory="src"  "../src/csl_mem.c"
+Finished building: "../src/csl_mem.c"
+ 
+Building file: "../src/csl_i2s.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2s.d_raw" --obj_directory="src"  "../src/csl_i2s.c"
+Finished building: "../src/csl_i2s.c"
+ 
+Building file: "../src/csl_lcdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_lcdc.d_raw" --obj_directory="src"  "../src/csl_lcdc.c"
+Finished building: "../src/csl_lcdc.c"
+ 
+Building file: "../src/csl_dma.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dma.d_raw" --obj_directory="src"  "../src/csl_dma.c"
+Finished building: "../src/csl_dma.c"
+ 
+Building file: "../src/csl_mmcsd_ataIf.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd_ataIf.d_raw" --obj_directory="src"  "../src/csl_mmcsd_ataIf.c"
+Finished building: "../src/csl_mmcsd_ataIf.c"
+ 
+Building file: "../src/csl_pll.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_pll.d_raw" --obj_directory="src"  "../src/csl_pll.c"
+Finished building: "../src/csl_pll.c"
+ 
+Building file: "../src/vectors.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/vectors.d_raw" --obj_directory="src"  "../src/vectors.asm"
+Finished building: "../src/vectors.asm"
+ 
+Building file: "../src/csl_rtc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_rtc.d_raw" --obj_directory="src"  "../src/csl_rtc.c"
+Finished building: "../src/csl_rtc.c"
+ 
+Building file: "../src/csl_spi.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_spi.d_raw" --obj_directory="src"  "../src/csl_spi.c"
+"../src/csl_spi.c", line 293: warning #64-D: shift count is too large
+Finished building: "../src/csl_spi.c"
+ 
+Building file: "../src/csl_wdt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_wdt.d_raw" --obj_directory="src"  "../src/csl_wdt.c"
+Finished building: "../src/csl_wdt.c"
+ 
+Building file: "../src/csl_sar.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sar.d_raw" --obj_directory="src"  "../src/csl_sar.c"
+Finished building: "../src/csl_sar.c"
+ 
+Building file: "../src/csl_nand.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_nand.d_raw" --obj_directory="src"  "../src/csl_nand.c"
+Finished building: "../src/csl_nand.c"
+ 
+Building file: "../src/csl_uart.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_uart.d_raw" --obj_directory="src"  "../src/csl_uart.c"
+Finished building: "../src/csl_uart.c"
+ 
+Building file: "../src/lcdc_panel.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/lcdc_panel.d_raw" --obj_directory="src"  "../src/lcdc_panel.c"
+Finished building: "../src/lcdc_panel.c"
+ 
+Building file: "../src/csl_sdio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sdio.d_raw" --obj_directory="src"  "../src/csl_sdio.c"
+Finished building: "../src/csl_sdio.c"
+ 
+Building file: "../src/csl_msc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_msc.d_raw" --obj_directory="src"  "../src/csl_msc.c"
+Finished building: "../src/csl_msc.c"
+ 
+Building file: "../src/csl_usb.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_usb.d_raw" --obj_directory="src"  "../src/csl_usb.c"
+"../src/csl_usb.c", line 3131: warning #552-D: variable "curInterfaceNum" was set but never used
+Finished building: "../src/csl_usb.c"
+ 
+Building file: "../src/csl_mmcsd.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd.d_raw" --obj_directory="src"  "../src/csl_mmcsd.c"
+Finished building: "../src/csl_mmcsd.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/lcdc_panel.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+warning #10247-D: creating output section ".buffer2" without a SECTIONS
+   specification
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building file: "../src/csl_irqplug.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_irqplug.d_raw" --obj_directory="src"  "../src/csl_irqplug.asm"
+Finished building: "../src/csl_irqplug.asm"
+ 
+Building file: "../src/csl_gpt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpt.d_raw" --obj_directory="src"  "../src/csl_gpt.c"
+Finished building: "../src/csl_gpt.c"
+ 
+Building file: "../src/csl_gpio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpio.d_raw" --obj_directory="src"  "../src/csl_gpio.c"
+Finished building: "../src/csl_gpio.c"
+ 
+Building file: "../src/csl_dat.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dat.d_raw" --obj_directory="src"  "../src/csl_dat.c"
+Finished building: "../src/csl_dat.c"
+ 
+Building file: "../src/csl_intc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_intc.d_raw" --obj_directory="src"  "../src/csl_intc.c"
+Finished building: "../src/csl_intc.c"
+ 
+Building file: "../src/csl_audioClass.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_audioClass.d_raw" --obj_directory="src"  "../src/csl_audioClass.c"
+Finished building: "../src/csl_audioClass.c"
+ 
+Building file: "../src/csl_cdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_cdc.d_raw" --obj_directory="src"  "../src/csl_cdc.c"
+Finished building: "../src/csl_cdc.c"
+ 
+Building file: "../src/csl_mem.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mem.d_raw" --obj_directory="src"  "../src/csl_mem.c"
+Finished building: "../src/csl_mem.c"
+ 
+Building file: "../src/csl_i2c.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2c.d_raw" --obj_directory="src"  "../src/csl_i2c.c"
+Finished building: "../src/csl_i2c.c"
+ 
+Building file: "../src/csl_i2s.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2s.d_raw" --obj_directory="src"  "../src/csl_i2s.c"
+Finished building: "../src/csl_i2s.c"
+ 
+Building file: "../src/csl_lcdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_lcdc.d_raw" --obj_directory="src"  "../src/csl_lcdc.c"
+Finished building: "../src/csl_lcdc.c"
+ 
+Building file: "../src/csl_pll.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_pll.d_raw" --obj_directory="src"  "../src/csl_pll.c"
+Finished building: "../src/csl_pll.c"
+ 
+Building file: "../src/csl_dma.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dma.d_raw" --obj_directory="src"  "../src/csl_dma.c"
+Finished building: "../src/csl_dma.c"
+ 
+Building file: "../src/csl_mmcsd_ataIf.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd_ataIf.d_raw" --obj_directory="src"  "../src/csl_mmcsd_ataIf.c"
+Finished building: "../src/csl_mmcsd_ataIf.c"
+ 
+Building file: "../src/csl_rtc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_rtc.d_raw" --obj_directory="src"  "../src/csl_rtc.c"
+Finished building: "../src/csl_rtc.c"
+ 
+Building file: "../src/vectors.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/vectors.d_raw" --obj_directory="src"  "../src/vectors.asm"
+Finished building: "../src/vectors.asm"
+ 
+Building file: "../src/csl_nand.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_nand.d_raw" --obj_directory="src"  "../src/csl_nand.c"
+Finished building: "../src/csl_nand.c"
+ 
+Building file: "../src/csl_sar.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sar.d_raw" --obj_directory="src"  "../src/csl_sar.c"
+Finished building: "../src/csl_sar.c"
+ 
+Building file: "../src/csl_spi.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_spi.d_raw" --obj_directory="src"  "../src/csl_spi.c"
+"../src/csl_spi.c", line 293: warning #64-D: shift count is too large
+Finished building: "../src/csl_spi.c"
+ 
+Building file: "../src/csl_wdt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_wdt.d_raw" --obj_directory="src"  "../src/csl_wdt.c"
+Finished building: "../src/csl_wdt.c"
+ 
+Building file: "../src/csl_uart.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_uart.d_raw" --obj_directory="src"  "../src/csl_uart.c"
+Finished building: "../src/csl_uart.c"
+ 
+Building file: "../src/lcdc_panel.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/lcdc_panel.d_raw" --obj_directory="src"  "../src/lcdc_panel.c"
+Finished building: "../src/lcdc_panel.c"
+ 
+Building file: "../src/csl_sdio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sdio.d_raw" --obj_directory="src"  "../src/csl_sdio.c"
+Finished building: "../src/csl_sdio.c"
+ 
+Building file: "../src/csl_msc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_msc.d_raw" --obj_directory="src"  "../src/csl_msc.c"
+Finished building: "../src/csl_msc.c"
+ 
+Building file: "../src/csl_usb.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_usb.d_raw" --obj_directory="src"  "../src/csl_usb.c"
+"../src/csl_usb.c", line 3131: warning #552-D: variable "curInterfaceNum" was set but never used
+Finished building: "../src/csl_usb.c"
+ 
+Building file: "../src/csl_mmcsd.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd.d_raw" --obj_directory="src"  "../src/csl_mmcsd.c"
+Finished building: "../src/csl_mmcsd.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/lcdc_panel.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+warning #10247-D: creating output section ".buffer2" without a SECTIONS
+   specification
+ 
+ undefined first referenced    
+  symbol       in file         
+ --------- ----------------    
+ 
+ _hLcdc    ./src/lcdc_panel.obj
+>> Compilation failure
+makefile:172: recipe for target 'helloWorld.out' failed
+ 
+error #10234-D: unresolved symbols remain
+error #10010: errors encountered during linking; "helloWorld.out" not built
+gmake[1]: *** [helloWorld.out] Error 1
+makefile:168: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/lcdc_panel.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+warning #10247-D: creating output section ".buffer2" without a SECTIONS
+ 
+   specification
+>> Compilation failure
+makefile:172: recipe for target 'helloWorld.out' failed
+ 
+ undefined first referenced    
+  symbol       in file         
+ --------- ----------------    
+ _hLcdc    ./src/lcdc_panel.obj
+ 
+error #10234-D: unresolved symbols remain
+error #10010: errors encountered during linking; "helloWorld.out" not built
+gmake[1]: *** [helloWorld.out] Error 1
+gmake: *** [all] Error 2
+makefile:168: recipe for target 'all' failed
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/lcdc_panel.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+warning #10247-D: creating output section ".buffer2" without a SECTIONS
+   specification
+ 
+ undefined first referenced    
+  symbol       in file         
+ --------- ----------------    
+ _hLcdc    ./src/lcdc_panel.obj
+ 
+error #10234-D: unresolved symbols remain
+ 
+error #10010: errors encountered during linking; "helloWorld.out" not built
+>> Compilation failure
+makefile:172: recipe for target 'helloWorld.out' failed
+gmake[1]: *** [helloWorld.out] Error 1
+makefile:168: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/workspace_v11/helloWorld" --include_path="C:/Users/nikol/workspace_v11/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/workspace_v11/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
+
+**** Clean-only build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 clean -O 
+ 
+DEL /F  "helloWorld.hex"  "helloWorld.out" 
+DEL /F "main.obj" "src\csl_audioClass.obj" "src\csl_cdc.obj" "src\csl_dat.obj" "src\csl_dma.obj" "src\csl_gpio.obj" "src\csl_gpt.obj" "src\csl_i2c.obj" "src\csl_i2s.obj" "src\csl_intc.obj" "src\csl_irqplug.obj" "src\csl_lcdc.obj" "src\csl_mem.obj" "src\csl_mmcsd.obj" "src\csl_mmcsd_ataIf.obj" "src\csl_msc.obj" "src\csl_nand.obj" "src\csl_pll.obj" "src\csl_rtc.obj" "src\csl_sar.obj" "src\csl_sdio.obj" "src\csl_spi.obj" "src\csl_uart.obj" "src\csl_usb.obj" "src\csl_wdt.obj" "src\vectors.obj" 
+DEL /F "main.d" "src\csl_audioClass.d" "src\csl_cdc.d" "src\csl_dat.d" "src\csl_dma.d" "src\csl_gpio.d" "src\csl_gpt.d" "src\csl_i2c.d" "src\csl_i2s.d" "src\csl_intc.d" "src\csl_lcdc.d" "src\csl_mem.d" "src\csl_mmcsd.d" "src\csl_mmcsd_ataIf.d" "src\csl_msc.d" "src\csl_nand.d" "src\csl_pll.d" "src\csl_rtc.d" "src\csl_sar.d" "src\csl_sdio.d" "src\csl_spi.d" "src\csl_uart.d" "src\csl_usb.d" "src\csl_wdt.d" 
+DEL /F "src\csl_irqplug.d" "src\vectors.d" 
+Could Not Find C:\Users\nikol\Documents\semesterKodeMapper\EIT6-WatsonC\TestWorkSpace\helloWorld\Debug\src\csl_irqplug.d
+Finished clean
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../src/csl_irqplug.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_irqplug.d_raw" --obj_directory="src"  "../src/csl_irqplug.asm"
+Finished building: "../src/csl_irqplug.asm"
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building file: "../src/csl_gpt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpt.d_raw" --obj_directory="src"  "../src/csl_gpt.c"
+Finished building: "../src/csl_gpt.c"
+ 
+Building file: "../src/csl_gpio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpio.d_raw" --obj_directory="src"  "../src/csl_gpio.c"
+Finished building: "../src/csl_gpio.c"
+ 
+Building file: "../src/csl_intc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_intc.d_raw" --obj_directory="src"  "../src/csl_intc.c"
+Finished building: "../src/csl_intc.c"
+ 
+Building file: "../src/csl_mem.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mem.d_raw" --obj_directory="src"  "../src/csl_mem.c"
+Finished building: "../src/csl_mem.c"
+ 
+Building file: "../src/csl_dat.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dat.d_raw" --obj_directory="src"  "../src/csl_dat.c"
+Finished building: "../src/csl_dat.c"
+ 
+Building file: "../src/csl_i2c.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2c.d_raw" --obj_directory="src"  "../src/csl_i2c.c"
+Finished building: "../src/csl_i2c.c"
+ 
+Building file: "../src/csl_lcdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_lcdc.d_raw" --obj_directory="src"  "../src/csl_lcdc.c"
+Finished building: "../src/csl_lcdc.c"
+ 
+Building file: "../src/csl_cdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_cdc.d_raw" --obj_directory="src"  "../src/csl_cdc.c"
+Finished building: "../src/csl_cdc.c"
+ 
+Building file: "../src/csl_audioClass.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_audioClass.d_raw" --obj_directory="src"  "../src/csl_audioClass.c"
+Finished building: "../src/csl_audioClass.c"
+ 
+Building file: "../src/csl_i2s.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2s.d_raw" --obj_directory="src"  "../src/csl_i2s.c"
+Finished building: "../src/csl_i2s.c"
+ 
+Building file: "../src/csl_dma.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dma.d_raw" --obj_directory="src"  "../src/csl_dma.c"
+Finished building: "../src/csl_dma.c"
+ 
+Building file: "../src/csl_mmcsd_ataIf.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd_ataIf.d_raw" --obj_directory="src"  "../src/csl_mmcsd_ataIf.c"
+Finished building: "../src/csl_mmcsd_ataIf.c"
+ 
+Building file: "../src/csl_pll.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_pll.d_raw" --obj_directory="src"  "../src/csl_pll.c"
+Finished building: "../src/csl_pll.c"
+ 
+Building file: "../src/vectors.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/vectors.d_raw" --obj_directory="src"  "../src/vectors.asm"
+Finished building: "../src/vectors.asm"
+ 
+Building file: "../src/csl_rtc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_rtc.d_raw" --obj_directory="src"  "../src/csl_rtc.c"
+Finished building: "../src/csl_rtc.c"
+ 
+Building file: "../src/csl_spi.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_spi.d_raw" --obj_directory="src"  "../src/csl_spi.c"
+"../src/csl_spi.c", line 293: warning #64-D: shift count is too large
+Finished building: "../src/csl_spi.c"
+ 
+Building file: "../src/csl_wdt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_wdt.d_raw" --obj_directory="src"  "../src/csl_wdt.c"
+Finished building: "../src/csl_wdt.c"
+ 
+Building file: "../src/csl_sar.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sar.d_raw" --obj_directory="src"  "../src/csl_sar.c"
+Finished building: "../src/csl_sar.c"
+ 
+Building file: "../src/csl_nand.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_nand.d_raw" --obj_directory="src"  "../src/csl_nand.c"
+Finished building: "../src/csl_nand.c"
+ 
+Building file: "../src/csl_uart.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_uart.d_raw" --obj_directory="src"  "../src/csl_uart.c"
+Finished building: "../src/csl_uart.c"
+ 
+Building file: "../src/csl_sdio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sdio.d_raw" --obj_directory="src"  "../src/csl_sdio.c"
+Finished building: "../src/csl_sdio.c"
+ 
+Building file: "../src/csl_usb.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_usb.d_raw" --obj_directory="src"  "../src/csl_usb.c"
+"../src/csl_usb.c", line 3131: warning #552-D: variable "curInterfaceNum" was set but never used
+Finished building: "../src/csl_usb.c"
+ 
+Building file: "../src/csl_msc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_msc.d_raw" --obj_directory="src"  "../src/csl_msc.c"
+Finished building: "../src/csl_msc.c"
+ 
+Building file: "../src/csl_mmcsd.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd.d_raw" --obj_directory="src"  "../src/csl_mmcsd.c"
+Finished building: "../src/csl_mmcsd.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "helloWorld.out"
+Invoking: C5500 Linker
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" "./main.obj" "./src/csl_audioClass.obj" "./src/csl_cdc.obj" "./src/csl_dat.obj" "./src/csl_dma.obj" "./src/csl_gpio.obj" "./src/csl_gpt.obj" "./src/csl_i2c.obj" "./src/csl_i2s.obj" "./src/csl_intc.obj" "./src/csl_irqplug.obj" "./src/csl_lcdc.obj" "./src/csl_mem.obj" "./src/csl_mmcsd.obj" "./src/csl_mmcsd_ataIf.obj" "./src/csl_msc.obj" "./src/csl_nand.obj" "./src/csl_pll.obj" "./src/csl_rtc.obj" "./src/csl_sar.obj" "./src/csl_sdio.obj" "./src/csl_spi.obj" "./src/csl_uart.obj" "./src/csl_usb.obj" "./src/csl_wdt.obj" "./src/vectors.obj" "../C5535.cmd" "../lib/ezdsp5535bsl.lib"  -lrts55x.lib 
+<Linking>
+Finished building target: "helloWorld.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project helloWorld ****
+
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+ 
+gmake[1]: 'helloWorld.out' is up to date.
+
+**** Build Finished ****
