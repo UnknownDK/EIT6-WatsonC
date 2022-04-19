@@ -9,21 +9,51 @@ CMD_SRCS += \
 ../C5535.cmd 
 
 C_SRCS += \
-../main.c 
+../aic3204.c \
+../ezdsp5535_aic3204_dma.c \
+../iir.c \
+../main.c \
+../print_number.c \
+../processing.c 
 
 C_DEPS += \
-./main.d 
+./aic3204.d \
+./ezdsp5535_aic3204_dma.d \
+./iir.d \
+./main.d \
+./print_number.d \
+./processing.d 
 
 OBJS += \
-./main.obj 
+./aic3204.obj \
+./ezdsp5535_aic3204_dma.obj \
+./iir.obj \
+./main.obj \
+./print_number.obj \
+./processing.obj 
 
 OBJS__QUOTED += \
-"main.obj" 
+"aic3204.obj" \
+"ezdsp5535_aic3204_dma.obj" \
+"iir.obj" \
+"main.obj" \
+"print_number.obj" \
+"processing.obj" 
 
 C_DEPS__QUOTED += \
-"main.d" 
+"aic3204.d" \
+"ezdsp5535_aic3204_dma.d" \
+"iir.d" \
+"main.d" \
+"print_number.d" \
+"processing.d" 
 
 C_SRCS__QUOTED += \
-"../main.c" 
+"../aic3204.c" \
+"../ezdsp5535_aic3204_dma.c" \
+"../iir.c" \
+"../main.c" \
+"../print_number.c" \
+"../processing.c" 
 
 

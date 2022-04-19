@@ -1,0 +1,90 @@
+/*  ============================================================================
+ *   Copyright (c) Texas Instruments Inc 2002, 2003, 2004, 2005, 2008
+ *
+ *   Use of this software is controlled by the terms and conditions found in the
+ *   license agreement under which this software has been supplied.
+ *  ============================================================================
+ */
+
+/** @file csl_lcdc_textDisplayExample.c
+ *
+ *  @brief LCDC test code to display text on the LCD panel
+ *
+ *
+ * \page    page8  LCD EXAMPLE DOCUMENTATION
+ *
+ * \section LCD4   LCD EXAMPLE4 - TEXT DISPLAY TEST
+ *
+ * \subsection LCD4x    TEST DESCRIPTION:
+ *      This test code demonstrates displaying a string of characters on the
+ * LCD panel. Different text is displayed on the LCD panel in two steps.
+ *
+ * In the first step two character strings are displayed on the LCD panel
+ * using DMA mode with text in White color. LCD panel is divided into two
+ * vertical parts to display the strings in separate planes.
+ * String "IMAGINATION IS BEGINNING OF CREATION.YOU IMAGINE WHAT YOU DESIRE"
+ * will be displayed on the left half of the LCD.
+ * String "YOU WILL WHAT YOU IMAGINE AND AT LAST YOU CREATE WHAT YOU WILL"
+ * will be displayed on the right half of the LCD.
+ * This two strings will be displayed for few seconds and then text will be
+ * cleared line by line. During this step text displayed will be smaller
+ * in size as the LCD panel is divided into two parts.
+ *
+ * In the second step one character string will be displayed on the LCD panel
+ * using polled mode with text in Red color.
+ * String "CSL FOR TEXAS INSTRUMENTS C5505(C5515) LCD MODULE" will be displayed
+ * on complete plane of the LCD. During this step text displayed will be bigger
+ * in size and more clear.
+ *
+ * NOTE: THIS TEST HAS BEEN DEVELOPED TO WORK WITH CHIP VERSIONS C5505 AND
+ * C5515. MAKE SURE THAT PROPER CHIP VERSION MACRO IS DEFINED IN THE FILE
+ * c55xx_csl\inc\csl_general.h.
+ *
+ * \subsection LCD4y    TEST PROCEDURE:
+ *  @li Open the CCS and connect the target (C5505/C5515 EVM)
+ *  @li Open the project "CSL_LCDC_TextDisplayExample_Out.pjt" and build it
+ *  @li Load the program on to the target
+ *  @li Set the PLL frequency to 12.288MHz
+ *  @li Run the program and observe the test result
+ *  @li Repeat the test at PLL frequencies 40, 60, 75 and 100MHz
+ *  @li Repeat the test in Release mode
+ *
+ * \subsection LCD4z    TEST RESULT:
+ *  @li All the CSL APIs should return success.
+ *  @li String "IMAGINATION IS BEGINNING OF CREATION.YOU IMAGINE WHAT YOU DESIRE"
+ *      should be displayed on the left half of the LCD. String "YOU WILL WHAT
+ *      YOU IMAGINE AND AT LAST YOU CREATE WHAT YOU WILL" will be displayed on
+ *      the right half of the LCD. The strings should be cleared line by line
+ *      after few seconds.
+ *  @li String "CSL FOR TEXAS INSTRUMENTS C5505(C5515) LCD MODULE" should be displayed
+ *      on the LCD panel with text in Red color.
+ *
+ * =============================================================================
+ */
+
+/* ============================================================================
+ * Revision History
+ * ================
+ * 24-Sep-2008 Created
+ * 08-Jul-2009 Modified the test and added Documentation
+ * ============================================================================
+ */
+
+#include <string.h>
+#include <stdio.h>
+#include"ezdsp5535.h"
+#include"ezdsp5535_lcd.h"
+
+
+void main(void)
+{
+    //EZDSP5535_OSD9616_init( );
+    codec_test();
+
+
+}
+
+Int16 codec_test()
+{
+
+}

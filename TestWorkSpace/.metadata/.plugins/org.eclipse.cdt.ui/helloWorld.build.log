@@ -1,8 +1,183 @@
 
 **** Build of configuration Debug for project helloWorld ****
 
-"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 16 all -O 
+"C:\\ti\\ccs1110\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
  
-gmake[1]: 'helloWorld.out' is up to date.
+Building file: "../processing.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="processing.d_raw"  "../processing.c"
+ 
+>> Compilation failure
+subdir_rules.mk:9: recipe for target 'processing.obj' failed
+"../processing.c", line 30: warning #69-D: integer conversion resulted in a change of sign
+"../processing.c", line 31: warning #69-D: integer conversion resulted in a change of sign
+"../processing.c", line 47: error #169: argument of type "Int16 *" is incompatible with parameter of type "Int16"
+"../processing.c", line 48: error #515: a value of type "int" cannot be assigned to an entity of type "Int16 *"
+"../processing.c", line 55: error #169: argument of type "Int16 *" is incompatible with parameter of type "Int16"
+"../processing.c", line 56: error #515: a value of type "int" cannot be assigned to an entity of type "Int16 *"
+"../processing.c", line 37: warning #552-D: parameter "output" was set but never used
+"../processing.c", line 71: error #169: argument of type "Int16 *" is incompatible with parameter of type "Int16"
+"../processing.c", line 72: error #515: a value of type "int" cannot be assigned to an entity of type "Int16 *"
+"../processing.c", line 78: error #169: argument of type "Int16 *" is incompatible with parameter of type "Int16"
+"../processing.c", line 79: error #515: a value of type "int" cannot be assigned to an entity of type "Int16 *"
+"../processing.c", line 62: warning #552-D: parameter "output" was set but never used
+"../processing.c", line 85: error #18: expected a ")"
+"../processing.c", line 85: error #148: declaration is incompatible with "void shelvingPeek(Int16 *, Int16 *, Int16 *, Int16 *, Int16, Int16, Int16 *)" (declared at line 24 of "..\processing.h")
+10 errors detected in the compilation of "../processing.c".
+gmake: *** [processing.obj] Error 1
+Building file: "../iir.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="iir.d_raw"  "../iir.c"
+Finished building: "../iir.c"
+ 
+Building file: "../main.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 72: warning #112-D: statement is unreachable
+Finished building: "../main.c"
+ 
+Building file: "../aic3204.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="aic3204.d_raw"  "../aic3204.c"
+Finished building: "../aic3204.c"
+ 
+Building file: "../print_number.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="print_number.d_raw"  "../print_number.c"
+Finished building: "../print_number.c"
+ 
+Building file: "../ezdsp5535_aic3204_dma.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="ezdsp5535_aic3204_dma.d_raw"  "../ezdsp5535_aic3204_dma.c"
+Finished building: "../ezdsp5535_aic3204_dma.c"
+ 
+Building file: "../src/csl_gpt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpt.d_raw" --obj_directory="src"  "../src/csl_gpt.c"
+Finished building: "../src/csl_gpt.c"
+ 
+Building file: "../src/csl_audioClass.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_audioClass.d_raw" --obj_directory="src"  "../src/csl_audioClass.c"
+Finished building: "../src/csl_audioClass.c"
+ 
+Building file: "../src/csl_dat.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dat.d_raw" --obj_directory="src"  "../src/csl_dat.c"
+Finished building: "../src/csl_dat.c"
+ 
+Building file: "../src/csl_cdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_cdc.d_raw" --obj_directory="src"  "../src/csl_cdc.c"
+Finished building: "../src/csl_cdc.c"
+ 
+Building file: "../src/csl_gpio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_gpio.d_raw" --obj_directory="src"  "../src/csl_gpio.c"
+Finished building: "../src/csl_gpio.c"
+ 
+Building file: "../src/csl_irqplug.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_irqplug.d_raw" --obj_directory="src"  "../src/csl_irqplug.asm"
+Finished building: "../src/csl_irqplug.asm"
+ 
+Building file: "../src/csl_i2c.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2c.d_raw" --obj_directory="src"  "../src/csl_i2c.c"
+Finished building: "../src/csl_i2c.c"
+ 
+Building file: "../src/csl_i2s.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_i2s.d_raw" --obj_directory="src"  "../src/csl_i2s.c"
+Finished building: "../src/csl_i2s.c"
+ 
+Building file: "../src/csl_intc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_intc.d_raw" --obj_directory="src"  "../src/csl_intc.c"
+Finished building: "../src/csl_intc.c"
+ 
+Building file: "../src/csl_mem.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mem.d_raw" --obj_directory="src"  "../src/csl_mem.c"
+Finished building: "../src/csl_mem.c"
+ 
+Building file: "../src/csl_lcdc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_lcdc.d_raw" --obj_directory="src"  "../src/csl_lcdc.c"
+Finished building: "../src/csl_lcdc.c"
+ 
+Building file: "../src/csl_dma.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_dma.d_raw" --obj_directory="src"  "../src/csl_dma.c"
+Finished building: "../src/csl_dma.c"
+ 
+Building file: "../src/csl_pll.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_pll.d_raw" --obj_directory="src"  "../src/csl_pll.c"
+Finished building: "../src/csl_pll.c"
+ 
+Building file: "../src/csl_mmcsd_ataIf.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd_ataIf.d_raw" --obj_directory="src"  "../src/csl_mmcsd_ataIf.c"
+Finished building: "../src/csl_mmcsd_ataIf.c"
+ 
+Building file: "../src/csl_rtc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_rtc.d_raw" --obj_directory="src"  "../src/csl_rtc.c"
+Finished building: "../src/csl_rtc.c"
+ 
+Building file: "../src/csl_nand.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_nand.d_raw" --obj_directory="src"  "../src/csl_nand.c"
+Finished building: "../src/csl_nand.c"
+ 
+Building file: "../src/csl_sar.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sar.d_raw" --obj_directory="src"  "../src/csl_sar.c"
+Finished building: "../src/csl_sar.c"
+ 
+Building file: "../src/csl_spi.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_spi.d_raw" --obj_directory="src"  "../src/csl_spi.c"
+"../src/csl_spi.c", line 293: warning #64-D: shift count is too large
+Finished building: "../src/csl_spi.c"
+ 
+Building file: "../src/vectors.asm"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/vectors.d_raw" --obj_directory="src"  "../src/vectors.asm"
+Finished building: "../src/vectors.asm"
+ 
+Building file: "../src/csl_wdt.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_wdt.d_raw" --obj_directory="src"  "../src/csl_wdt.c"
+Finished building: "../src/csl_wdt.c"
+ 
+Building file: "../src/csl_uart.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_uart.d_raw" --obj_directory="src"  "../src/csl_uart.c"
+Finished building: "../src/csl_uart.c"
+ 
+Building file: "../src/csl_sdio.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_sdio.d_raw" --obj_directory="src"  "../src/csl_sdio.c"
+Finished building: "../src/csl_sdio.c"
+ 
+Building file: "../src/csl_msc.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_msc.d_raw" --obj_directory="src"  "../src/csl_msc.c"
+Finished building: "../src/csl_msc.c"
+ 
+Building file: "../src/csl_usb.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_usb.d_raw" --obj_directory="src"  "../src/csl_usb.c"
+"../src/csl_usb.c", line 3131: warning #552-D: variable "curInterfaceNum" was set but never used
+Finished building: "../src/csl_usb.c"
+ 
+Building file: "../src/csl_mmcsd.c"
+Invoking: C5500 Compiler
+"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld" --include_path="C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/include" --include_path="C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic --preproc_with_compile --preproc_dependency="src/csl_mmcsd.d_raw" --obj_directory="src"  "../src/csl_mmcsd.c"
+Finished building: "../src/csl_mmcsd.c"
+ 
+gmake: Target 'all' not remade because of errors.
 
 **** Build Finished ****

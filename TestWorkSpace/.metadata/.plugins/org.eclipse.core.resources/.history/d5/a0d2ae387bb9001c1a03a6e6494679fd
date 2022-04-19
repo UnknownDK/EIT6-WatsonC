@@ -1,0 +1,41 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+SHELL = cmd.exe
+
+# Add inputs and outputs from these tool invocations to the build variables 
+CMD_SRCS += \
+../C5535.cmd 
+
+C_SRCS += \
+../aic3204.c \
+../ezdsp5535_aic3204_dma.c \
+../main.c 
+
+C_DEPS += \
+./aic3204.d \
+./ezdsp5535_aic3204_dma.d \
+./main.d 
+
+OBJS += \
+./aic3204.obj \
+./ezdsp5535_aic3204_dma.obj \
+./main.obj 
+
+OBJS__QUOTED += \
+"aic3204.obj" \
+"ezdsp5535_aic3204_dma.obj" \
+"main.obj" 
+
+C_DEPS__QUOTED += \
+"aic3204.d" \
+"ezdsp5535_aic3204_dma.d" \
+"main.d" 
+
+C_SRCS__QUOTED += \
+"../aic3204.c" \
+"../ezdsp5535_aic3204_dma.c" \
+"../main.c" 
+
+

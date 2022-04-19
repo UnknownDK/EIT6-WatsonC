@@ -1,0 +1,62 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+SHELL = cmd.exe
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../I2C_files/aic3204.c \
+../I2C_files/aic3204_init.c \
+../I2C_files/ezdsp5535.c \
+../I2C_files/ezdsp5535_gpio.c \
+../I2C_files/ezdsp5535_i2c.c \
+../I2C_files/ezdsp5535_led.c \
+../I2C_files/pll.c 
+
+C_DEPS += \
+./I2C_files/aic3204.d \
+./I2C_files/aic3204_init.d \
+./I2C_files/ezdsp5535.d \
+./I2C_files/ezdsp5535_gpio.d \
+./I2C_files/ezdsp5535_i2c.d \
+./I2C_files/ezdsp5535_led.d \
+./I2C_files/pll.d 
+
+OBJS += \
+./I2C_files/aic3204.obj \
+./I2C_files/aic3204_init.obj \
+./I2C_files/ezdsp5535.obj \
+./I2C_files/ezdsp5535_gpio.obj \
+./I2C_files/ezdsp5535_i2c.obj \
+./I2C_files/ezdsp5535_led.obj \
+./I2C_files/pll.obj 
+
+OBJS__QUOTED += \
+"I2C_files\aic3204.obj" \
+"I2C_files\aic3204_init.obj" \
+"I2C_files\ezdsp5535.obj" \
+"I2C_files\ezdsp5535_gpio.obj" \
+"I2C_files\ezdsp5535_i2c.obj" \
+"I2C_files\ezdsp5535_led.obj" \
+"I2C_files\pll.obj" 
+
+C_DEPS__QUOTED += \
+"I2C_files\aic3204.d" \
+"I2C_files\aic3204_init.d" \
+"I2C_files\ezdsp5535.d" \
+"I2C_files\ezdsp5535_gpio.d" \
+"I2C_files\ezdsp5535_i2c.d" \
+"I2C_files\ezdsp5535_led.d" \
+"I2C_files\pll.d" 
+
+C_SRCS__QUOTED += \
+"../I2C_files/aic3204.c" \
+"../I2C_files/aic3204_init.c" \
+"../I2C_files/ezdsp5535.c" \
+"../I2C_files/ezdsp5535_gpio.c" \
+"../I2C_files/ezdsp5535_i2c.c" \
+"../I2C_files/ezdsp5535_led.c" \
+"../I2C_files/pll.c" 
+
+

@@ -10,7 +10,12 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./aic3204.obj" \
+"./ezdsp5535_aic3204_dma.obj" \
+"./iir.obj" \
 "./main.obj" \
+"./print_number.obj" \
+"./processing.obj" \
 "./src/csl_audioClass.obj" \
 "./src/csl_cdc.obj" \
 "./src/csl_dat.obj" \
@@ -170,7 +175,7 @@ all: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 helloWorld.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: C5500 Linker'
-	"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/nikol/Documents/semesterKodeMapper/EIT6-WatsonC/TestWorkSpace/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/bin/cl55" -v5515 --memory_model=large -g --define=c5535 --display_error_number --diag_warning=225 --ptrdiff_size=16 --algebraic --asm_source=algebraic -z -m"helloWorld.map" --stack_size=0x200 --heap_size=0x400 -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/lib" -i"C:/Users/tardi/Desktop/EIT6-WatsonC/TestWorkSpace/helloWorld/lib" -i"C:/ti/ccs1110/ccs/tools/compiler/c5500_4.4.1/include" --reread_libs --display_error_number --warn_sections --xml_link_info="helloWorld_linkInfo.xml" --rom_model --sys_stacksize=0x200 -o "helloWorld.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
@@ -184,8 +189,8 @@ helloWorld.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "main.obj" "src\csl_audioClass.obj" "src\csl_cdc.obj" "src\csl_dat.obj" "src\csl_dma.obj" "src\csl_gpio.obj" "src\csl_gpt.obj" "src\csl_i2c.obj" "src\csl_i2s.obj" "src\csl_intc.obj" "src\csl_irqplug.obj" "src\csl_lcdc.obj" "src\csl_mem.obj" "src\csl_mmcsd.obj" "src\csl_mmcsd_ataIf.obj" "src\csl_msc.obj" "src\csl_nand.obj" "src\csl_pll.obj" "src\csl_rtc.obj" "src\csl_sar.obj" "src\csl_sdio.obj" "src\csl_spi.obj" "src\csl_uart.obj" "src\csl_usb.obj" "src\csl_wdt.obj" "src\vectors.obj" 
-	-$(RM) "main.d" "src\csl_audioClass.d" "src\csl_cdc.d" "src\csl_dat.d" "src\csl_dma.d" "src\csl_gpio.d" "src\csl_gpt.d" "src\csl_i2c.d" "src\csl_i2s.d" "src\csl_intc.d" "src\csl_lcdc.d" "src\csl_mem.d" "src\csl_mmcsd.d" "src\csl_mmcsd_ataIf.d" "src\csl_msc.d" "src\csl_nand.d" "src\csl_pll.d" "src\csl_rtc.d" "src\csl_sar.d" "src\csl_sdio.d" "src\csl_spi.d" "src\csl_uart.d" "src\csl_usb.d" "src\csl_wdt.d" 
+	-$(RM) "aic3204.obj" "ezdsp5535_aic3204_dma.obj" "iir.obj" "main.obj" "print_number.obj" "processing.obj" "src\csl_audioClass.obj" "src\csl_cdc.obj" "src\csl_dat.obj" "src\csl_dma.obj" "src\csl_gpio.obj" "src\csl_gpt.obj" "src\csl_i2c.obj" "src\csl_i2s.obj" "src\csl_intc.obj" "src\csl_irqplug.obj" "src\csl_lcdc.obj" "src\csl_mem.obj" "src\csl_mmcsd.obj" "src\csl_mmcsd_ataIf.obj" "src\csl_msc.obj" "src\csl_nand.obj" "src\csl_pll.obj" "src\csl_rtc.obj" "src\csl_sar.obj" "src\csl_sdio.obj" "src\csl_spi.obj" "src\csl_uart.obj" "src\csl_usb.obj" "src\csl_wdt.obj" "src\vectors.obj" 
+	-$(RM) "aic3204.d" "ezdsp5535_aic3204_dma.d" "iir.d" "main.d" "print_number.d" "processing.d" "src\csl_audioClass.d" "src\csl_cdc.d" "src\csl_dat.d" "src\csl_dma.d" "src\csl_gpio.d" "src\csl_gpt.d" "src\csl_i2c.d" "src\csl_i2s.d" "src\csl_intc.d" "src\csl_lcdc.d" "src\csl_mem.d" "src\csl_mmcsd.d" "src\csl_mmcsd_ataIf.d" "src\csl_msc.d" "src\csl_nand.d" "src\csl_pll.d" "src\csl_rtc.d" "src\csl_sar.d" "src\csl_sdio.d" "src\csl_spi.d" "src\csl_uart.d" "src\csl_usb.d" "src\csl_wdt.d" 
 	-$(RM) "src\csl_irqplug.d" "src\vectors.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
