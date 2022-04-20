@@ -36,6 +36,8 @@ void overdrive(Int16 *left, Int16 *right);
     Int16 gain_overdrive, th_soft_overdrive, th_hard_overdrive;
 //
 
+unsigned char sw = 0xFFFF;
+
 ////////////////// main.c ///////////////////////////////
 int main(void)
  {
@@ -50,8 +52,10 @@ int main(void)
 
         aic3204_codec_read(&l, &r);
         //printf("Venstre: %u \n", l);
-        //printf("Højre: %u \n", r);
-        aic3204_codec_write(l, r);
+        printf("Højre: %u \n", r);
+        aic3204_codec_write(sw++, sw);
+        //if (sw == 0) sw = 0xFFFF;
+        //else sw = 0;
 
         //ezdsp5535_GPIO_setOutput(GPIO13, 0); // test low pin 4
     }
@@ -66,9 +70,9 @@ void pedal_init(Uint16 SAMPLE_RATE, Int16 GAIN_DB)
 
     // AIC3204 - audio codec
     aic3204_hardware_init();
-    aic3204_init();
+    //aic3204_init();
     //set_sampling_frequency_and_gain(SAMPLE_RATE, GAIN_DB);  // Sets samplerate and gain on input
-    set_sampling_frequency_and_gain(SAMPLE_RATE, GAIN_DB);
+    do_sample_and_gain();
 }
 
 void GPIO_test_init()

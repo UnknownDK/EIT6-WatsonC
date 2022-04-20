@@ -34,7 +34,8 @@ void aic3204_init(void)
     AIC3204_rset( 5, 0x91 );   //PLL setting: Power up PLL, P=1 and R=1
     AIC3204_rset( 13, 0 );     // Hi_Byte(DOSR) for DOSR = 128 decimal or 0x0080 DAC oversamppling
     AIC3204_rset( 14, 0x80 );  // Lo_Byte(DOSR) for DOSR = 128 decimal or 0x0080
-    AIC3204_rset( 20, 0x80 );  // AOSR for AOSR = 128 decimal or 0x0080 for decimation filters 1 to 6
+    //AIC3204_rset( 20, 0x80 );  // AOSR for AOSR = 128 decimal or 0x0080 for decimation filters 1 to 6
+    AIC3204_rset( 20, 64 );  // AOSR for AOSR = 128 decimal or 0x0080 for decimation filters 1 to 6
     AIC3204_rset( 11, 0x87 );  // Power up NDAC and set NDAC value to 7
     AIC3204_rset( 12, 0x82 );  // Power up MDAC and set MDAC value to 2
     AIC3204_rset( 18, 0x87 );  // Power up NADC and set NADC value to 7
@@ -165,8 +166,10 @@ unsigned long set_sampling_frequency_and_gain(unsigned long SamplingFrequency, u
     AIC3204_rset( 1, 1 );      // Reset codec
     AIC3204_rset( 0, 1 );      // Point to page 1
     AIC3204_rset( 1, 8 );      // Disable crude AVDD generation from DVDD
+
     AIC3204_rset( 2, 1 );      // Enable Analog Blocks, use LDO power
     AIC3204_rset( 0, 0 );
+
     /* PLL and Clocks config and Power Up  */
     AIC3204_rset( 27, 0x1d );  // BCLK and WCLK is set as o/p to AIC3204(Master)
     AIC3204_rset( 28, 0x00 );  // Data ofset = 0
@@ -180,10 +183,16 @@ unsigned long set_sampling_frequency_and_gain(unsigned long SamplingFrequency, u
     AIC3204_rset( 13, 0 );     // Hi_Byte(DOSR) for DOSR = 128 decimal or 0x0080 DAC oversamppling
     AIC3204_rset( 14, 0x80 );  // Lo_Byte(DOSR) for DOSR = 128 decimal or 0x0080
     AIC3204_rset( 20, 0x80 );  // AOSR for AOSR = 128 decimal or 0x0080 for decimation filters 1 to 6
+
+    //AIC3204_rset( 11, 0X80 | 0x07 );  // Power up NDAC and set NDAC value to 7
+    //AIC3204_rset( 12, 0X80 | 0x07 );  // Power up MDAC and set MDAC value to 2
+    //AIC3204_rset( 18, 0X80 | 0x07 );  // Power up NADC and set NADC value to 7
+    //AIC3204_rset( 19, 0X80 | 0x07 );  // Power up MADC and set MADC value to 2
     AIC3204_rset( 11, 0x87 );  // Power up NDAC and set NDAC value to 7
     AIC3204_rset( 12, 0x82 );  // Power up MDAC and set MDAC value to 2
     AIC3204_rset( 18, 0x87 );  // Power up NADC and set NADC value to 7
     AIC3204_rset( 19, 0x82 );  // Power up MADC and set MADC value to 2
+
     /* DAC ROUTING and Power Up */
     AIC3204_rset( 0, 1 );      // Select page 1
     AIC3204_rset( 0x0c, 8 );   // LDAC AFIR routed to HPL
@@ -211,8 +220,10 @@ unsigned long set_sampling_frequency_and_gain(unsigned long SamplingFrequency, u
     AIC3204_rset( 0, 0 );      // Select page 0
     AIC3204_rset( 0x51, 0xc0 );// Powerup Left and Right ADC
     AIC3204_rset( 0x52, 0 );   // Unmute Left and Right ADC
-    
-    AIC3204_rset( 0, 0 );    
+    AIC3204_rset( 0x3d, 1 ); // ADC Signal Processing Block PRB_R1 is chosen
+
+
+    AIC3204_rset( 0, 0 );
     ezdsp5535_wait( 100 );  // Wait
     
     /* I2S settings */
@@ -223,4 +234,96 @@ unsigned long set_sampling_frequency_and_gain(unsigned long SamplingFrequency, u
  	return(output);
 }
 
+void do_sample_and_gain()
+{
+
+    /* Configure Parallel Port */
+    SYS_EXBUSSEL = 0x1000;  // Configure Parallel Port mode = 1 for I2S2
+
+
+    /* Configure AIC3204 registers */
+
+    // Define starting point
+    AIC3204_rset( 0, 0 );      // Select page 0
+    AIC3204_rset( 1, 1 );      // Reset codec
+
+    // Program Clock Settings PLL_CLKIN = MCLK = 12 MHz
+    // J= 7 ,D = 1680 (0x0690) ,R = 1 (if PLL is necessary) PLL clock will be 86,016 MHz
+    AIC3204_rset( 27, 0x1d );  // BCLK and WCLK is set as o/p to AIC3204(Master)
+    AIC3204_rset( 28, 0x00 );  // Data ofset = 0
+    AIC3204_rset( 4, 3 ); // Set PLL_CLK = CODEC_CLKIN
+    AIC3204_rset( 6, 7 ); // J = 7
+    AIC3204_rset( 7, 0x06 ); // D_HighByte, D = 1680
+    AIC3204_rset( 8, 0x90 ); // D_LowByte, D = 1680
+    AIC3204_rset( 30, 0x84 );  // For 32 bit clocks per frame in Master mode ONLY
+    AIC3204_rset( 5, 1<<7 | 1<<4 | 1 ); // PLL power up P = 1, R = 1
+
+    // Program and power up NDAC & MDAC
+    AIC3204_rset( 11, 1<<7 | 7 ); // NDAC power up
+    AIC3204_rset( 12, 1<<7 | 2 ); // MDAC power up (MACD is the same, if not powered up) ADC_MOD_CLK = DAC_MOD_CLK
+
+    // Program OSR value
+    AIC3204_rset( 13, 0 ); // DOSR MSB
+    AIC3204_rset( 14, 64 ); // DOSR LSB
+    AIC3204_rset( 20, 64 ); // AOSR = DOSR = 64
+
+    //Program the processing block to be used
+    AIC3204_rset( 0x3d, 10 ); // ADC Signal Processing Block PRB_R10 is chosen
+
+    /* EXPOSE CLOCK_OUT ON GPIO */
+    AIC3204_rset( 52, 4 << 2); // Expose CLKOUT on GPIO pin
+    AIC3204_rset( 25, 0x07 ); // CDIV_CLKIN = ADC_MOD_CLK
+    AIC3204_rset( 26, 1<<7 | 1 ); // Power up CLKOUT divider and set to 1
+
+    // PROGRAM analog blocks
+    AIC3204_rset( 0, 1 );      // Select page 1
+    AIC3204_rset( 1, 8 );      // Disable crude AVDD generation from DVDD
+    AIC3204_rset( 2, 1 );      // Enable Analog Blocks, use LDO power
+
+
+    /* DAC ROUTING and Power Up */
+    AIC3204_rset( 0, 1 );      // Select page 1
+    AIC3204_rset( 0x0c, 8 );   // LDAC AFIR routed to HPL
+    AIC3204_rset( 0x0d, 8 );   // RDAC AFIR routed to HPR
+    AIC3204_rset( 0, 0 );      // Select page 0
+    AIC3204_rset( 64, 2 );     // Left vol=right vol
+    AIC3204_rset( 65, 0 );     // Left DAC gain to 0dB VOL; Right tracks Left
+    AIC3204_rset( 63, 0xd4 );  // Power up left,right data paths and set channel
+    AIC3204_rset( 0, 1 );      // Select page 1
+    AIC3204_rset( 0x10, 10 );  // Unmute HPL , 10dB gain
+    AIC3204_rset( 0x11, 10 );  // Unmute HPR , 10dB gain
+    AIC3204_rset( 9, 0x30 );   // Power up HPL,HPR
+    AIC3204_rset( 0, 0 );      // Select page 0
+    ezdsp5535_wait( 100 );    // wait
+    /* ADC ROUTING and Power Up */
+    AIC3204_rset( 0, 1 );      // Select page 1
+    AIC3204_rset( 51, 0x48);  // power up MICBIAS with AVDD (0x40)or LDOIN (0x48)   //MM - added micbias
+    AIC3204_rset( 0x34, 0x10 );// STEREO 1 Jack
+                               // IN2_L to LADC_P through 0 kohm
+    AIC3204_rset( 0x37, 0x10 );// IN2_R to RADC_P through 0 kohmm
+    AIC3204_rset( 0x36, 1 );   // CM_1 (common mode) to LADC_M through 0 kohm
+    AIC3204_rset( 0x39, 0x40 );// CM_1 (common mode) to RADC_M through 0 kohm
+    AIC3204_rset( 0x3b, 1 );   // MIC_PGA_L unmute gain set to 1
+    AIC3204_rset( 0x3c, 1 );   // MIC_PGA_R unmute gain set to 1
+    AIC3204_rset( 0, 0 );      // Select page 0
+    AIC3204_rset( 0x51, 0xc0 );// Powerup Left and Right ADC
+    AIC3204_rset( 0x52, 0 );   // Unmute Left and Right ADC
+
+
+
+
+
+
+
+
+    AIC3204_rset( 0, 0 );
+    ezdsp5535_wait( 100 );  // Wait for 100 cycles
+
+
+    /* Configure I2S */
+    I2S2_SRGR = 0x0;     // Set sample rate generator register to 0
+    I2S2_CR = 0x8010;    // Set serializer control regsiter for 16-bit word, slave, enable I2C
+    I2S2_ICMR = 0x3f;    // Set interrupt mask register to enable interrupts
+
+}
 
