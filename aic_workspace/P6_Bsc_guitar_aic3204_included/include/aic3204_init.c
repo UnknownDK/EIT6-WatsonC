@@ -299,7 +299,7 @@ void do_sample_and_gain()
     AIC3204_rset( 17, 0 );  // Unmute HPR , 0dB gain
     AIC3204_rset( 9, 0x30 );   // Power up HPL,HPR
     AIC3204_rset( 0, 0 );      // Select page 0
-    ezdsp5535_wait( 100 );    // wait
+        ezdsp5535_wait( 100 );    // wait
     /* ADC ROUTING and Power Up */
     AIC3204_rset( 0, 1 );      // Select page 1
     AIC3204_rset( 51, 0x48);  // power up MICBIAS with AVDD (0x40)or LDOIN (0x48)   //MM - added micbias
@@ -308,8 +308,8 @@ void do_sample_and_gain()
     AIC3204_rset( 0x37, 0x10 );// IN2_R to RADC_P through 0 kohmm
     AIC3204_rset( 0x36, 1 );   // CM_1 (common mode) to LADC_M through 0 kohm
     AIC3204_rset( 0x39, 0x40 );// CM_1 (common mode) to RADC_M through 0 kohm
-    AIC3204_rset( 0x3b, 1 );   // MIC_PGA_L unmute gain set to 1
-    AIC3204_rset( 0x3c, 1 );   // MIC_PGA_R unmute gain set to 1
+    AIC3204_rset( 0x3b, 1<<7 );   // MIC_PGA_L unmute gain set to 1
+    AIC3204_rset( 0x3c, 1<<7 );   // MIC_PGA_R unmute gain set to 1
     AIC3204_rset( 0, 0 );      // Select page 0
     AIC3204_rset( 0x51, 0xc0 );// Powerup Left and Right ADC
     AIC3204_rset( 0x52, 0 );   // Unmute Left and Right ADC

@@ -8,6 +8,7 @@
 //#include "register_cpu.h"
 #include "pll.h"
 #include "math.h"
+#include "stdint.h"
 
 // Audio codec setup
 #include "aic3204.h"        // codec header
@@ -16,7 +17,12 @@ Int16 gain_db = 0;         // gain on input (-1 er korrekt)
 Int16 r, l;               // store read-values
 #define PLL_12M     0
 #define PLL_98M     0
+
+#define M_PI 3.14159265358979323846
 #define PLL_100M    1
+
+
+
 
 
 void InitSystem(void);
@@ -38,20 +44,18 @@ void overdrive(Int16 *left, Int16 *right);
 void do_sample_and_gain();
 //
 
-#define seqLen 96
+#define FREQ 4000
+#define SEQ_LEN (96000 / FREQ)
 
-float magnitude = 3000;
-unsigned short midpoint = 4000;
-unsigned short sineTable[seqLen] = {0};
-unsigned short tableIndex = 0;
+int16_t sineTable[SEQ_LEN] = {0};
+uint16_t tableIndex = 0;
+
+void generate_sine_table(int16_t * table, uint16_t samples);
 
 ////////////////// main.c ///////////////////////////////
 int main(void)
  {
-    int i = 0;
-    for (; i < seqLen; i++) {
-        sineTable[i] = midpoint + magnitude * sin(2 * 3.1415 * i / seqLen);
-    }
+    generate_sine_table(sineTable, SEQ_LEN);
 
     // setup
     pedal_init(sample_rate, gain_db);   // init board and codec
@@ -62,16 +66,23 @@ int main(void)
     {
         //ezdsp5535_GPIO_setOutput(GPIO13, 1); // test high pin 4
 
-        aic3204_codec_read(&l, &r);
+        //aic3204_codec_read(&l, &r);
         //printf("Venstre: %u \n", l);
         //printf("Højre: %u \n", r);
-        aic3204_codec_write(l, r);
-        //aic3204_codec_write(sineTable[tableIndex], sineTable[tableIndex]);
-        if (++tableIndex == seqLen) tableIndex = 0;
-        //if (sw == 0) sw = 0xFFFF;
-        //else sw = 0;
+        //aic3204_codec_write(l, r);
+        aic3204_codec_write(sineTable[tableIndex], sineTable[tableIndex]);
+        if (++tableIndex == SEQ_LEN) tableIndex = 0;
+        //ezdsp5535_wait( 1 );    // wait
 
         //ezdsp5535_GPIO_setOutput(GPIO13, 0); // test low pin 4
+    }
+}
+
+void generate_sine_table(int16_t * table, uint16_t samples) {
+    uint16_t i = 0;
+    float inc = 2 * M_PI / samples;
+    for (; i < samples; i++) {
+        table[i] = 0x7fff * sin( i * inc );
     }
 }
 
