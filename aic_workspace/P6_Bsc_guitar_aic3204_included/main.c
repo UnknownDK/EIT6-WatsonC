@@ -9,6 +9,7 @@
 #include "pll.h"
 #include "math.h"
 #include "stdint.h"
+#include "dma_init.h"
 
 // Audio codec setup
 #include "aic3204.h"        // codec header
@@ -42,15 +43,16 @@ void GPIO_test_init();
 void overdrive(Int16 *left, Int16 *right);
     Int16 gain_overdrive, th_soft_overdrive, th_hard_overdrive;
 void do_sample_and_gain();
+
 //
 
 #define FREQ 4000
 #define SEQ_LEN (96000 / FREQ)
 
-int16_t sineTable[SEQ_LEN] = {0};
+int32_t sineTable[SEQ_LEN] = {0};
 uint16_t tableIndex = 0;
 
-void generate_sine_table(int16_t * table, uint16_t samples);
+void generate_sine_table(int32_t * table, uint16_t samples);
 
 ////////////////// main.c ///////////////////////////////
 int main(void)
@@ -66,11 +68,11 @@ int main(void)
     {
         //ezdsp5535_GPIO_setOutput(GPIO13, 1); // test high pin 4
 
-        //aic3204_codec_read(&l, &r);
+        aic3204_codec_read(&l, &r);
         //printf("Venstre: %u \n", l);
         //printf("Højre: %u \n", r);
         //aic3204_codec_write(l, r);
-        aic3204_codec_write(sineTable[tableIndex], sineTable[tableIndex]);
+        //aic3204_codec_write(sineTable[tableIndex], sineTable[tableIndex]);
         if (++tableIndex == SEQ_LEN) tableIndex = 0;
         //ezdsp5535_wait( 1 );    // wait
 
@@ -78,7 +80,7 @@ int main(void)
     }
 }
 
-void generate_sine_table(int16_t * table, uint16_t samples) {
+void generate_sine_table(int32_t * table, uint16_t samples) {
     uint16_t i = 0;
     float inc = 2 * M_PI / samples;
     for (; i < samples; i++) {
@@ -92,6 +94,8 @@ void pedal_init(Uint16 SAMPLE_RATE, Int16 GAIN_DB)
 {
     // eZdsp - dev board
     ezdsp5535_init();
+
+    dma_init((int32_t *)sineTable);
 
     // AIC3204 - audio codec
     aic3204_hardware_init();
@@ -121,6 +125,7 @@ void overdrive(Int16 *left, Int16 *right)
     }
     else;
 }
+
 
 void PLL_98MHz(void)
 {

@@ -1,1 +1,5 @@
-2022/04/20-09:01:21.217 57d4 Reusing MANIFEST C:\Users\nikol\Documents\semesterKodeMapper\EIT6-WatsonC\aic_workspace\.jxbrowser.userdata\Default\Site Characteristics Database/MANIFEST-000001
+2022/04/26-13:46:38.715 35ec Log #3: 2 ops saved to Table #4 OK
+2022/04/26-13:46:38.716 35ec Archiving C:\Users\tardi\Desktop\EIT6-WatsonC\aic_workspace\.jxbrowser.userdata\Default\Site Characteristics Database/000003.log: OK
+2022/04/26-13:46:38.716 35ec Table #4: 2 entries OK
+2022/04/26-13:46:38.718 35ec Archiving C:\Users\tardi\Desktop\EIT6-WatsonC\aic_workspace\.jxbrowser.userdata\Default\Site Characteristics Database/MANIFEST-000001: OK
+2022/04/26-13:46:38.731 35ec **** Repaired leveldb C:\Users\tardi\Desktop\EIT6-WatsonC\aic_workspace\.jxbrowser.userdata\Default\Site Characteristics Database; recovered 1 files; 191 bytes. Some data may have been lost. ****
