@@ -12,7 +12,7 @@
 #include "error_handler.h"
 #include "stdint.h"
 
-void dma_init(int32_t *dest_addr);
+void dma_init(int32_t *dest_addr, uint16_t dest_len);
 
 
 #endif /* INCLUDE_DMA_INIT_H_ */

@@ -41,10 +41,10 @@ Uint16 clearOverlaps = 1;
 void pedal_init(Uint16 SAMPLE_RATE, Int16 GAIN_DB);    // init board and codec
 void GPIO_test_init();
 void overdrive(Int16 *left, Int16 *right);
-    Int16 gain_overdrive, th_soft_overdrive, th_hard_overdrive;
+Int16 gain_overdrive, th_soft_overdrive, th_hard_overdrive;
 void do_sample_and_gain();
 
-//
+
 
 #define FREQ 4000
 #define SEQ_LEN (96000 / FREQ)
@@ -71,7 +71,7 @@ int main(void)
         aic3204_codec_read(&l, &r);
         //printf("Venstre: %u \n", l);
         //printf("Højre: %u \n", r);
-        //aic3204_codec_write(l, r);
+        //aic3204_codec_write((int16_t) tableIndex, (int16_t) tableIndex);
         //aic3204_codec_write(sineTable[tableIndex], sineTable[tableIndex]);
         if (++tableIndex == SEQ_LEN) tableIndex = 0;
         //ezdsp5535_wait( 1 );    // wait
@@ -88,6 +88,10 @@ void generate_sine_table(int32_t * table, uint16_t samples) {
     }
 }
 
+interrupt void DMA_ISR(void)
+{
+    volatile int x = 0;
+}
 
 ///////////////////// Functions ///////////////////////////
 void pedal_init(Uint16 SAMPLE_RATE, Int16 GAIN_DB)
@@ -95,13 +99,19 @@ void pedal_init(Uint16 SAMPLE_RATE, Int16 GAIN_DB)
     // eZdsp - dev board
     ezdsp5535_init();
 
-    dma_init((int32_t *)sineTable);
+    IRQ_globalEnable();
+    IRQ_plug(DMA_EVENT, &DMA_ISR);
+
+    dma_init((int32_t *)sineTable, SEQ_LEN);
 
     // AIC3204 - audio codec
     aic3204_hardware_init();
+
+
     //aic3204_init();
     //set_sampling_frequency_and_gain(SAMPLE_RATE, GAIN_DB);  // Sets samplerate and gain on input
     do_sample_and_gain();
+
 }
 
 void GPIO_test_init()
