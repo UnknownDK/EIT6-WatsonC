@@ -56,7 +56,7 @@ void generate_sine_table(int32_t * table, uint16_t samples);
 
 ////////////////// main.c ///////////////////////////////
 int main(void)
- {
+{
     generate_sine_table(sineTable, SEQ_LEN);
 
     // setup
@@ -71,8 +71,8 @@ int main(void)
         aic3204_codec_read(&l, &r);
         //printf("Venstre: %u \n", l);
         //printf("Højre: %u \n", r);
-        //aic3204_codec_write((int16_t) tableIndex, (int16_t) tableIndex);
-        //aic3204_codec_write(sineTable[tableIndex], sineTable[tableIndex]);
+        //aic3204_codec_write(0, (int16_t) tableIndex);
+        //aic3204_codec_write(0, sineTable[tableIndex]);
         if (++tableIndex == SEQ_LEN) tableIndex = 0;
         //ezdsp5535_wait( 1 );    // wait
 
@@ -84,7 +84,7 @@ void generate_sine_table(int32_t * table, uint16_t samples) {
     uint16_t i = 0;
     float inc = 2 * M_PI / samples;
     for (; i < samples; i++) {
-        table[i] = 0x7fff * sin( i * inc );
+        table[i] = (((int32_t) (0x7fff * sin( i * inc ))) & 0xFFFF) << 16;
     }
 }
 
@@ -96,13 +96,16 @@ interrupt void DMA_ISR(void)
 ///////////////////// Functions ///////////////////////////
 void pedal_init(Uint16 SAMPLE_RATE, Int16 GAIN_DB)
 {
+
+
     // eZdsp - dev board
     ezdsp5535_init();
 
     IRQ_globalEnable();
     IRQ_plug(DMA_EVENT, &DMA_ISR);
 
-    dma_init((int32_t *)sineTable, SEQ_LEN);
+    //dma_init((int32_t *)sineTable, SEQ_LEN);
+    dma_csl_init((int32_t *)sineTable, SEQ_LEN);
 
     // AIC3204 - audio codec
     aic3204_hardware_init();

@@ -6,7 +6,25 @@
  */
 
 #include "dma_init.h"
-#include "stdint.h"
+
+CSL_DMA_Handle dmaHandle;
+
+const CSL_DMAChanNum dmaChNum = CSL_DMA_CHAN4;
+CSL_DMA_ChannelObj dmaChanObj;
+
+CSL_DMA_Config dmaConfig = {
+                                  CSL_DMA_PING_PONG_DISABLE,
+                                  CSL_DMA_AUTORELOAD_ENABLE,
+                                  CSL_DMA_TXBURST_1WORD,
+                                  CSL_DMA_EVENT_TRIGGER,
+                                  CSL_DMA_EVT_I2S2_TX,
+                                  CSL_DMA_INTERRUPT_ENABLE,
+                                  CSL_DMA_WRITE,
+                                  CSL_DMA_TRANSFER_IO_MEMORY,
+                                  0,
+                                  0,
+                                  0x2A0C
+};
 
 void dma_init(int32_t *src_addr, uint16_t src_len) {
 
@@ -91,6 +109,20 @@ void dma_init(int32_t *src_addr, uint16_t src_len) {
 ////    12. If necessary, enable peripheral being serviced the DMA channel.
 
 
+}
+
+void dma_csl_init(int32_t *src_addr, uint16_t src_len) {
+    DMA_init();
+
+    CSL_Status status = 0;
+    dmaHandle = DMA_open(dmaChNum, &dmaChanObj, &status);
+
+    dmaConfig.dataLen = (uint16_t) src_len * 4;
+    dmaConfig.srcAddr = (uint32_t) src_addr;
+
+    status = DMA_config(dmaHandle, &dmaConfig);
+
+    status = DMA_start(dmaHandle);
 }
 
 

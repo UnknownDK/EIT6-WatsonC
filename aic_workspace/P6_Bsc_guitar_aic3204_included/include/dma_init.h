@@ -11,8 +11,10 @@
 #include "soc.h"
 #include "error_handler.h"
 #include "stdint.h"
+#include "csl_dma.h"
 
 void dma_init(int32_t *dest_addr, uint16_t dest_len);
 
+void dma_csl_init(int32_t *src_addr, uint16_t src_len);
 
 #endif /* INCLUDE_DMA_INIT_H_ */
