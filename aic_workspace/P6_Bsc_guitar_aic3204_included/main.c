@@ -12,6 +12,7 @@
 #include "aic3204.h"        // codec header
 #include <pulse_generator.h>
 #include "circular_dma_reader.h"
+#include "string.h"
 
 #define M_PI 3.14159265358979323846
 
@@ -54,18 +55,28 @@ circular_dma_reader_handle reader_handle = CIRCULAR_DMA_READER_HANDLER_RESET;
 
 int main(void)
 {
+
+    generate_sine_table(sineTable, SEQ_LEN); // generate sine table for pulse generation
+    memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
+
     flowmeter_init();   // init board and codec
 
-    generate_sine_table(sineTable, SEQ_LEN);
+    //pulse_start_periods(5);
+    pulse_start();
 
-    pulse_start_periods(5);
-    //pulse_start();
+    reader_start(&reader_handle);
 
     volatile unsigned long tick = 0;
 
     // main loop
-    while (1)
-    {
+//    while (tick < 10000000)
+//    {
+//        tick++;
+//    }
+//
+//    reader_stop(&reader_handle);
+
+    while (1) {
         tick++;
     }
 }

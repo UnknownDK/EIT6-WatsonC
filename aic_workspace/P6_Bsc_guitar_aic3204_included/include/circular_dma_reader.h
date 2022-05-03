@@ -17,6 +17,7 @@
 // Appropriate reset value for when defining handles, before initialization
 #define CIRCULAR_DMA_READER_HANDLER_RESET { \
         CSL_DMA_CHAN_INV, \
+        {0}, \
         NULL, \
         { \
             CSL_DMA_PING_PONG_DISABLE, \
@@ -43,6 +44,7 @@ typedef struct {
 
 typedef struct {
     CSL_DMAChanNum dmaChNum;
+    CSL_DMA_ChannelObj dmaChObj;
     CSL_DMA_Handle dmaHandle;
     CSL_DMA_Config dmaConfig;
 } circular_dma_reader_handle;

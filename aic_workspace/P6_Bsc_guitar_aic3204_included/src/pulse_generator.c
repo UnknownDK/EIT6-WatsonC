@@ -40,7 +40,7 @@ CSL_Status pulse_generator_init(int32_t *src_addr, uint16_t src_len) {
 
     if (status != CSL_SOK) return status;
 
-    dmaConfig.dataLen = (uint16_t) src_len * 4;
+    dmaConfig.dataLen = (uint16_t) src_len * 4; // DMA works in "byte-addressing space" and does not use CPU 16-bit addressing intervals. A 32 bit array element is therefore counted as 4 * 8 bits.
     dmaConfig.srcAddr = (uint32_t) src_addr;
 
     status = DMA_config(dmaHandle, &dmaConfig);

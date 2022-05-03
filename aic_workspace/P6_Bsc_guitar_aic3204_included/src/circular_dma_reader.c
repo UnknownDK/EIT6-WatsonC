@@ -6,10 +6,11 @@ CSL_Status reader_init(circular_dma_reader_handle * handle, circular_dma_reader_
 
     // Setup DMA configuration struct
     handle->dmaChNum = config->chan;
+    handle->dmaHandle = &handle->dmaChObj;
     handle->dmaConfig.dmaEvt = config->evtType;
     handle->dmaConfig.srcAddr = (uint32_t) config->src_addr;
     handle->dmaConfig.destAddr = (uint32_t) config->dest_addr;
-    handle->dmaConfig.dataLen = config->buffer_len;
+    handle->dmaConfig.dataLen = config->buffer_len * 4;
 
     // Check for invalid parameters
     if (handle->dmaChNum == CSL_DMA_CHAN_INV
