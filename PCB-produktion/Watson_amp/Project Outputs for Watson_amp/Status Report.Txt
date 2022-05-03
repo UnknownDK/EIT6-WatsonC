@@ -1,0 +1,15 @@
+Output: Gerber X2 Files
+Type  : GerberX2
+From  : Project [Watson_amp.PrjPcb]
+   Generated File[ampV1_Copper_Signal_Top.gbr]
+   Generated File[ampV1_Copper_Signal_Bot.gbr]
+   Generated File[ampV1_Profile.gbr]
+   Generated File[ampV1_PTH_Drill.gbr]
+   Generated File[ampV1.EXTREP]
+   Generated File[ampV1.REP]
+
+
+Files Generated   : 6
+Documents Printed : 0
+
+Finished Output Generation At 16:04:21 On 02-05-2022

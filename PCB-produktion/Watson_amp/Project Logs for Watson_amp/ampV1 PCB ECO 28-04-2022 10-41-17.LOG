@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=ToADC Pin=P2-2
+Removed Pin From Net: NetName=FromDAC Pin=P2-3
+Added Pin To Net: NetName=FromDAC Pin=P2-2
+Added Pin To Net: NetName=ToADC Pin=P2-3
+Added Room: Name=transAmpV1_sch

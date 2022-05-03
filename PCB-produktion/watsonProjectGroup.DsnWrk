@@ -1,0 +1,6 @@
+[ProjectGroup]
+Version=1.0
+[Project1]
+ProjectPath=WatsonInt_Lib.LibPkg
+[Project2]
+ProjectPath=Watson_amp\Watson_amp.PrjPcb

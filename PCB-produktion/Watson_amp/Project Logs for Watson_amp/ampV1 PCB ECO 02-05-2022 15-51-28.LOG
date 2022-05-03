@@ -1,0 +1,12 @@
+Added Component: Designator=Rs14(AXIAL-0.4 PCBK)
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "AXIAL-0.4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Published"; Value = "8-Jun-2000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "100"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetRs14_2 Pin=Rs14-2
+Added Pin To Net: NetName=NetRs14_1 Pin=Rs14-1
+Added Pin To Net: NetName=NetRs14_1 Pin=U4-2
+Added Net: Name=NetRs14_1
+Added Member To Class: ClassName=transAmpV1_sch Member=Component Rs14 ER VIA

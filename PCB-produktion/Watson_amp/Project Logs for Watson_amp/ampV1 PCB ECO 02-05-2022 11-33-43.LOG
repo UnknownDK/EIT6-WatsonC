@@ -1,0 +1,10 @@
+Added Component: Designator=Q1(TO-18)
+Added Component: Designator=Q4(TO-18)
+Added Pin To Net: NetName=VCC+ Pin=Q1-1
+Added Pin To Net: NetName=NetQ1_B Pin=Q1-2
+Added Pin To Net: NetName=SwitchedVCC+ Pin=Q1-3
+Added Pin To Net: NetName=VCC- Pin=Q4-1
+Added Pin To Net: NetName=NetQ3_1 Pin=Q4-2
+Added Pin To Net: NetName=SwitchedVCC- Pin=Q4-3
+Added Member To Class: ClassName=transAmpV1_sch Member=Component Q1 2n2906
+Added Member To Class: ClassName=transAmpV1_sch Member=Component Q4 2n2221
