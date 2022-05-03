@@ -1,4 +1,3 @@
-#include <pulse_generator.h>
 #include "stdio.h"
 #include "ezdsp5535.h"  // board header
 #include "csl_intc.h"
@@ -11,11 +10,24 @@
 #include "math.h"
 #include "stdint.h"
 #include "aic3204.h"        // codec header
+#include <pulse_generator.h>
+#include "circular_dma_reader.h"
+#include "string.h"
 
 #define M_PI 3.14159265358979323846
 
 #define FREQ 4000
 #define SEQ_LEN (96000 / FREQ)
+#define READ_BUFFER_LEN 1000
+
+// Declare functions
+void flowmeter_init();  // init board and codec
+void GPIO_test_init();
+void do_sample_and_gain();
+
+interrupt void DMA_ISR(void);
+void interrupt_init();
+void generate_sine_table(int32_t *table, uint16_t samples);
 
 // Interrupt vector table
 extern void VECSTART(void);
@@ -27,30 +39,44 @@ Uint16 clearOverlaps = 1;
 int32_t sineTable[SEQ_LEN] = { 0 };
 uint16_t tableIndex = 0;
 
-// Declare functions
-void flowmeter_init();  // init board and codec
-void GPIO_test_init();
-void do_sample_and_gain();
 
-interrupt void DMA_ISR(void);
-void interrupt_init();
-void generate_sine_table(int32_t *table, uint16_t samples);
+int32_t buffer_read[READ_BUFFER_LEN] = {0};
 
-////////////////// main.c ///////////////////////////////
+circular_dma_reader_config reader_config = {
+                                            CSL_DMA_CHAN5,
+                                            CSL_DMA_EVT_I2S2_RX,
+                                            (int32_t *) 0x2A2C,
+                                            buffer_read,
+                                            READ_BUFFER_LEN
+};
+
+circular_dma_reader_handle reader_handle = CIRCULAR_DMA_READER_HANDLER_RESET;
+
+
 int main(void)
 {
+
+    generate_sine_table(sineTable, SEQ_LEN); // generate sine table for pulse generation
+    memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
+
     flowmeter_init();   // init board and codec
 
-    generate_sine_table(sineTable, SEQ_LEN);
+    //pulse_start_periods(5);
+    pulse_start();
 
-    pulse_start_periods(5);
-    //pulse_start();
+    reader_start(&reader_handle);
 
     volatile unsigned long tick = 0;
 
     // main loop
-    while (1)
-    {
+//    while (tick < 10000000)
+//    {
+//        tick++;
+//    }
+//
+//    reader_stop(&reader_handle);
+
+    while (1) {
         tick++;
     }
 }
@@ -63,6 +89,7 @@ void flowmeter_init()
     ezdsp5535_init();
 
     pulse_generator_init((int32_t*) sineTable, SEQ_LEN);
+    reader_init(&reader_handle, &reader_config);
 
     // AIC3204 - audio codec
     aic3204_hardware_init();
