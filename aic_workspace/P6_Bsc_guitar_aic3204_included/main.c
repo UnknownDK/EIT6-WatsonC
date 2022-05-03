@@ -1,4 +1,3 @@
-#include <pulse_generator.h>
 #include "stdio.h"
 #include "ezdsp5535.h"  // board header
 #include "csl_intc.h"
@@ -11,11 +10,22 @@
 #include "math.h"
 #include "stdint.h"
 #include "aic3204.h"        // codec header
+#include <pulse_generator.h>
+#include "circular_dma_reader.h"
 
 #define M_PI 3.14159265358979323846
 
 #define FREQ 4000
 #define SEQ_LEN (96000 / FREQ)
+
+// Declare functions
+void flowmeter_init();  // init board and codec
+void GPIO_test_init();
+void do_sample_and_gain();
+
+interrupt void DMA_ISR(void);
+void interrupt_init();
+void generate_sine_table(int32_t *table, uint16_t samples);
 
 // Interrupt vector table
 extern void VECSTART(void);
@@ -27,16 +37,11 @@ Uint16 clearOverlaps = 1;
 int32_t sineTable[SEQ_LEN] = { 0 };
 uint16_t tableIndex = 0;
 
-// Declare functions
-void flowmeter_init();  // init board and codec
-void GPIO_test_init();
-void do_sample_and_gain();
+circular_dma_reader_config reader_config;
 
-interrupt void DMA_ISR(void);
-void interrupt_init();
-void generate_sine_table(int32_t *table, uint16_t samples);
+circular_dma_reader_handle reader_handle = CIRCULAR_DMA_READER_HANDLER_RESET;
 
-////////////////// main.c ///////////////////////////////
+
 int main(void)
 {
     flowmeter_init();   // init board and codec
@@ -63,6 +68,7 @@ void flowmeter_init()
     ezdsp5535_init();
 
     pulse_generator_init((int32_t*) sineTable, SEQ_LEN);
+    reader_init(&reader_handle, &reader_config);
 
     // AIC3204 - audio codec
     aic3204_hardware_init();
