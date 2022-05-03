@@ -17,6 +17,7 @@
 
 #define FREQ 4000
 #define SEQ_LEN (96000 / FREQ)
+#define READ_BUFFER_LEN 1000
 
 // Declare functions
 void flowmeter_init();  // init board and codec
@@ -37,7 +38,16 @@ Uint16 clearOverlaps = 1;
 int32_t sineTable[SEQ_LEN] = { 0 };
 uint16_t tableIndex = 0;
 
-circular_dma_reader_config reader_config;
+
+int32_t buffer_read[READ_BUFFER_LEN] = {0};
+
+circular_dma_reader_config reader_config = {
+                                            CSL_DMA_CHAN5,
+                                            CSL_DMA_EVT_I2S2_RX,
+                                            (int32_t *) 0x2A2C,
+                                            buffer_read,
+                                            READ_BUFFER_LEN
+};
 
 circular_dma_reader_handle reader_handle = CIRCULAR_DMA_READER_HANDLER_RESET;
 

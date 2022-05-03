@@ -15,7 +15,23 @@
 #include "csl_types.h"
 
 // Appropriate reset value for when defining handles, before initialization
-#define CIRCULAR_DMA_READER_HANDLER_RESET { CSL_DMA_CHAN_INV, NULL }
+#define CIRCULAR_DMA_READER_HANDLER_RESET { \
+        CSL_DMA_CHAN_INV, \
+        NULL, \
+        { \
+            CSL_DMA_PING_PONG_DISABLE, \
+            CSL_DMA_AUTORELOAD_ENABLE, \
+            CSL_DMA_TXBURST_1WORD, \
+            CSL_DMA_EVENT_TRIGGER, \
+            CSL_DMA_EVT_I2S2_RX, \
+            CSL_DMA_INTERRUPT_DISABLE, \
+            CSL_DMA_READ, \
+            CSL_DMA_TRANSFER_IO_MEMORY, \
+            0, \
+            0, \
+            0 \
+        } \
+    }
 
 typedef struct {
     CSL_DMAChanNum  chan;   // DMA controller and channel
