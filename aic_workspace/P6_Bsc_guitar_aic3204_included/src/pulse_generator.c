@@ -8,7 +8,6 @@
 #include <pulse_generator.h>
 #include "stdint.h"
 
-bool init_complete = false;
 bool counting_periods = false;
 uint32_t periods_left = 0;
 
@@ -33,52 +32,45 @@ CSL_DMA_Config dmaConfig = {
 
 void set_i2s_output_value(uint32_t val);
 
-void pulse_generator_init(int32_t *src_addr, uint16_t src_len) {
+CSL_Status pulse_generator_init(int32_t *src_addr, uint16_t src_len) {
     DMA_init();
 
     CSL_Status status = 0;
     dmaHandle = DMA_open(dmaChNum, &dmaChanObj, &status);
 
-    dmaConfig.dataLen = (uint16_t) src_len * 4;
-    dmaConfig.srcAddr = (uint32_t) src_addr;
+    if (status != CSL_SOK) return status;
 
+    dmaConfig.dataLen = (uint16_t) src_len * 4; // DMA works in "byte-addressing space" and does not use CPU 16-bit addressing intervals. A 32 bit array element is therefore counted as 4 * 8 bits.
+    dmaConfig.srcAddr = (uint32_t) src_addr;
 
     status = DMA_config(dmaHandle, &dmaConfig);
 
-    init_complete = true;
+    return status;
 }
 
-int16_t pulse_start() {
-
-    if (!init_complete) return 0;
+CSL_Status pulse_start() {
 
     counting_periods = false;
 
-    CSL_Status status = DMA_start(dmaHandle);
-
-    return 1;
+    return DMA_start(dmaHandle);
 }
 
-int16_t pulse_start_periods(uint16_t periods) {
-    if (!init_complete) return 0;
+CSL_Status pulse_start_periods(uint16_t periods) {
 
     counting_periods = true;
 
     periods_left = periods;
 
-    CSL_Status status = DMA_start(dmaHandle);
-
-    return 1;
+    return DMA_start(dmaHandle);
 }
 
-int16_t pulse_stop() {
-    if (!init_complete) return 0;
+CSL_Status pulse_stop() {
 
     CSL_Status status = DMA_stop(dmaHandle);
 
     set_i2s_output_value(0);
 
-    return 1;
+    return status;
 }
 
 void pulse_period_finished_callb() {

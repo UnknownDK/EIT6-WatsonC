@@ -13,14 +13,15 @@
 #include "stdint.h"
 #include "csl_dma.h"
 #include "stdbool.h"
+#include "csl_types.h"
 
-void pulse_generator_init(int32_t *src_addr, uint16_t src_len);
+CSL_Status pulse_generator_init(int32_t *src_addr, uint16_t src_len);
 
-int16_t pulse_start();
+CSL_Status pulse_start();
 
-int16_t pulse_start_periods(uint16_t periods);
+CSL_Status pulse_start_periods(uint16_t periods);
 
-int16_t pulse_stop();
+CSL_Status pulse_stop();
 
 void pulse_period_finished_callb();
 
