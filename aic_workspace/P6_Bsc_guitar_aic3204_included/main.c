@@ -16,8 +16,9 @@
 
 #define M_PI 3.14159265358979323846
 
-#define FREQ 4000
-#define SEQ_LEN (96000 / FREQ)
+#define FREQ 40000
+#define S_RATE 96000
+#define SEQ_LEN 24 // Gives 10 periods at 40 kHz
 #define READ_BUFFER_LEN 1000
 
 // Declare functions
@@ -27,7 +28,7 @@ void do_sample_and_gain();
 
 interrupt void DMA_ISR(void);
 void interrupt_init();
-void generate_sine_table(int32_t *table, uint16_t samples);
+void generate_sine_table(int32_t *table, float freq, float s_rate, uint16_t samples);
 
 // Interrupt vector table
 extern void VECSTART(void);
@@ -62,7 +63,7 @@ circular_dma_reader_handle reader_handle = CIRCULAR_DMA_READER_HANDLER_RESET;
 
 int main(void)
 {
-    generate_sine_table(sineTable, SEQ_LEN); // generate sine table for pulse generation
+    generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation
     memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
 
     flowmeter_init();   // init board and codec
@@ -103,10 +104,10 @@ void flowmeter_init()
     do_sample_and_gain();
 }
 
-void generate_sine_table(int32_t *table, uint16_t samples)
+void generate_sine_table(int32_t *table, float freq, float s_rate, uint16_t samples)
 {
     uint16_t i = 0;
-    float inc = 2 * M_PI / samples;
+    float inc = 2 * M_PI * (freq / s_rate);
     for (; i < samples; i++)
     {
         table[i] = (((int32_t) (0x7fff * sin(i * inc))) & 0xFFFF) << 16;
