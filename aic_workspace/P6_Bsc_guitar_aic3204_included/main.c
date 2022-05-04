@@ -53,9 +53,15 @@ circular_dma_reader_config reader_config = {
 circular_dma_reader_handle reader_handle = CIRCULAR_DMA_READER_HANDLER_RESET;
 
 
+#include <stdlib.h>
+#include <math.h>
+#include <tms320.h>
+#include <dsplib.h>
+#include <stdio.h>
+#include <stdint.h>
+
 int main(void)
 {
-
     generate_sine_table(sineTable, SEQ_LEN); // generate sine table for pulse generation
     memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
 
