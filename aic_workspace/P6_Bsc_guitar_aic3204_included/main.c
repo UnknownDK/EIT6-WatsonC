@@ -74,7 +74,7 @@ int main(void)
 
     stopwatch_start(&tim_handle);
 
-    while (tick < 3000000)
+    while (tick < 100000000)
     {
         tick++;
     }

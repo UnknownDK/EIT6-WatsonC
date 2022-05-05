@@ -25,8 +25,6 @@ CSL_Status stopwatch_start(stopwatch_handle * handle);
 
 CSL_Status stopwatch_stop(stopwatch_handle * handle);
 
-CSL_Status stopwatch_reset(stopwatch_handle * handle);
-
 CSL_Status stopwatch_read_ns(stopwatch_handle * handle, uint32_t * ns);
 
 #endif /* INCLUDE_FLOWMETER_STOPWATCH_H_ */
