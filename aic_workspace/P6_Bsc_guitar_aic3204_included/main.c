@@ -72,16 +72,16 @@ int main(void)
 
     // main loop
 
-    stopwatch_start(&tim_handle);
-
-    while (tick < 100000000)
-    {
-        tick++;
-    }
-
-    stopwatch_stop(&tim_handle);
-    uint32_t ns = 0;
-    stopwatch_read_ns(&tim_handle, &ns);
+//    stopwatch_start(&tim_handle);
+//
+//    while (tick < 100000000)
+//    {
+//        tick++;
+//    }
+//
+//    stopwatch_stop(&tim_handle);
+//    uint32_t ns = 0;
+//    stopwatch_read_ns(&tim_handle, &ns);
 
     pulse_edge_detection_start();
 
