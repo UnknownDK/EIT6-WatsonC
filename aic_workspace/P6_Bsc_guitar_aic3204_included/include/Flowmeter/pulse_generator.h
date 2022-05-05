@@ -5,8 +5,8 @@
  *      Author: tardi
  */
 
-#ifndef INCLUDE_PULSE_GENERATOR_H_
-#define INCLUDE_PULSE_GENERATOR_H_
+#ifndef INCLUDE_FLOWMETER_PULSE_GENERATOR_H_
+#define INCLUDE_FLOWMETER_PULSE_GENERATOR_H_
 
 #include "soc.h"
 #include "error_handler.h"
@@ -27,4 +27,4 @@ void pulse_period_finished_callb();
 
 bool pulse_check_interrupt_flag(uint16_t ifr_mask);
 
-#endif /* INCLUDE_PULSE_GENERATOR_H_ */
+#endif /* INCLUDE_FLOWMETER_PULSE_GENERATOR_H_ */

@@ -328,7 +328,6 @@ void do_sample_and_gain()
     /* Configure I2S */
     I2S2_SRGR = 0x0;     // Set sample rate generator register to 0
     I2S2_CR = 0x8010;    // Set serializer control regsiter for 16-bit word, slave, enable I2C
-    I2S2_ICMR = 0x3f;    // Set interrupt mask register to enable interrupts
 
 }
 

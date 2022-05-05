@@ -5,8 +5,8 @@
  *      Author: Mikkel S. Hansen
  */
 
-#ifndef INCLUDE_CIRCULAR_DMA_READER_H_
-#define INCLUDE_CIRCULAR_DMA_READER_H_
+#ifndef INCLUDE_FLOWMETER_CIRCULAR_DMA_READER_H_
+#define INCLUDE_FLOWMETER_CIRCULAR_DMA_READER_H_
 
 #include "csl_error.h"
 #include "stdint.h"
@@ -55,4 +55,4 @@ CSL_Status reader_start(circular_dma_reader_handle * handle);
 
 CSL_Status reader_stop(circular_dma_reader_handle * handle);
 
-#endif /* INCLUDE_CIRCULAR_DMA_READER_H_ */
+#endif /* INCLUDE_FLOWMETER_CIRCULAR_DMA_READER_H_ */

@@ -5,7 +5,7 @@
  *      Author: tardi
  */
 
-#include <pulse_generator.h>
+#include <Flowmeter/pulse_generator.h>
 #include "stdint.h"
 
 bool counting_periods = false;
