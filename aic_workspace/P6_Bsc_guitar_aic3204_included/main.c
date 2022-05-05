@@ -1,17 +1,19 @@
-#include <Flowmeter/circular_dma_reader.h>
-#include <Flowmeter/pulse_detector.h>
-#include <Flowmeter/pulse_generator.h>
 #include "stdio.h"
 #include "math.h"
 #include "stdint.h"
 #include "string.h"
 
 #include "csl_intc.h"
+#include <csl_gpt.h>
 #include "ezdsp5535.h"  // board header
 #include "ezdsp5535_gpio.h"
 #include "register_system.h"
 #include "pll.h"
 #include "aic3204.h"        // codec header
+#include <Flowmeter/circular_dma_reader.h>
+#include <Flowmeter/pulse_detector.h>
+#include <Flowmeter/pulse_generator.h>
+#include <Flowmeter/stopwatch.h>
 
 #define M_PI 3.14159265358979323846
 
@@ -52,6 +54,8 @@ circular_dma_reader_config reader_config = {
 
 circular_dma_reader_handle reader_handle = CIRCULAR_DMA_READER_HANDLER_RESET;
 
+stopwatch_handle tim_handle = { GPT_0 };
+
 
 int main(void)
 {
@@ -62,16 +66,22 @@ int main(void)
 
     //pulse_start_periods(5);
     pulse_start();
-
     reader_start(&reader_handle);
 
     volatile unsigned long tick = 0;
 
     // main loop
-//    while (tick < 10000000)
-//    {
-//        tick++;
-//    }
+
+    stopwatch_start(&tim_handle);
+
+    while (tick < 3000000)
+    {
+        tick++;
+    }
+
+    stopwatch_stop(&tim_handle);
+    uint32_t ns = 0;
+    stopwatch_read_ns(&tim_handle, &ns);
 
     pulse_edge_detection_start();
 
@@ -89,6 +99,8 @@ void flowmeter_init()
 
     pulse_generator_init((int32_t*) sineTable, SEQ_LEN);
     reader_init(&reader_handle, &reader_config);
+
+    stopwatch_configure(&tim_handle);
 
     // AIC3204 - audio codec
     aic3204_hardware_init();

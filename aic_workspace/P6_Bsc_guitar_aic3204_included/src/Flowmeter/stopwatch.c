@@ -15,6 +15,7 @@ CSL_Config tim_config = {
                          0
 };
 
+
 CSL_Status stopwatch_configure(stopwatch_handle * handle)
 {
     CSL_Status status = CSL_SOK;
@@ -22,52 +23,44 @@ CSL_Status stopwatch_configure(stopwatch_handle * handle)
 
     if (status != CSL_SOK) return status;
 
-    uint32_t period = 0;
-    status = get_timer_period(handle->range, &period);
+    tim_config.prdLow = 0xFFFF;
+    tim_config.prdHigh = 0xFFFF;
 
-    if (status != CSL_SOK) return status;
+    status = GPT_config(handle->hGpt, &tim_config);
 
-    tim_config.prdLow = (uint16_t) (period & 0xFFFF);
-    tim_config.prdHigh = (uint16_t) (period >> 16);
-
-    status = GPT_config(handle->hGpt, tim_config);
-
-    stopwatch_reset();
+    stopwatch_reset(handle);
 
     return status;
 }
 
-CSL_Status get_timer_period(stopwatch_range range, uint32_t * period) {
-    switch (range) {
-    case MILLIS_1:
-        break;
-    case MILLIS_5:
-        break;
-    case MILLIS_10:
-        break;
-    case MIllis_20:
-        break;
-    default:
-        return CSL_SOK;
-    }
-    return CSL_ESYS_INVPARAMS;
-}
-
-CSL_Status stopwatch_start()
+CSL_Status stopwatch_start(stopwatch_handle * handle)
 {
-
+    return GPT_start(handle->hGpt);
 }
 
-CSL_Status stopwatch_pause()
+CSL_Status stopwatch_stop(stopwatch_handle * handle)
 {
-
+    return GPT_stop(handle->hGpt);
 }
 
-CSL_Status stopwatch_stop()
-{
+CSL_Status stopwatch_reset(stopwatch_handle * handle) {
+    if (handle == NULL) return CSL_ESYS_BADHANDLE;
 
+    /* Set GPT counter register to default value as 0                           */
+    handle->hGpt->regs->TIMCNT1 = CSL_TIM_TIMCNT1_RESETVAL;
+    handle->hGpt->regs->TIMCNT2 = CSL_TIM_TIMCNT2_RESETVAL;
+
+    return CSL_SOK;
 }
 
-CSL_Status stopwatch_reset() {
+CSL_Status stopwatch_read_ns(stopwatch_handle * handle, uint32_t * ns) {
+    // By default and using internal 32 kHz clock the SYS_CLK is 36.846 MHz
+    uint32_t cnt = 0;
+    CSL_Status status = GPT_getCnt(handle->hGpt, &cnt);
 
+    if (status != CSL_SOK) return status;
+
+    *ns = (uint32_t) (cnt * 27.1267361111111111111111);
+
+    return CSL_SOK;
 }
