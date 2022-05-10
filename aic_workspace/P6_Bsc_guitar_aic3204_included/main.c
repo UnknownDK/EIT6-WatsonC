@@ -33,15 +33,24 @@
 
 
 // Macros for converting from byte address space (which the DMA works in) to word address space (which the CPU works in)
-#define WORD_TO_BYTE_DARAM_ADDR_SPACE(addr) ((addr << CSL_DMA_ADDR_SHIFT) + CSL_DMA_DARAM_ADDR_OFFSET)
-#define WORD_TO_BYTE_SARAM_ADDR_SPACE(addr) ((addr << CSL_DMA_ADDR_SHIFT) + CSL_DMA_SARAM_ADDR_OFFSET)
-#define BYTE_TO_WORD_DARAM_ADDR_SPACE(addr) ((addr - CSL_DMA_DARAM_ADDR_OFFSET) >> CSL_DMA_ADDR_SHIFT)
-#define BYTE_TO_WORD_SARAM_ADDR_SPACE(addr) ((addr - CSL_DMA_SARAM_ADDR_OFFSET) >> CSL_DMA_ADDR_SHIFT)
-#define CSL_DARAM_START_BYTE_ADDR           WORD_TO_BYTE_DARAM_ADDR_SPACE(CSL_DMA_DARAM_START_ADDR) // Byte: 0x100C0
-#define CSL_DARAM_END_BYTE_ADDR             WORD_TO_BYTE_DARAM_ADDR_SPACE(CSL_DMA_DARAM_END_ADDR) // Word: 0xFFFF
-#define CSL_SARAM_START_BYTE_ADDR           WORD_TO_BYTE_SARAM_ADDR_SPACE(CSL_DMA_SARAM_START_ADDR) // Byte: 0x90000
-#define CSL_SARAM_END_BYTE_ADDR             WORD_TO_BYTE_SARAM_ADDR_SPACE(CSL_DMA_SARAM_END_ADDR) // Word: 0x3FFFF
-#define BYTE_TO_WORD_ADDR_SPACE(addr)       ((addr >= CSL_DARAM_START_BYTE_ADDR && addr <= CSL_DARAM_END_BYTE_ADDR) ? (BYTE_TO_WORD_DARAM_ADDR_SPACE(addr)) : ((addr >= CSL_SARAM_START_BYTE_ADDR && addr <= CSL_SARAM_END_BYTE_ADDR) ? (BYTE_TO_WORD_SARAM_ADDR_SPACE(addr)) : (addr)))
+#define WORD_TO_BYTE_DARAM_ADDR_SPACE(addr) ((((uint32_t) addr) << CSL_DMA_ADDR_SHIFT) + CSL_DMA_DARAM_ADDR_OFFSET)
+#define WORD_TO_BYTE_SARAM_ADDR_SPACE(addr) ((((uint32_t) addr) << CSL_DMA_ADDR_SHIFT) + CSL_DMA_SARAM_ADDR_OFFSET)
+#define BYTE_TO_WORD_DARAM_ADDR_SPACE(addr) ((((uint32_t) addr) - CSL_DMA_DARAM_ADDR_OFFSET) >> CSL_DMA_ADDR_SHIFT)
+#define BYTE_TO_WORD_SARAM_ADDR_SPACE(addr) ((((uint32_t) addr) - CSL_DMA_SARAM_ADDR_OFFSET) >> CSL_DMA_ADDR_SHIFT)
+#define CSL_DARAM_START_BYTE_ADDR           WORD_TO_BYTE_DARAM_ADDR_SPACE((uint32_t) CSL_DMA_DARAM_START_ADDR) // Byte: 0x100C0
+#define CSL_DARAM_END_BYTE_ADDR             WORD_TO_BYTE_DARAM_ADDR_SPACE((uint32_t) CSL_DMA_DARAM_END_ADDR) // Word: 0xFFFF
+#define CSL_SARAM_START_BYTE_ADDR           WORD_TO_BYTE_SARAM_ADDR_SPACE((uint32_t) CSL_DMA_SARAM_START_ADDR) // Byte: 0x90000
+#define CSL_SARAM_END_BYTE_ADDR             WORD_TO_BYTE_SARAM_ADDR_SPACE((uint32_t) CSL_DMA_SARAM_END_ADDR) // Word: 0x3FFFF
+#define BYTE_TO_WORD_ADDR_SPACE(addr)       ((((uint32_t) addr) >= CSL_DARAM_START_BYTE_ADDR && ((uint32_t) addr) <= CSL_DARAM_END_BYTE_ADDR) ? (BYTE_TO_WORD_DARAM_ADDR_SPACE(addr)) : ((((uint32_t) addr) >= CSL_SARAM_START_BYTE_ADDR && ((uint32_t) addr) <= CSL_SARAM_END_BYTE_ADDR) ? (BYTE_TO_WORD_SARAM_ADDR_SPACE(addr)) : ((uint32_t) addr)))
+
+// DMA1 Channel 1 Current Destination Address (word addressing space)
+#define DMA1CH1_WORD_DEST_ADDR BYTE_TO_WORD_ADDR_SPACE((CSL_DMA1_REGS->DMACH1DSAL | ((uint32_t) CSL_DMA1_REGS->DMACH1DSAU << 16)))
+
+// Get element index in a 32 bit array using the address of that element
+#define INT32_ARRAY_INDEX_FROM_ADDR(addr, arr) ((((uint32_t) addr) - ((uint32_t) arr)) >> 1) // Subtract address by array address, bit shift to divide by two, as each element is 2 (16 bit) words
+
+// Get the index of the buffer_read array that is currently being (or hast last been) written to
+#define BUFFER_READ_CURR_INDEX INT32_ARRAY_INDEX_FROM_ADDR(DMA1CH1_WORD_DEST_ADDR - 1, buffer_read) // "-1" is because the DMA (assumably) has already changed destination to the next element, whenever we try to read the address
 
 // Declare functions
 void flowmeter_init();  // init board and codec
@@ -83,13 +92,14 @@ circular_dma_reader_handle reader_handle = CIRCULAR_DMA_READER_HANDLER_RESET;
 
 int main(void)
 {
+
     flowmeter_init();   // init board and codec
 
     edge_detected = false;
     pulse_edge_detection_start();
     reader_start(&reader_handle);
 
-    pulse_start_periods(10);
+    pulse_start_periods(1);
     //pulse_start();
 
     volatile unsigned long tick = 0;
@@ -115,30 +125,13 @@ int main(void)
 
 void flowmeter_init()
 {
-    uint32_t a = CSL_DARAM_START_BYTE_ADDR;
-    uint32_t b = CSL_DARAM_END_BYTE_ADDR;
-    uint32_t c = CSL_SARAM_START_BYTE_ADDR;
-    uint32_t d = CSL_SARAM_END_BYTE_ADDR;
-
-    uint32_t e = BYTE_TO_WORD_DARAM_ADDR_SPACE(0x100C0);
-    uint32_t f = BYTE_TO_WORD_DARAM_ADDR_SPACE(0x90000);
-    uint32_t g = BYTE_TO_WORD_DARAM_ADDR_SPACE((uint32_t) 0x14844);
-
-    uint32_t aa = BYTE_TO_WORD_DARAM_ADDR_SPACE(CSL_DARAM_START_BYTE_ADDR);
-    uint32_t bb = BYTE_TO_WORD_DARAM_ADDR_SPACE(CSL_DARAM_END_BYTE_ADDR);
-    uint32_t cc = BYTE_TO_WORD_SARAM_ADDR_SPACE(CSL_SARAM_START_BYTE_ADDR);
-    uint32_t dd = BYTE_TO_WORD_SARAM_ADDR_SPACE(CSL_SARAM_END_BYTE_ADDR);
-
-
     generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation
     memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
 
     // eZdsp - dev board
     ezdsp5535_init();
 
-    pulse_generator_init((int32_t*) 0xC0, SEQ_LEN);
-    uint32_t src_addr = (uint32_t) (CSL_DMA1_REGS->DMACH0SSAL | ((uint32_t) CSL_DMA1_REGS->DMACH0SSAU << 16));
-    int16_t * ptr = (int16_t*) BYTE_TO_WORD_ADDR_SPACE(src_addr);
+    pulse_generator_init(sineTable, SEQ_LEN);
     pulse_detector_init(&edge_detection_stop_callb);
     reader_init(&reader_handle, &reader_config);
 
@@ -175,8 +168,11 @@ void cpy_int32_array_to_int16(int32_t * src, int16_t * dest, uint16_t len) {
     }
 }
 
+uint16_t record_stop_index = 0;
+
 // Callback function for when edge detection is stopping
 void edge_detection_stop_callb(void) {
+    record_stop_index = (uint16_t) BUFFER_READ_CURR_INDEX;
     reader_stop(&reader_handle);
     cpy_int32_array_to_int16(buffer_read, buffer_read_int16, READ_BUFFER_LEN);
 }
@@ -192,17 +188,19 @@ interrupt void DMA_ISR(void)
         pulse_period_finished_callb();
 }
 
+uint16_t array_index_edge_start = 0;
+
 interrupt void I2S2_receive_ISR(void) {
 
     // Copy I2S value and DMA destination addresses before they change
     short reg = (short) CSL_I2S2_REGS->I2SRXRT1;
-    uint32_t dma_input_addr = CSL_DMA1_REGS->DMACH1DSAL | ((uint32_t) CSL_DMA1_REGS->DMACH1DSAU << 16);
-
-
+    uint16_t curr_index = (uint16_t) BUFFER_READ_CURR_INDEX;
 
     pulse_edge_detection_stop_counter();
 
     if (!edge_detected && (reg > EDGE_THRESHOLD || reg < -EDGE_THRESHOLD)) { // above approx. 100 mVp amplitude
+        array_index_edge_start = curr_index;
+
         edge_detected = true;
         pulse_edge_detection_stop_in_n(SEQ_LEN + 10);
     }
