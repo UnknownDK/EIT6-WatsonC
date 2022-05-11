@@ -8,7 +8,7 @@
 #include <Flowmeter/pulse_generator.h>
 #include "stdint.h"
 
-bool counting_periods = false;
+bool counting_repetitions = false;
 uint32_t periods_left = 0;
 
 CSL_DMA_Handle dmaHandle;
@@ -50,16 +50,17 @@ CSL_Status pulse_generator_init(int32_t *src_addr, uint16_t src_len) {
 
 CSL_Status pulse_start() {
 
-    counting_periods = false;
+    counting_repetitions = false;
 
     return DMA_start(dmaHandle);
 }
 
-CSL_Status pulse_start_periods(uint16_t periods) {
+CSL_Status pulse_start_periods(uint16_t repetitions) {
 
-    counting_periods = true;
+    // The pulse generator should count how many repetitions is being generated.
+    counting_repetitions = true;
 
-    periods_left = periods;
+    periods_left = repetitions;
 
     return DMA_start(dmaHandle);
 }
@@ -68,14 +69,15 @@ CSL_Status pulse_stop() {
 
     CSL_Status status = DMA_stop(dmaHandle);
 
+    // Sets the I2S2 output value to 0 so that the DAC is not continuously outputting some arbitrary DC voltage.
     set_i2s_output_value(0);
 
     return status;
 }
 
-void pulse_period_finished_callb() {
-    if (counting_periods) {
-        // Decrement pulse period counter, and if 0, stop pulsing
+void pulse_repetition_ended_callb() {
+    if (counting_repetitions) {
+        // Decrement pulse repetition counter, and if 0, stop pulsing
         if (--periods_left == 0) pulse_stop();
     }
 }

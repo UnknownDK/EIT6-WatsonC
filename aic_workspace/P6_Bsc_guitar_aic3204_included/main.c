@@ -20,17 +20,16 @@
 
 #define M_PI 3.14159265358979323846
 
-#define FREQ 40000
-#define S_RATE 96000
-#define SEQ_LEN 24 // Gives 10 periods at 40 kHz
+#define FREQ 40000      // Pulse sine frequency
+#define S_RATE 96000    // Sample rate
+#define SEQ_LEN 24      // Gives 10 periods at 40 kHz
 #define READ_BUFFER_LEN 1000
-#define EDGE_THRESHOLD 12000
+#define EDGE_THRESHOLD 12000    // Threshold that correspond to approx. positive 366 mVp voltage
 
 // The following macros are used for extracting the 16 bit data stored in int32_t type arrays.
 // The arrays must be 32 bit in order to use DMA.
 #define INT32ARRAY_ADDRESS_FROM_INDEX(arr, index) (((int16_t *) arr) + index*2)
 #define INT32ARRAY_VAL_FROM_INDEX(arr, index) (*INT32ARRAY_ADDRESS_FROM_INDEX(arr, index))
-
 
 // Macros for converting from byte address space (which the DMA works in) to word address space (which the CPU works in)
 #define WORD_TO_BYTE_DARAM_ADDR_SPACE(addr) ((((uint32_t) addr) << CSL_DMA_ADDR_SHIFT) + CSL_DMA_DARAM_ADDR_OFFSET)
@@ -52,7 +51,7 @@
 // Get the index of the buffer_read array that is currently being (or hast last been) written to
 #define BUFFER_READ_CURR_INDEX INT32_ARRAY_INDEX_FROM_ADDR(DMA1CH1_WORD_DEST_ADDR - 1, buffer_read) // "-1" is because the DMA (assumably) has already changed destination to the next element, whenever we try to read the address
 
-// Declare functions
+// Declare functions prototypes
 void flowmeter_init();  // init board and codec
 void GPIO_test_init();
 void do_sample_and_gain();
@@ -75,10 +74,10 @@ stopwatch_handle tim_handle = { GPT_0 };
 int32_t buffer_read[READ_BUFFER_LEN] = { 0 };
 int16_t buffer_read_int16[READ_BUFFER_LEN] = {0};
 int32_t sineTable[SEQ_LEN] = { 0 };
-uint16_t tableIndex = 0;
 
-uint16_t edge_start_index = 0;
 bool edge_detected = false;
+uint16_t buffer_index_stop = 0; // Buffer array index at which capturing stopped
+uint16_t buffer_index_edge = 0; // Buffer array index at which an edge was first detected
 
 circular_dma_reader_config reader_config = {
                                             CSL_DMA_CHAN5,
@@ -99,8 +98,8 @@ int main(void)
     pulse_edge_detection_start();
     reader_start(&reader_handle);
 
-    pulse_start_periods(1);
-    //pulse_start();
+    //pulse_start_periods(1);
+    pulse_start();
 
     volatile unsigned long tick = 0;
 
@@ -149,6 +148,15 @@ void flowmeter_init()
     interrupt_init();
 }
 
+/**
+ * Generates samples for a sinusoidal wave at a specified frequency and sample rate.
+ * It might be necessary to generate samples for more than one sinusoidal period,
+ * in order to get a clean continuous wave when repeating the sequence.
+ * @param table Array for resulting samples.
+ * @param freq Sinuoidal wave frequency.
+ * @param s_rate Sample rate.
+ * @param samples The number of samples to generate.
+ */
 void generate_sine_table(int32_t *table, float freq, float s_rate, uint16_t samples)
 {
     uint16_t i = 0;
@@ -164,17 +172,16 @@ void generate_sine_table(int32_t *table, float freq, float s_rate, uint16_t samp
 void cpy_int32_array_to_int16(int32_t * src, int16_t * dest, uint16_t len) {
     uint16_t i;
     for (i = 0; i < len; i++) {
-        dest[i] = INT32ARRAY_VAL_FROM_INDEX(src, i);
+        dest[i] = INT32ARRAY_VAL_FROM_INDEX(src, i); // Macro for getting the 16 bit value from the upper 16 bits of the 32 bit element at index i in the src array.
     }
 }
 
-uint16_t record_stop_index = 0;
-
 // Callback function for when edge detection is stopping
 void edge_detection_stop_callb(void) {
-    record_stop_index = (uint16_t) BUFFER_READ_CURR_INDEX;
-    reader_stop(&reader_handle);
-    cpy_int32_array_to_int16(buffer_read, buffer_read_int16, READ_BUFFER_LEN);
+    buffer_index_stop = (uint16_t) BUFFER_READ_CURR_INDEX; // Capture current buffer array index before DMA registers change
+    reader_stop(&reader_handle); // Stop capturing
+    cpy_int32_array_to_int16(buffer_read, buffer_read_int16, READ_BUFFER_LEN); // Copy upper 16 bits from the 32 bit dma buffer array into a 16 bit array that can be read easier
+    edge_detected = false; // Reset edge detection
 }
 
 interrupt void DMA_ISR(void)
@@ -185,24 +192,25 @@ interrupt void DMA_ISR(void)
 
     // Check for particular interrupt flag bit and respond to it
     if (pulse_check_interrupt_flag(ifr)) // DMA (I2S2 transmit) transfer complete interrupt
-        pulse_period_finished_callb();
+        pulse_repetition_ended_callb();
 }
-
-uint16_t array_index_edge_start = 0;
 
 interrupt void I2S2_receive_ISR(void) {
 
     // Copy I2S value and DMA destination addresses before they change
     short reg = (short) CSL_I2S2_REGS->I2SRXRT1;
-    uint16_t curr_index = (uint16_t) BUFFER_READ_CURR_INDEX;
+    uint16_t curr_index = (uint16_t) BUFFER_READ_CURR_INDEX; // current array index being written to
 
+    // if an edge has been detected, count down until the end of the recording
     pulse_edge_detection_stop_counter();
 
-    if (!edge_detected && (reg > EDGE_THRESHOLD || reg < -EDGE_THRESHOLD)) { // above approx. 100 mVp amplitude
-        array_index_edge_start = curr_index;
+    // Check if the current sample is an edge (if the absolute magnitude is above the threshold)
+    if (!edge_detected && (reg > EDGE_THRESHOLD || reg < -EDGE_THRESHOLD)) {
+        buffer_index_edge = curr_index; // Remember this index as the first edge detected
 
         edge_detected = true;
-        pulse_edge_detection_stop_in_n(SEQ_LEN + 10);
+
+        pulse_edge_detection_stop_in_n(SEQ_LEN + 10); // Capture another SEQ_LEN + 10 samples before stopping capturing
     }
 }
 
