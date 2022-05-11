@@ -23,18 +23,18 @@ CSL_Status stopwatch_configure(stopwatch_handle * handle)
 
     if (status != CSL_SOK) return status;
 
+    // Sets period to max
     tim_config.prdLow = 0xFFFF;
     tim_config.prdHigh = 0xFFFF;
 
     status = GPT_config(handle->hGpt, &tim_config);
-
-    //stopwatch_reset(handle);
 
     return status;
 }
 
 CSL_Status stopwatch_start(stopwatch_handle * handle)
 {
+    // The contents of the timer period register is loaded into the counter register and the timer counters down from there.
     return GPT_start(handle->hGpt);
 }
 

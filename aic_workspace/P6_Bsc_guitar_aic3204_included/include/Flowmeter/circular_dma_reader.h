@@ -49,10 +49,25 @@ typedef struct {
     CSL_DMA_Config dmaConfig;
 } circular_dma_reader_handle;
 
+/**
+ * Initializes and configures the DMA to read from designated peripheral source address
+ * and on the given event type will place the data in a circular buffer.
+ * @return CSL success or error codes found in csl_error.h
+ */
 CSL_Status reader_init(circular_dma_reader_handle * handle, circular_dma_reader_config * config);
 
+/**
+ * Starts the DMA controller
+ * @param handle
+ * @return CSL success or error codes found in csl_error.h
+ */
 CSL_Status reader_start(circular_dma_reader_handle * handle);
 
+/**
+ * Stops the DMA controller
+ * @param handle
+ * @return CSL success or error codes found in csl_error.h
+ */
 CSL_Status reader_stop(circular_dma_reader_handle * handle);
 
 #endif /* INCLUDE_FLOWMETER_CIRCULAR_DMA_READER_H_ */

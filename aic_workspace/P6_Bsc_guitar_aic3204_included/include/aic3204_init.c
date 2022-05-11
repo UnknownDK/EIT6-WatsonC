@@ -238,7 +238,7 @@ void do_sample_and_gain()
 {
 
     /* Configure Parallel Port */
-    SYS_EXBUSSEL = 0x1000;  // Configure Parallel Port mode = 1 for I2S2
+    SYS_EXBUSSEL |= 0x1000;  // Configure Parallel Port mode = 1 for I2S2
 
 
     /* Configure AIC3204 registers */
