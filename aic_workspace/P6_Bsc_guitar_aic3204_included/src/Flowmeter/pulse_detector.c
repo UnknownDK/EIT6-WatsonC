@@ -28,6 +28,8 @@ pd_status pulse_edge_detection_start()
 
 pd_status pulse_edge_detection_stop_in_n(int16_t n) {
     stop_counter = n;
+
+    return SUCCESS;
 }
 
 pd_status pulse_edge_detection_stop_counter() {
