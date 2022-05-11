@@ -134,59 +134,27 @@ GenerateClassCluster=0
 DocumentUniqueId=PIDSPBSB
 
 [GeneratedDocument1]
-DocumentPath=Project Outputs for Watson_amp\ampV1.EXTREP
-DItemRevisionGUID=
-
-[GeneratedDocument2]
-DocumentPath=Project Outputs for Watson_amp\ampV1.REP
-DItemRevisionGUID=
-
-[GeneratedDocument3]
-DocumentPath=Project Outputs for Watson_amp\ampV1_Copper_Signal_Bot.gbr
-DItemRevisionGUID=
-
-[GeneratedDocument4]
-DocumentPath=Project Outputs for Watson_amp\ampV1_Copper_Signal_Top.gbr
-DItemRevisionGUID=
-
-[GeneratedDocument5]
-DocumentPath=Project Outputs for Watson_amp\ampV1_Profile.gbr
-DItemRevisionGUID=
-
-[GeneratedDocument6]
-DocumentPath=Project Outputs for Watson_amp\ampV1_PTH_Drill.gbr
-DItemRevisionGUID=
-
-[GeneratedDocument7]
 DocumentPath=Project Outputs for Watson_amp\analogSwitchingV1.EXTREP
 DItemRevisionGUID=
 
-[GeneratedDocument8]
+[GeneratedDocument2]
 DocumentPath=Project Outputs for Watson_amp\analogSwitchingV1.REP
 DItemRevisionGUID=
 
-[GeneratedDocument9]
+[GeneratedDocument3]
 DocumentPath=Project Outputs for Watson_amp\analogSwitchingV1_Copper_Signal_Bot.gbr
 DItemRevisionGUID=
 
-[GeneratedDocument10]
+[GeneratedDocument4]
 DocumentPath=Project Outputs for Watson_amp\analogSwitchingV1_Copper_Signal_Top.gbr
 DItemRevisionGUID=
 
-[GeneratedDocument11]
+[GeneratedDocument5]
 DocumentPath=Project Outputs for Watson_amp\analogSwitchingV1_Profile.gbr
 DItemRevisionGUID=
 
-[GeneratedDocument12]
+[GeneratedDocument6]
 DocumentPath=Project Outputs for Watson_amp\analogSwitchingV1_PTH_Drill.gbr
-DItemRevisionGUID=
-
-[GeneratedDocument13]
-DocumentPath=Project Outputs for Watson_amp\Design Rule Check - ampV1.html
-DItemRevisionGUID=
-
-[GeneratedDocument14]
-DocumentPath=Project Outputs for Watson_amp\Design Rule Check - analogSwitchingV1.html
 DItemRevisionGUID=
 
 [Configuration1]
