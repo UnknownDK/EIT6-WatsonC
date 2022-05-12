@@ -21,6 +21,8 @@
 #include <Flowmeter/pulse_generator.h>
 #include <Flowmeter/stopwatch.h>
 #include <Flowmeter/expansion_board.h>
+#include <Flowmeter/hwfft_test.h>
+#include "hwafft.h"
 
 #define FREQ 40000      // Pulse sine frequency
 #define S_RATE 96000    // Sample rate
@@ -73,6 +75,13 @@ exp_board_obj exp_obj = { { CSL_GPIO_PIN8, CSL_GPIO_PIN3, CSL_GPIO_PIN0,
 
 exp_board_handle exp_handle;
 
+#pragma DATA_SECTION(data_br_buf, "data_br_buf");  //assign to certain memory regions
+#pragma DATA_SECTION(fft_scratch, "fft_scratch");  //this secures memory allignment
+int32_t fft_scratch[4096];
+int32_t data_br_buf[4096];
+
+
+
 
 int main(void)
 {
@@ -80,13 +89,35 @@ int main(void)
 	flowmeter_init();   // init board and codec
 
 	edge_detected = false;
-	pulse_edge_detection_start();
-	reader_start(&reader_handle);
+	//pulse_edge_detection_start();
+	//reader_start(&reader_handle);
 
 	//pulse_start_periods(1);
-	pulse_start();
+	//pulse_start();
 
 	volatile unsigned long tick = 0;
+	int i;
+	int32_t tester[8];
+	int32_t testerShift[8];
+    for(i=0;i<8;i++){
+        tester[i] = sineTable[i];
+        //testerShift[i] = sineTable[i]>>16;
+    }
+    int a;
+
+    hwafft_br(tester, data_br_buf,8);
+    //for(i=0;i<8;i++){
+    //    tester[i] = data_br_buf[i];
+        //testerShift[i] = sineTable[i]>>16;
+    //}
+
+    //                      ------------- PERFORMING FFT ---------------------------
+    a = hwafft_8pts(&data_br_buf[0], &fft_scratch[0],&fft_scratch[0],&data_br_buf[0],0,0); // Function for calling the hardware FFT
+
+    ezdsp5535_wait( 1000 );  // Wait for 1000 cycles
+
+
+
 
 	while (1)
 	{
@@ -210,3 +241,7 @@ void interrupt_init()
 
 	IRQ_globalEnable();
 }
+
+
+
+
