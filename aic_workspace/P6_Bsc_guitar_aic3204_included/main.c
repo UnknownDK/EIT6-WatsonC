@@ -17,6 +17,7 @@
 #include <Flowmeter/pulse_detector.h>
 #include <Flowmeter/pulse_generator.h>
 #include <Flowmeter/stopwatch.h>
+#include <Flowmeter/sing_around.h>
 
 #define M_PI 3.14159265358979323846
 

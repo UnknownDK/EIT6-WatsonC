@@ -6,7 +6,7 @@
  */
 
 #include <Flowmeter/pulse_generator.h>
-#include "stdint.h"
+
 
 bool counting_repetitions = false;
 uint32_t periods_left = 0;
