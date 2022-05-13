@@ -15,7 +15,7 @@
 #define MAGI NULL
 
 
-int16_t syngRundt(uint16_t id1, uint16_t id2, uint16_t nrRounds,uint16_t antalMeas){
+int16_t syngRundt(exp_board_handle test, uint16_t id1, uint16_t id2, uint16_t nrRounds,uint16_t antalMeas ){
     if(antalMeas > MAX_TOTAL_MEAS){
         return 0;
     }
@@ -28,11 +28,14 @@ int16_t syngRundt(uint16_t id1, uint16_t id2, uint16_t nrRounds,uint16_t antalMe
     uint32_t timerVar;
 
     //memory allocation
-    resultArray = (int16_t*) malloc( * sizeof(int16_t));
+    resultArray = (int16_t*) malloc(antalMeas * sizeof(int16_t));
     if (!resultArray){
         //fejlhaandtering
         return 0;
     }
+
+
+
 
     int16_t i = 0;                      //counts measuring number
     for(i = 0; i < antalMeas ; i++){    //loop for hver maaling
@@ -40,22 +43,26 @@ int16_t syngRundt(uint16_t id1, uint16_t id2, uint16_t nrRounds,uint16_t antalMe
         int16_t j = 0;                  //counts sing arounds
         //start ur
         for (j = 0; j < nrRounds ; j++){
-            //taend for de rette kanaler
-            //gpioTingDAC(id1)
-            //gpioTingADC(id2)
+            exp_board_enable_adc(test, id1);
+            exp_board_enable_dac(test, id2);
             pulse_start();
             pulse_edge_detection_start();
             while (MAGI){       //tjek for om DMA ting har givet en hoej vaerdi
 
             }
+            exp_board_disable_adc(expboard);
+            exp_board_disable_dac(expboard);
             pulse_stop();
-            //gpioTingDAC(id2)
-            //gpioTingADC(id1)
+            //sender lyd tilbage
+            exp_board_enable_adc(expboard, id2);
+            exp_board_enable_dac(expboard, id1);
             pulse_start();
             pulse_edge_detection_start();
             while (MAGI){       //tjek for om DMA ting har givet en hoej vaerdi
 
             }
+            exp_board_disable_adc(expboard);
+            exp_board_disable_dac(expboard);
             pulse_stop();
         }
 
@@ -69,7 +76,6 @@ int16_t syngRundt(uint16_t id1, uint16_t id2, uint16_t nrRounds,uint16_t antalMe
     resultHolder = averageSpeed(resultArray, antalMeas);
     free(resultArray);
     return resultHolder;
-
 }
 
 int16_t calcSpeedSA(uint32_t time, uint16_t loops){
