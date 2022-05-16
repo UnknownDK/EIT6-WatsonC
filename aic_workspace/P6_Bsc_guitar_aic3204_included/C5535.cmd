@@ -62,7 +62,7 @@ SECTIONS
     .sysmem           >  DARAM7
     .data             >  DARAM7
     .cio              >  DARAM0
-    .bss              >> DARAM6|DARAM5|SARAM9
+    .bss              >> DARAM1_2|DARAM5|SARAM9
     .const            >> SARAM7|SARAM5
     .switch   		  >  SARAM8                /* Switch statement tables     */
     .args     		  >  SARAM1                /* Arguments to main()         */

@@ -25,7 +25,7 @@
 
 #define FREQ 40000      // Pulse sine frequency
 #define S_RATE 96000    // Sample rate
-#define SEQ_LEN 32      // Gives 10 periods at 40 kHz
+#define SEQ_LEN 128      // Gives 10 periods at 40 kHz
 #define READ_BUFFER_LEN 1000
 #define EDGE_THRESHOLD 12000    // Threshold that correspond to approx. positive 366 mVp voltage
 
@@ -38,6 +38,7 @@ void GPIO_test_init();
 void do_sample_and_gain();
 
 void crosscorr_test();
+void fft_test();
 
 interrupt void DMA_ISR(void);
 void interrupt_init();
@@ -62,6 +63,7 @@ int32_t sineTable[SEQ_LEN] = { 0 };
 
 short fakeSignal[32] = { 0 };
 short compareSignal[16] = { 0 };
+long fftSignal[512] = { 0 };
 
 bool edge_detected = false;
 uint16_t buffer_index_stop = 0; // Buffer array index at which capturing stopped
@@ -99,7 +101,9 @@ int main(void)
 
 	//pulse_start_periods(1);
 	//pulse_start();
-    crosscorr_test();
+    //crosscorr_test();
+    fft_test();
+
 
 	volatile unsigned long tick = 0;
 
@@ -112,6 +116,24 @@ int main(void)
 //int32_t fakeSignal[32] = { 0 };
 //int32_t compareSignal[16] = { 0 };
 // Cross correlation test ting
+
+void fft_test()
+{
+    int i = 0;
+    generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN);
+    for(i=0;i<128;i++){
+        fftSignal[i] = (sineTable[i]);
+    }
+
+    rfft32(fftSignal,128,SCALE);
+
+    cifft32_SCALE(fftSignal, 128);
+    cbrev32(fftSignal, fftSignal, 252);
+
+
+}
+
+
 ushort offlag = 0;
 short resultCorr[47];
 void crosscorr_test()
@@ -140,7 +162,6 @@ void crosscorr_test()
     offlag = 0;
     //corr_bias  (DATA *x, DATA *y, DATA *r, ushort nx, ushort ny);
     offlag = corr_raw(compareSignal, fakeSignal, resultCorr, 16, 32);
-
 
 }
 //766
@@ -191,7 +212,8 @@ void generate_sine_table(int32_t *table, float freq, float s_rate,
 	float inc = 2 * M_PI * (freq / s_rate);
 	for (; i < samples; i++)
 	{
-		table[i] = (((int32_t) (0x30 * sin(i * inc))) & 0xFFFF) << 16;
+		//table[i] = (((int32_t) (0x30 * sin(i * inc))) & 0xFFFF) << 16;
+	    table[i] = (((int32_t) (0x7FFF * sin(i * inc))) & 0xFFFF) << 16;
 	}
 }
 
