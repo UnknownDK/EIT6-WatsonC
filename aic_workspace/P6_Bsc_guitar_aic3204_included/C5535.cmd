@@ -66,19 +66,9 @@ SECTIONS
     .const            >> SARAM7|SARAM5
     .switch   		  >  SARAM8                /* Switch statement tables     */
     .args     		  >  SARAM1                /* Arguments to main()         */
-    data_br_buf  	  >  DARAM1_2 /* ADDR = 0x002000, Aligned to addr with 14 least-sig zeros */
-    fft_scratch 	  >  DARAM3_4
+    //data_br_buf  	  >  DARAM1_2 /* ADDR = 0x002000, Aligned to addr with 14 least-sig zeros */
+    //fft_scratch 	  >  DARAM3_4
 
 
 
 }
-
-@REM _hwafft_br = 0x00fefe9c;
-@REM _hwafft_8pts = 0x00fefeb0;
-@REM _hwafft_16pts = 0x00feff9f;
-@REM _hwafft_32pts = 0x00ff00f5;
-@REM _hwafft_64pts = 0x00ff03fe;
-@REM _hwafft_128pts = 0x00ff0593;
-@REM _hwafft_256pts = 0x00ff07a4;
-@REM _hwafft_512pts = 0x00ff09a2;
-@REM _hwafft_1024pts = 0x00ff0c1c;

@@ -3,7 +3,7 @@
 #include "stdio.h"
 #include "math.h"
 #include "stdint.h"
-#include "string.h"
+//#include "string.h"
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -21,10 +21,11 @@
 #include <Flowmeter/pulse_generator.h>
 #include <Flowmeter/stopwatch.h>
 #include <Flowmeter/expansion_board.h>
+#include <Dsplib.h>
 
 #define FREQ 40000      // Pulse sine frequency
 #define S_RATE 96000    // Sample rate
-#define SEQ_LEN 24      // Gives 10 periods at 40 kHz
+#define SEQ_LEN 32      // Gives 10 periods at 40 kHz
 #define READ_BUFFER_LEN 1000
 #define EDGE_THRESHOLD 12000    // Threshold that correspond to approx. positive 366 mVp voltage
 
@@ -35,6 +36,8 @@
 void flowmeter_init();  // init board and codec
 void GPIO_test_init();
 void do_sample_and_gain();
+
+void crosscorr_test();
 
 interrupt void DMA_ISR(void);
 void interrupt_init();
@@ -56,6 +59,10 @@ int32_t buffer_read[READ_BUFFER_LEN] = { 0 };
 int16_t buffer_read_int16[READ_BUFFER_LEN] = { 0 };
 int32_t sineTable[SEQ_LEN] = { 0 };
 
+
+short fakeSignal[32] = { 0 };
+short compareSignal[16] = { 0 };
+
 bool edge_detected = false;
 uint16_t buffer_index_stop = 0; // Buffer array index at which capturing stopped
 uint16_t buffer_index_edge = 0; // Buffer array index at which an edge was first detected
@@ -73,10 +80,10 @@ exp_board_obj exp_obj = { { CSL_GPIO_PIN8, CSL_GPIO_PIN3, CSL_GPIO_PIN0,
 
 exp_board_handle exp_handle;
 
-#pragma DATA_SECTION(data_br_buf, "data_br_buf");  //assign to certain memory regions
-#pragma DATA_SECTION(fft_scratch, "fft_scratch");  //this secures memory allignment
-int32_t fft_scratch[4096];
-int32_t data_br_buf[4096];
+//#pragma DATA_SECTION(data_br_buf, "data_br_buf");  //assign to certain memory regions
+//#pragma DATA_SECTION(fft_scratch, "fft_scratch");  //this secures memory allignment
+//int32_t fft_scratch[4096];
+//int32_t data_br_buf[4096];
 
 
 
@@ -84,14 +91,15 @@ int32_t data_br_buf[4096];
 int main(void)
 {
 
-	flowmeter_init();   // init board and codec
+	//flowmeter_init();   // init board and codec
 
-	edge_detected = false;
-	pulse_edge_detection_start();
-	reader_start(&reader_handle);
+	//edge_detected = false;
+	//pulse_edge_detection_start();
+	//reader_start(&reader_handle);
 
 	//pulse_start_periods(1);
-	pulse_start();
+	//pulse_start();
+    crosscorr_test();
 
 	volatile unsigned long tick = 0;
 
@@ -101,10 +109,47 @@ int main(void)
 	}
 }
 
+//int32_t fakeSignal[32] = { 0 };
+//int32_t compareSignal[16] = { 0 };
+// Cross correlation test ting
+ushort offlag = 0;
+short resultCorr[47];
+void crosscorr_test()
+{
+    int i = 0;
+    generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN);
+    //memset(fakeSignal,0,sizeof(fakeSignal));
+    //memset(compareSignal,0,sizeof(compareSignal));
+    for(i=0;i<47;i++){
+        resultCorr[i] = 0;
+    }
+    for(i=0;i<32;i++){
+        fakeSignal[i] = 0;
+    }
+    for(i=0;i<16;i++){
+        compareSignal[i] = 0;
+    }
+    i = 0;
+    for(i=10;i<32;i++){
+        fakeSignal[i] = (short)(sineTable[i-10]>>8);
+    }
+    i = 0;
+    for(i=5;i<16;i++){
+        compareSignal[i] = (short)(sineTable[i-5]>>8);
+    }
+    offlag = 0;
+    //corr_bias  (DATA *x, DATA *y, DATA *r, ushort nx, ushort ny);
+    offlag = corr_raw(compareSignal, fakeSignal, resultCorr, 16, 32);
+
+
+}
+//766
+
+
 void flowmeter_init()
 {
 	generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
-	memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
+	//memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
 
 	// eZdsp - dev board
 	ezdsp5535_init();
@@ -146,7 +191,7 @@ void generate_sine_table(int32_t *table, float freq, float s_rate,
 	float inc = 2 * M_PI * (freq / s_rate);
 	for (; i < samples; i++)
 	{
-		table[i] = (((int32_t) (0x7fff * sin(i * inc))) & 0xFFFF) << 16;
+		table[i] = (((int32_t) (0x30 * sin(i * inc))) & 0xFFFF) << 16;
 	}
 }
 

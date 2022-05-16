@@ -30,7 +30,7 @@ extern "C" {
 #endif
 
 #include "csl_usbAux.h"
-#include "csl_msc.h"
+#include <csl_msc.h>
 
 #include <stdio.h>
 
