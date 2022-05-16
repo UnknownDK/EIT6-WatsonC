@@ -73,6 +73,13 @@ exp_board_obj exp_obj = { { CSL_GPIO_PIN8, CSL_GPIO_PIN3, CSL_GPIO_PIN0,
 
 exp_board_handle exp_handle;
 
+#pragma DATA_SECTION(data_br_buf, "data_br_buf");  //assign to certain memory regions
+#pragma DATA_SECTION(fft_scratch, "fft_scratch");  //this secures memory allignment
+int32_t fft_scratch[4096];
+int32_t data_br_buf[4096];
+
+
+
 
 int main(void)
 {
