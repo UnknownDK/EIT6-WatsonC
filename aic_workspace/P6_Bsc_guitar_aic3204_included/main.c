@@ -3,7 +3,7 @@
 #include "stdio.h"
 #include "math.h"
 #include "stdint.h"
-#include "string.h"
+//#include "string.h" //smadrer support for huge memory model - memset virker ikke
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -57,6 +57,7 @@ int32_t buffer_read[READ_BUFFER_LEN] = { 0 };
 int16_t buffer_read_int16[READ_BUFFER_LEN] = { 0 };
 int32_t sineTable[SEQ_LEN] = { 0 };
 
+bool edgeBegun = false;
 bool edge_detected = false;
 uint16_t buffer_index_stop = 0; // Buffer array index at which capturing stopped
 uint16_t buffer_index_edge = 0; // Buffer array index at which an edge was first detected
@@ -74,15 +75,48 @@ exp_board_obj exp_obj = { { CSL_GPIO_PIN8, CSL_GPIO_PIN3, CSL_GPIO_PIN0,
 
 exp_board_handle exp_handle;
 
+SA_station_obj singStationObj = {&tim_handle,
+                                 &exp_obj, //hate this
+                                 1,
+                                 2,
+                                 &edgeBegun};
+SA_station_handle singStationHandle;
+
+
+
+
 
 int main(void)
 {
+//    int test;
+//    int32_t time = 357142;      //0.5 meter
+//    int32_t time2 = 10714285*2; //30 meter
+//
+//
+//    test = calcFreqQ(time,12);
+//    test = calcFreqQ(time,15);
+//    test = calcFreqQ(time,18);
+//    test = calcFreqQ(time,21);
+//    test = calcFreqQ(time,22);
+//    test = calcFreqQ(time,26); //omkring sweetspot
+//    test = calcFreqQ(time,31);
+//
+//    test = calcFreqQ(time2,22);
+//    test = calcFreqQ(time2,26);
+//    test = calcFreqQ(time2,31);
+//    test = calcFreqQ(time2,33); // omkring sweetspot
+//    test = calcFreqQ(time2,35);
+//    test = calcFreqQ(time2,38);
+
+
 
 	flowmeter_init();   // init board and codec
 
 	edge_detected = false;
 	pulse_edge_detection_start();
 	reader_start(&reader_handle);
+
+	singAround(singStationHandle,2,1);
 
 	//pulse_start_periods(1);
 	pulse_start();
@@ -98,12 +132,13 @@ int main(void)
 void flowmeter_init()
 {
 	generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
-	memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
+	//memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
 
 	// eZdsp - dev board
 	ezdsp5535_init();
 	exp_handle = &exp_obj;
 	exp_board_init(exp_handle);
+	singStationHandle = &singStationObj;
 
 
 	pulse_generator_init(sineTable, SEQ_LEN);
@@ -115,6 +150,10 @@ void flowmeter_init()
 	CSL_I2S2_REGS->I2SRXRT1 = 0;
 
 	stopwatch_configure(&tim_handle);
+
+
+
+
 
 	// AIC3204 - audio codec
 	aic3204_hardware_init();
@@ -158,6 +197,7 @@ void cpy_int32_array_to_int16(int32_t *src, int16_t *dest, uint16_t len)
 // Callback function for when edge detection is stopping
 void edge_detection_stop_callb(void)
 {
+    edgeBegun = true;
 	buffer_index_stop = (uint16_t) BUFFER_READ_CURR_INDEX; // Capture current buffer array index before DMA registers change
 	reader_stop(&reader_handle); // Stop capturing
 	cpy_int32_array_to_int16(buffer_read, buffer_read_int16, READ_BUFFER_LEN); // Copy upper 16 bits from the 32 bit dma buffer array into a 16 bit array that can be read easier

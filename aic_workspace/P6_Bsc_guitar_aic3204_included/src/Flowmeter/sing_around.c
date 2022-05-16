@@ -7,27 +7,16 @@
  */
 #include "Flowmeter/sing_around.h"
 
-#define MAX_MALLOC 4096
-#define ANGLE_LOOKUP 0.707      //til cos vaerdi der passer til sensorer
-#define SOUNDPATH_LENGTH  15    //Length between sensors
-#define Q 15
 
 
-
-#define MAGI NULL
-
-
-int16_t syngRundt(exp_board_handle expboard, uint16_t id1, uint16_t id2, uint16_t nrRounds,uint16_t antalMeas ){
-    exp_board_disable_adc(expboard); //disable
-    exp_board_disable_dac(expboard);
-
+int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t antalMeas){
+    exp_board_disable_adc(sa_station->expBoard); //disable
+    exp_board_disable_dac(sa_station->expBoard);
 
     if((antalMeas+nrRounds) > MAX_MALLOC){
         return 0;
     }
   
-
-
     //memory allocation
     int16_t *singArray;
     int16_t *resultArray;
@@ -42,11 +31,12 @@ int16_t syngRundt(exp_board_handle expboard, uint16_t id1, uint16_t id2, uint16_
         //fejlhaandtering
         return 0;
     }
-
-    const float factor = (SOUNDPATH_LENGTH/(2*ANGLE_LOOKUP)) / ((int16_t)(1 << Q));
+    uint16_t qOmregner = (uint16_t)1 << Q;
+    //(int16_t)(1 << Q))
+    const float factor = (SOUNDPATH_LENGTH/(2*ANGLE_LOOKUP)) / qOmregner;
     float singResultHolder; //half scratch var
     int16_t resultHolder;
-    uint32_t timerVar;
+    uint32_t watchVar;
 
 
     int16_t i = 0;                      //counts measuring number
@@ -55,44 +45,20 @@ int16_t syngRundt(exp_board_handle expboard, uint16_t id1, uint16_t id2, uint16_
         int16_t j = 0;                  //counts sing arounds
         for (j = 0; j < nrRounds ; j++){
             
-            exp_board_enable_adc(expboard, id1);
-            exp_board_enable_dac(expboard, id2);
-            //start ur
-            pulse_start();
-            pulse_edge_detection_start();
-            while (MAGI){       //tjek for om DMA ting har givet en hoej vaerdi
-
-            }
-            timerVar = MAGI; //save time/stop ur
-            exp_board_disable_adc(expboard);
-            exp_board_disable_dac(expboard);
-            pulse_stop();
-            singArray[j] = calcFreqQ(timerVar, Q);  //upstream freq
+            measureOneWay(sa_station, false, &watchVar);
+            singArray[j] = calcFreqQ(watchVar, Q);  //upstream freq
 
             //sender lyd tilbage
-            exp_board_enable_adc(expboard, id2);
-            exp_board_enable_dac(expboard, id1);
-            //start ur
-            pulse_start();
-            pulse_edge_detection_start();
-            while (MAGI){       //tjek for om DMA ting har givet en hoej vaerdi
-
-            }
-            timerVar = MAGI; //save time/stop ur
-           
-
-            exp_board_disable_adc(expboard);
-            exp_board_disable_dac(expboard);
-            pulse_stop();
-            singArray[j] -= calcFreqQ(timerVar, Q); //subtracts downstream freq
+            measureOneWay(sa_station, true, &watchVar);
+            singArray[j] -= calcFreqQ(watchVar, Q); //subtracts downstream freq
         }
 
         for (j = 0; j < nrRounds ; j++){
             singResultHolder += (factor * (float) singArray[j]);
         }
         singResultHolder /= nrRounds;
-        //Error handling here - increase nrRounds hvis to er
-        resultArray[i] = (int16_t) singResultHolder;
+        //Error handling here - increase nrRounds hvis to maalinger er meget forskellige
+        resultArray[i] = (int16_t) (singResultHolder*(qOmregner>>Q_DIF));
 
 
     }
@@ -102,12 +68,43 @@ int16_t syngRundt(exp_board_handle expboard, uint16_t id1, uint16_t id2, uint16_
     return resultHolder;
 }
 
-int16_t calcFreqQ(uint32_t time, uint16_t Q_outFormat){
-    uint16_t shift = Q_outFormat + 16;
-    int16_t output;
+
+void measureOneWay(SA_station_handle station, bool direction, uint32_t *timerVar){
+    if (direction == true){//change dir
+        uint16_t temp = station->sensorID2;
+        station->sensorID2 = station->sensorID1;
+        station->sensorID1 = temp;
+    }
+    exp_board_enable_adc(station->expBoard, station->sensorID1);
+    exp_board_enable_dac(station->expBoard, station->sensorID2);
+    stopwatch_start(station->watch);
+    pulse_start_periods(REPETITIONS);
+    pulse_edge_detection_start();
+    while (*station->edgeDetected == false){}      //tjek for om DMA ting har givet en hoej vaerdi
+    stopwatch_stop(station->watch);
+    stopwatch_read_ns(station->watch, timerVar); //saves time in timerVar
+    exp_board_disable_adc(station->expBoard);
+    exp_board_disable_dac(station->expBoard);
+    *station->edgeDetected = false;
+    //*edgeDetected = false;
+}
+
+uint16_t calcFreqQ(uint32_t time, uint16_t Q_outFormat){
+    uint16_t shift;
+    uint16_t timeshift = 0;
+    if (Q_outFormat > 15){
+        timeshift = Q_outFormat - 15;
+        shift = 31;
+    }
+    else{
+        shift = Q_outFormat + 16;
+    }
+    int32_t output;
+    time >>= timeshift;
     if(time != 0){
-        output = ((int32_t)1 << shift) / time;
-        return ((int16_t) output >> 16);
+        output = ((uint32_t)1 << shift);
+        output /= time;
+        return ((uint16_t) (output >> 16));
     }
     else{
         //BAD

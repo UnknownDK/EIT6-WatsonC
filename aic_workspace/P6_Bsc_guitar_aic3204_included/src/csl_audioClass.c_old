@@ -21,9 +21,9 @@
  * 28-May-2009 Modifed as per the review comments
  * ============================================================================
  */
+#include <csl_audioClass.h.old>
 #include <string.h>
 
-#include <csl_audioClass.h>
 #include <csl_audioClassAux.h>
 
 /** ============================================================================

@@ -29,7 +29,7 @@ extern "C" {
 #endif
 
 #include "csl_usbAux.h"
-#include "csl_audioClass.h"
+#include <csl_audioClass.h.old>
 
 /** @addtogroup CSL_AC_FUNCTION
  @{ */
