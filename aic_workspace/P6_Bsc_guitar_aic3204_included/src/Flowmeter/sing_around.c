@@ -78,7 +78,7 @@ void measureOneWay(SA_station_handle station, bool direction, uint32_t *timerVar
     exp_board_enable_adc(station->expBoard, station->sensorID1);
     exp_board_enable_dac(station->expBoard, station->sensorID2);
     stopwatch_start(station->watch);
-    pulse_start_periods(REPETITIONS);
+    pulse_start();//_periods(REPETITIONS);
     pulse_edge_detection_start();
     while (*station->edgeDetected == false){}      //tjek for om DMA ting har givet en hoej vaerdi
     stopwatch_stop(station->watch);
@@ -118,7 +118,7 @@ int16_t averageSpeed(int16_t speedResults[], uint16_t nrOfMeasures){
     for (i = 0 ; i < nrOfMeasures ; i++){
         sum += speedResults[i];
     }
-    return (int16_t) (sum /= nrOfMeasures);
+    return (int16_t) (sum / nrOfMeasures);
 }
 
 

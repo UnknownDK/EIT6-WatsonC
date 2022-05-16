@@ -113,12 +113,9 @@ int main(void)
 	flowmeter_init();   // init board and codec
 
 	edge_detected = false;
-	pulse_edge_detection_start();
 	reader_start(&reader_handle);
 
-	singAround(singStationHandle,2,1);
-
-	//pulse_start_periods(1);
+	//singAround(singStationHandle,2,1);
 	pulse_start();
 
 	volatile unsigned long tick = 0;
