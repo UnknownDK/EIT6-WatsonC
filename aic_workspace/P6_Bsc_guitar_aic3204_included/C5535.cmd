@@ -1,69 +1,79 @@
-/******************************************************************************/
-/* LNKX.CMD - COMMAND FILE FOR LINKING C PROGRAMS IN LARGE/HUGE MEMORY MODEL  */
-/*                                                                            */
-/* Usage:                                                                     */
-/*  cl55 <src files> -z -o<out file> -m<map file> lnkx.cmd -l<RTS library>   */
-/*                                                                            */
-/* Description: This file is a sample command file that can be used for       */
-/*              linking programs built with the C Compiler.  Use it as a      */
-/*              guideline; you  may want to change the allocation scheme      */
-/*              according to the size of your program and the memory layout   */
-/*              of your target system.                                        */
-/*                                                                            */
-/*   Notes: (1) You must specify the directory in which <RTS library> is      */
-/*              located.  Either add a "-i<directory>" line to this file      */
-/*              file, or use the system environment variable C55X_C_DIR to    */
-/*              specify a search path for the libraries.                      */
-/*                                                                            */
-/******************************************************************************/
-
--stack    0x2000      /* Primary stack size   */
--sysstack 0x1000      /* Secondary stack size */
--heap     0x2000      /* Heap area size       */
-
--c                    /* Use C linking conventions: auto-init vars at runtime */
--u _Reset             /* Force load of reset interrupt handler                */
-
-/* SPECIFY THE SYSTEM MEMORY MAP */
+/****************************************************************************/
+/*  C5535.cmd                                                               */
+/*  Copyright (c) 2012  Texas Instruments Incorporated                      */
+/*  Author: Rafael de Souza                                                 */
+/*                                                                          */
+/*    Description: This file is a sample linker command file that can be    */
+/*                 used for linking programs built with the C compiler and  */
+/*                 running the resulting .out file on a C5535.              */
+/*                 Use it as a guideline.  You will want to                 */
+/*                 change the memory layout to match your specific          */
+/*                 target system.  You may want to change the allocation    */
+/*                 scheme according to the size of your program.            */
+/*                                                                          */
+/****************************************************************************/
 
 MEMORY
 {
- PAGE 0:  /* ---- Unified Program/Data Address Space ---- */
+    MMR:     o = 0x000000  l = 0x0000c0  /* 192B Memory Mapped Registers */
+    DARAM0:  o = 0x0000C0  l = 0x001F40  /* 8kB Dual Access RAM 0 */
+    DARAM1:  o = 0x002000  l = 0x002000  /* 8kB Dual Access RAM 1 */
+    DARAM2:  o = 0x004000  l = 0x002000  /* 8kB Dual Access RAM 2 */
+    DARAM3:  o = 0x006000  l = 0x002000  /* 8kB Dual Access RAM 3 */
+    DARAM4:  o = 0x008000  l = 0x002000  /* 8kB Dual Access RAM 4 */
+    DARAM5:  o = 0x00A000  l = 0x002000  /* 8kB Dual Access RAM 5 */
+    DARAM6:  o = 0x00C000  l = 0x002000  /* 8kB Dual Access RAM 6 */
+    DARAM7:  o = 0x00E000  l = 0x002000  /* 8kB Dual Access RAM 7 */
 
-  MMR    (RWIX): origin = 0x000000, length = 0x0000c0  /* MMRs */
-  DARAM0 (RWIX): origin = 0x0000c0, length = 0x00ff40  /*  64KB - MMRs */
-  SARAM0 (RWIX): origin = 0x010000, length = 0x010000  /*  64KB */
-  SARAM1 (RWIX): origin = 0x020000, length = 0x020000  /* 128KB */
-  SARAM2 (RWIX): origin = 0x040000, length = 0x00FE00  /*  64KB */
-  VECS   (RWIX): origin = 0x04FE00, length = 0x000200  /*  512B */
-  PDROM   (RIX): origin = 0xff8000, length = 0x008000  /*  32KB */
+    SARAM0:   o = 0x010000  l = 0x002000  /* 8kB Single Access RAM 0 */
+    SARAM1:   o = 0x012000  l = 0x002000  /* 8kB Single Access RAM 1 */
+    SARAM2:   o = 0x014000  l = 0x002000  /* 8kB Single Access RAM 2 */
+    SARAM3:   o = 0x016000  l = 0x002000  /* 8kB Single Access RAM 3 */
+    SARAM4:   o = 0x018000  l = 0x002000  /* 8kB Single Access RAM 4 */
+    SARAM5:   o = 0x01A000  l = 0x002000  /* 8kB Single Access RAM 5 */
+    SARAM6:   o = 0x01C000  l = 0x002000  /* 8kB Single Access RAM 6 */
+    SARAM7:   o = 0x01E000  l = 0x002000  /* 8kB Single Access RAM 7 */
+    SARAM8:   o = 0x020000  l = 0x002000  /* 8kB Single Access RAM 8 */
+    SARAM9:   o = 0x022000  l = 0x002000  /* 8kB Single Access RAM 9 */
+    SARAM10:  o = 0x024000  l = 0x002000  /* 8kB Single Access RAM 10 */
+    SARAM11:  o = 0x026000  l = 0x002000  /* 8kB Single Access RAM 11 */
+    SARAM12:  o = 0x028000  l = 0x002000  /* 8kB Single Access RAM 12 */
+    SARAM13:  o = 0x02A000  l = 0x002000  /* 8kB Single Access RAM 13 */
+    SARAM14:  o = 0x02C000  l = 0x002000  /* 8kB Single Access RAM 14 */
+    SARAM15:  o = 0x02E000  l = 0x002000  /* 8kB Single Access RAM 15 */
+    SARAM16:  o = 0x030000  l = 0x002000  /* 8kB Single Access RAM 16 */
+    SARAM17:  o = 0x032000  l = 0x002000  /* 8kB Single Access RAM 17 */
+    SARAM18:  o = 0x034000  l = 0x002000  /* 8kB Single Access RAM 18 */
+    SARAM19:  o = 0x036000  l = 0x002000  /* 8kB Single Access RAM 19 */
+    SARAM20:  o = 0x038000  l = 0x002000  /* 8kB Single Access RAM 20 */
+    SARAM21:  o = 0x03A000  l = 0x002000  /* 8kB Single Access RAM 21 */
+    SARAM22:  o = 0x03C000  l = 0x002000  /* 8kB Single Access RAM 22 */
+    SARAM23:  o = 0x03E000  l = 0x002000  /* 8kB Single Access RAM 23 */
+    SARAM24:  o = 0x040000  l = 0x002000  /* 8kB Single Access RAM 24 */
+    SARAM25:  o = 0x042000  l = 0x002000  /* 8kB Single Access RAM 25 */
+    SARAM26:  o = 0x044000  l = 0x002000  /* 8kB Single Access RAM 26 */
+    SARAM27:  o = 0x046000  l = 0x002000  /* 8kB Single Access RAM 27 */
+    SARAM28:  o = 0x048000  l = 0x002000  /* 8kB Single Access RAM 28 */
+    SARAM29:  o = 0x04A000  l = 0x002000  /* 8kB Single Access RAM 29 */
+    SARAM30:  o = 0x04C000  l = 0x002000  /* 8kB Single Access RAM 30 */
+    SARAM31:  o = 0x04E000  l = 0x002000  /* 8kB Single Access RAM 31 */
 
- PAGE 2:  /* -------- 64K-word I/O Address Space -------- */
-
-  IOPORT (RWI) : origin = 0x000000, length = 0x020000
+    ROM:     o = 0xFE0000  l = 0x01FF00  /* 128kB ROM (MPNMC=0) or CS5 (MPNMC=1) */
+    VECS:    o = 0xFFFF00  l = 0x000100  /* reset vector */
 }
-
-/* SPECIFY THE SECTIONS ALLOCATION INTO MEMORY */
 
 SECTIONS
 {
-   .text     >> SARAM1|SARAM2|SARAM0  /* Code                        */
-
-   /* Both stacks must be on same physical memory page               */
-   .stack    >  DARAM0                /* Primary system stack        */
-   .sysstack >  DARAM0                /* Secondary system stack      */
-
-   .data     >> DARAM0|SARAM0|SARAM1  /* Initialized vars            */
-   .bss      >> DARAM0|SARAM0|SARAM1  /* Global & static vars        */
-   .const    >> DARAM0|SARAM0|SARAM1  /* Constant data               */
-   .sysmem   >  DARAM0|SARAM0|SARAM1  /* Dynamic memory (malloc)     */
-   .switch   >  SARAM2                /* Switch statement tables     */
-   .cinit    >  SARAM2                /* Auto-initialization tables  */
-   .pinit    >  SARAM2                /* Initialization fn tables    */
-   .cio      >  SARAM2                /* C I/O buffers               */
-   .args     >  SARAM2                /* Arguments to main()         */
-
-    vectors  >  VECS                  /* Interrupt vectors           */
-
-   .ioport   >  IOPORT PAGE 2         /* Global & static ioport vars */
+    vectors (NOLOAD)  >  VECS  /* If MPNMC = 1, remove the NOLOAD directive */
+    .cinit            >  DARAM0
+	/* Arbitrary assignment of memory segments to .text section.   */
+	/* Can be expanded or reduced observing limitations of SPRAA46 */
+    .text             >> SARAM0|SARAM1|SARAM2|SARAM3|SARAM4
+    .stack            >  DARAM0
+    .sysstack         >  DARAM0
+    .sysmem           >  DARAM4
+    .data             >  DARAM4
+    .cio              >  DARAM0
+    .bss              >  DARAM5
+    .const            >  DARAM0
 }
