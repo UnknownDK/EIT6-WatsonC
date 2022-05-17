@@ -37,8 +37,10 @@ void flowmeter_init();  // init board and codec
 void GPIO_test_init();
 void do_sample_and_gain();
 
+short max_finder(short array[], short length);
 void crosscorr_test();
 void fft_test();
+void fdzp(short array[], short length);
 
 interrupt void DMA_ISR(void);
 void interrupt_init();
@@ -61,8 +63,7 @@ int16_t buffer_read_int16[READ_BUFFER_LEN] = { 0 };
 int32_t sineTable[SEQ_LEN] = { 0 };
 
 #define FFTSIZE 16
-short fakeSignal[32] = { 0 };
-short compareSignal[16] = { 0 };
+
 long fftSignal[FFTSIZE*2] = { 0 };
 
 bool edge_detected = false;
@@ -101,8 +102,8 @@ int main(void)
 
 	//pulse_start_periods(1);
 	//pulse_start();
-    //crosscorr_test();
-    fft_test();
+    crosscorr_test();
+    //fft_test();
 
 
 	volatile unsigned long tick = 0;
@@ -119,7 +120,7 @@ int main(void)
 #define NX 16
 void fft_test()
 {
-    int i = 0;
+    //int i = 0;
     //generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN);
     //for(i=0;i<FFTSIZE;i++){
     //    fftSignal[i] = (sineTable[i]);
@@ -172,40 +173,78 @@ void fft_test()
 
 
 }
-
+#define COMPSIGLEN 21
+#define FAKSIGLEN 128
+#define RSLTCORRLEN (COMPSIGLEN+FAKSIGLEN-1)
 
 ushort offlag = 0;
-short resultCorr[47];
+short resultCorr[RSLTCORRLEN];
+short fakeSignal[FAKSIGLEN] = { 0 };
+short compareSignal[COMPSIGLEN] = { 0 };
+long  fdzpArray[FAKSIGLEN*4];
+
 void crosscorr_test()
 {
     int i = 0;
     generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN);
     //memset(fakeSignal,0,sizeof(fakeSignal));
     //memset(compareSignal,0,sizeof(compareSignal));
-    for(i=0;i<47;i++){
+    for(i=0;i<RSLTCORRLEN;i++){
         resultCorr[i] = 0;
     }
-    for(i=0;i<32;i++){
+    for(i=0;i<FAKSIGLEN;i++){
         fakeSignal[i] = 0;
     }
-    for(i=0;i<16;i++){
+    for(i=0;i<COMPSIGLEN;i++){
         compareSignal[i] = 0;
     }
     i = 0;
-    for(i=10;i<32;i++){
-        fakeSignal[i] = (short)(sineTable[i-10]>>8);
+    for(i=30;i<51;i++){
+        fakeSignal[i] = (short)(sineTable[i-30]>>16);
     }
     i = 0;
-    for(i=5;i<16;i++){
-        compareSignal[i] = (short)(sineTable[i-5]>>8);
+    for(i=0;i<21;i++){
+        compareSignal[i] = (short)(sineTable[i]>>16);
     }
     offlag = 0;
+    //fdzp();
+    fdzp(fakeSignal,FAKSIGLEN);
     //corr_bias  (DATA *x, DATA *y, DATA *r, ushort nx, ushort ny);
-    offlag = corr_raw(compareSignal, fakeSignal, resultCorr, 16, 32);
-
+    offlag = corr_raw(compareSignal, fakeSignal, resultCorr, COMPSIGLEN, FAKSIGLEN);
+    short corrIndex = max_finder(resultCorr, RSLTCORRLEN);
+    float timeLag = ((float)(corrIndex +1)-COMPSIGLEN)/S_RATE; // Magi
 }
 //766
 
+void fdzp(short shortArray[], short length){
+    int i = 0;
+    for(i=0;i<length*2;i++){
+        //fdzpArray[i] = i % 2 ? 0x00 : shortArray[(int)(i/2)];
+        fdzpArray[i] = i % 2 ? 0x00000000 : shortArray[i/2];
+    }
+    for(i=length*2;i<length*4;i++){
+        //fdzpArray[i] = i % 2 ? 0x00 : shortArray[(int)(i/2)];
+        fdzpArray[i] = 0x00000000;
+    }
+    //0xFE79 == 0xFFFFFE79
+    cfft32_SCALE(fdzpArray, length);
+    cbrev32(fdzpArray, fdzpArray, length);
+    cifft32_SCALE(fdzpArray, length);
+    cbrev32(fdzpArray, fdzpArray, length);
+}
+
+short max_finder(short array[], short length){
+    short i = 0;
+    short largestYet = array[0];
+    short index = 0;
+    for(i=0;i<length;i++){
+        if(largestYet < array[i]){
+            largestYet = array[i];
+            index = i;
+        }
+    }
+    return index;
+}
 
 void flowmeter_init()
 {
@@ -253,7 +292,7 @@ void generate_sine_table(int32_t *table, float freq, float s_rate,
 	for (; i < samples; i++)
 	{
 		//table[i] = (((int32_t) (0x30 * sin(i * inc))) & 0xFFFF) << 16;
-	    table[i] = (((int32_t) (0x7FFF * sin(i * inc))) & 0xFFFF) << 16;
+	    table[i] = (((int32_t) (0x30F * sin(i * inc))) & 0xFFFF) << 16;
 	}
 }
 
