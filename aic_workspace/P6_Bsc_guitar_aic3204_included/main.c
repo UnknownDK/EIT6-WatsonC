@@ -35,7 +35,7 @@
 // Declare functions prototypes
 void flowmeter_init();  // init board and codec
 void GPIO_test_init();
-void do_sample_and_gain();
+void AIC3204_init();
 
 interrupt void DMA_ISR(void);
 void interrupt_init();
@@ -128,6 +128,18 @@ int main(void)
 
 void flowmeter_init()
 {
+
+	/* The EBSR register must be set in order to enable I2S2 and desired GPIO pins.
+	 * Before modifying the values in the EBSR register, you must clock gate all affected peripherals through the PCGCR register.
+	 * The external bus selection register must be modified only once, during device configuration.
+	 * Continuously changing the EBSR configuration is not supported.
+	 * Setting PPMODE_MODE1 is required in order to enable I2S2 on the pins, and SP1MODE_MODE2 and SP0MODE_MODE2 is set in order to enable necessary GPIO.
+	 */
+	CSL_SYSCTRL_REGS->EBSR =
+			(CSL_SYS_EBSR_PPMODE_MODE1 << CSL_SYS_EBSR_PPMODE_SHIFT)
+			| (CSL_SYS_EBSR_SP1MODE_MODE2 << CSL_SYS_EBSR_SP1MODE_SHIFT)
+			| (CSL_SYS_EBSR_SP0MODE_MODE2 << CSL_SYS_EBSR_SP0MODE_SHIFT);
+
 	generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
 	//memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
 
@@ -155,7 +167,7 @@ void flowmeter_init()
 	// AIC3204 - audio codec
 	aic3204_hardware_init();
 
-	do_sample_and_gain();
+	AIC3204_init();
 
 	interrupt_init();
 }
