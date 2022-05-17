@@ -115,8 +115,12 @@ int main(void)
 	edge_detected = false;
 	reader_start(&reader_handle);
 
-	//singAround(singStationHandle,2,1);
-	pulse_start();
+	singAround(singStationHandle,128,3);
+	ezdsp5535_waitusec(40);
+    singAround(singStationHandle,128,3);
+    ezdsp5535_waitusec(250);
+    singAround(singStationHandle,128,3);
+	//pulse_start();
 
 	volatile unsigned long tick = 0;
 
@@ -238,6 +242,8 @@ interrupt void I2S2_receive_ISR(void)
 	if (!edge_detected && (reg > EDGE_THRESHOLD || reg < -EDGE_THRESHOLD))
 	{
 		buffer_index_edge = curr_index; // Remember this index as the first edge detected
+	    stopwatch_stop(singStationHandle->watch);
+
 
 		edge_detected = true;
 

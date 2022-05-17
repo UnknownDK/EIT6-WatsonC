@@ -39,17 +39,20 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
     uint32_t watchVar;
 
 
-    int16_t i = 0;                      //counts measuring number
+    int32_t i = 0;                      //counts measuring number
+    for (;i<3000000;i++){}
     for(i = 0; i < antalMeas ; i++){    //loop for hver maaling
+        uint32_t test[256];
 
         int16_t j = 0;                  //counts sing arounds
         for (j = 0; j < nrRounds ; j++){
-            
-            measureOneWay(sa_station, false, &watchVar);
+//            int k = 0;
+//            for(;k<3;k++){}
+            measureOneWay(sa_station, false, &watchVar, test,j);
             singArray[j] = calcFreqQ(watchVar, Q);  //upstream freq
 
             //sender lyd tilbage
-            measureOneWay(sa_station, true, &watchVar);
+            measureOneWay(sa_station, true, &watchVar,test,(j+nrRounds));
             singArray[j] -= calcFreqQ(watchVar, Q); //subtracts downstream freq
         }
 
@@ -69,7 +72,7 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
 }
 
 
-void measureOneWay(SA_station_handle station, bool direction, uint32_t *timerVar){
+void measureOneWay(SA_station_handle station, bool direction, uint32_t *timerVar,uint32_t in[],uint16_t count){
     if (direction == true){//change dir
         uint16_t temp = station->sensorID2;
         station->sensorID2 = station->sensorID1;
@@ -78,15 +81,14 @@ void measureOneWay(SA_station_handle station, bool direction, uint32_t *timerVar
     exp_board_enable_adc(station->expBoard, station->sensorID1);
     exp_board_enable_dac(station->expBoard, station->sensorID2);
     stopwatch_start(station->watch);
-    pulse_start();//_periods(REPETITIONS);
+    pulse_start_periods(REPETITIONS);
     pulse_edge_detection_start();
     while (*station->edgeDetected == false){}      //tjek for om DMA ting har givet en hoej vaerdi
-    stopwatch_stop(station->watch);
     stopwatch_read_ns(station->watch, timerVar); //saves time in timerVar
     exp_board_disable_adc(station->expBoard);
     exp_board_disable_dac(station->expBoard);
+    in[count] = *timerVar;
     *station->edgeDetected = false;
-    //*edgeDetected = false;
 }
 
 uint16_t calcFreqQ(uint32_t time, uint16_t Q_outFormat){
@@ -100,6 +102,7 @@ uint16_t calcFreqQ(uint32_t time, uint16_t Q_outFormat){
         shift = Q_outFormat + 16;
     }
     int32_t output;
+    time -= CALIB_FACTOR;
     time >>= timeshift;
     if(time != 0){
         output = ((uint32_t)1 << shift);
