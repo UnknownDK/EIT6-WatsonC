@@ -60,10 +60,10 @@ int32_t buffer_read[READ_BUFFER_LEN] = { 0 };
 int16_t buffer_read_int16[READ_BUFFER_LEN] = { 0 };
 int32_t sineTable[SEQ_LEN] = { 0 };
 
-
+#define FFTSIZE 16
 short fakeSignal[32] = { 0 };
 short compareSignal[16] = { 0 };
-long fftSignal[512] = { 0 };
+long fftSignal[FFTSIZE*2] = { 0 };
 
 bool edge_detected = false;
 uint16_t buffer_index_stop = 0; // Buffer array index at which capturing stopped
@@ -116,19 +116,59 @@ int main(void)
 //int32_t fakeSignal[32] = { 0 };
 //int32_t compareSignal[16] = { 0 };
 // Cross correlation test ting
-
+#define NX 16
 void fft_test()
 {
     int i = 0;
-    generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN);
-    for(i=0;i<128;i++){
-        fftSignal[i] = (sineTable[i]);
-    }
+    //generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN);
+    //for(i=0;i<FFTSIZE;i++){
+    //    fftSignal[i] = (sineTable[i]);
+    //}
+    //long test[32] = { 0x599a, 0xd99a, 0x199a, 0xc000, 0x4ccd, 0xe666, 0x2666, 0xc000, 0x599a, 0xd99a, 0x199a, 0xc000, 0x4ccd, 0xe666, 0x2666, 0xc000 };
 
-    rfft32(fftSignal,128,SCALE);
+    //long test2[64];
+    //for(i=0;i<FFTSIZE;i++){
+    //    test[i] = (test[i]<<16);
+    //}
+//    for(i=0;i<64;i++){
+//        test2[i] = 0;
+//    }
+    //rfft32(fftSignal,16,SCALE);
 
-    cifft32_SCALE(fftSignal, 128);
-    cbrev32(fftSignal, fftSignal, 252);
+    long x[2*NX] ={
+    -18187058, 46331372,
+    54834337, 44286577,
+    27689626, -30515381,
+    7743059, -77363268,
+    22536296, 60019827,
+    -17048265, 13112998,
+    28734391, 681949,
+    9009481, -13622328,
+    20970687, -51502515,
+    -35142830, 7428049,
+    51528547, -46119851,
+    14576909, -28161749,
+    -64328405, -7000883,
+    15768554, 25364231,
+    42760128, 12607556,
+    21425929, -45144568,
+    };
+
+
+
+    cfft32_NOSCALE(x, NX);
+    cbrev32(x, x, NX);
+    cifft32_NOSCALE(x, NX);
+    cbrev32(x, x, NX);
+
+//    short Real_Part[FFTSIZE];
+//    short Imaginary_Part[FFTSIZE];
+//    for (i=0;i<FFTSIZE;i++){
+//        Real_Part[i] = test2[i] >> 16;
+//        Imaginary_Part[i] = test2[i] & 0x0000FFFF;
+//    }
+//    cifft32_SCALE(test, FFTSIZE);
+
 
 
 }
