@@ -59,6 +59,7 @@ int32_t sineTable[SEQ_LEN] = { 0 };
 
 bool edgeBegun = false;
 bool edge_detected = false;
+bool prompt_gen_start = false;
 uint16_t buffer_index_stop = 0; // Buffer array index at which capturing stopped
 uint16_t buffer_index_edge = 0; // Buffer array index at which an edge was first detected
 
@@ -79,7 +80,9 @@ SA_station_obj singStationObj = {&tim_handle,
                                  &exp_obj, //hate this
                                  1,
                                  2,
-                                 &edgeBegun};
+                                 &edge_detected,
+								 &prompt_gen_start
+};
 SA_station_handle singStationHandle;
 
 
@@ -116,10 +119,10 @@ int main(void)
 	reader_start(&reader_handle);
 
 	singAround(singStationHandle,128,3);
-	ezdsp5535_waitusec(40);
-    singAround(singStationHandle,128,3);
-    ezdsp5535_waitusec(250);
-    singAround(singStationHandle,128,3);
+//	ezdsp5535_waitusec(40);
+//    singAround(singStationHandle,128,3);
+//    ezdsp5535_waitusec(250);
+//    singAround(singStationHandle,128,3);
 	//pulse_start();
 
 	volatile unsigned long tick = 0;
@@ -161,6 +164,8 @@ void flowmeter_init()
 	// Reset I2S receive register values
 	CSL_I2S2_REGS->I2SRXRT0 = 0;
 	CSL_I2S2_REGS->I2SRXRT1 = 0;
+
+    CSL_I2S2_REGS->I2SINTMASK |= CSL_I2S_I2SINTMASK_XMITST_MASK; // Disable I2S2 stereo left/right receive data interrupt
 
 	stopwatch_configure(&tim_handle);
 
@@ -228,6 +233,21 @@ interrupt void DMA_ISR(void)
 		pulse_repetition_ended_callb();
 }
 
+bool prompt_stopwatch_start = false;
+
+interrupt void I2S2_transmit_ISR(void) {
+	if (prompt_stopwatch_start) {
+		stopwatch_start(&tim_handle);
+		prompt_stopwatch_start = false;
+	}
+	if (prompt_gen_start) {
+		pulse_start_periods(REPETITIONS);
+		pulse_edge_detection_start();
+		prompt_gen_start = false;
+		prompt_stopwatch_start = true;
+	}
+}
+
 interrupt void I2S2_receive_ISR(void)
 {
 
@@ -263,6 +283,9 @@ void interrupt_init()
 
 	IRQ_plug(RCV2_EVENT, &I2S2_receive_ISR); // I2S2 receive interrupt
 	IRQ_enable(RCV2_EVENT); // Enable I2S2 receive interrupt
+
+	IRQ_plug(XMT2_EVENT, &I2S2_transmit_ISR); // I2S2 receive interrupt
+	IRQ_enable(XMT2_EVENT); // Enable I2S2 receive interrupt
 
 	IRQ_globalEnable();
 }

@@ -36,6 +36,7 @@ typedef struct {
     uint16_t sensorID1;
     uint16_t sensorID2;
     bool *edgeDetected;
+    bool *prompt_gen_start;
 } SA_station_obj;
 
 typedef SA_station_obj* SA_station_handle;

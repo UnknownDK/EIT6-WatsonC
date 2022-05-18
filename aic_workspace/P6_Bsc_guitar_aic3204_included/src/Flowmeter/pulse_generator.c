@@ -45,6 +45,9 @@ CSL_Status pulse_generator_init(int32_t *src_addr, uint16_t src_len) {
 
     status = DMA_config(dmaHandle, &dmaConfig);
 
+    // Sets the I2S2 output value to 0 so that the DAC is not continuously outputting some arbitrary DC voltage.
+	set_i2s_output_value(0);
+
     return status;
 }
 

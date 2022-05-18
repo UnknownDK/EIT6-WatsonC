@@ -38,7 +38,6 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
     int16_t resultHolder;
     uint32_t watchVar;
 
-
     int32_t i = 0;                      //counts measuring number
     for (;i<3000000;i++){}
     for(i = 0; i < antalMeas ; i++){    //loop for hver maaling
@@ -81,15 +80,16 @@ void measureOneWay(SA_station_handle station, bool direction, uint32_t *timerVar
     }
     exp_board_enable_adc(station->expBoard, id1);
     exp_board_enable_dac(station->expBoard, id2);
-    stopwatch_start(station->watch);
-    pulse_start_periods(REPETITIONS);
-    pulse_edge_detection_start();
+    //stopwatch_start(station->watch);
+    *station->prompt_gen_start = true;
+//    pulse_start_periods(REPETITIONS);
+//    pulse_edge_detection_start();
     while (*station->edgeDetected == false){}       //tjek for om DMA ting har givet en hoej vaerdi
     stopwatch_read_ns(station->watch, timerVar);    //saves time in timerVar
     exp_board_disable_adc(station->expBoard);
     exp_board_disable_dac(station->expBoard);
     //in[count] = *timerVar; //til test
-    *station->edgeDetected = false;
+    //*station->edgeDetected = false;
 }
 
 uint16_t calcFreqQ(uint32_t time, uint16_t Q_outFormat){
