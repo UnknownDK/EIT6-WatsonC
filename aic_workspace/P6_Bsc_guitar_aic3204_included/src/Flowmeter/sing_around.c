@@ -42,17 +42,17 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
     int32_t i = 0;                      //counts measuring number
     for (;i<3000000;i++){}
     for(i = 0; i < antalMeas ; i++){    //loop for hver maaling
-        uint32_t test[256];
+        //uint32_t test[256];
 
         int16_t j = 0;                  //counts sing arounds
         for (j = 0; j < nrRounds ; j++){
 //            int k = 0;
 //            for(;k<3;k++){}
-            measureOneWay(sa_station, false, &watchVar, test,j);
+            measureOneWay(sa_station, false, &watchVar);//, test,j);
             singArray[j] = calcFreqQ(watchVar, Q);  //upstream freq
 
             //sender lyd tilbage
-            measureOneWay(sa_station, true, &watchVar,test,(j+nrRounds));
+            measureOneWay(sa_station, true, &watchVar);//,test,(j+nrRounds));
             singArray[j] -= calcFreqQ(watchVar, Q); //subtracts downstream freq
         }
 
@@ -72,22 +72,23 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
 }
 
 
-void measureOneWay(SA_station_handle station, bool direction, uint32_t *timerVar,uint32_t in[],uint16_t count){
+void measureOneWay(SA_station_handle station, bool direction, uint32_t *timerVar){//,uint32_t in[],uint16_t count){ //til test
+    uint16_t id1 = station->sensorID1;;
+    uint16_t id2 = station->sensorID2;
     if (direction == true){//change dir
-        uint16_t temp = station->sensorID2;
-        station->sensorID2 = station->sensorID1;
-        station->sensorID1 = temp;
+        id1 = station->sensorID2;
+        id2 = station->sensorID1;
     }
-    exp_board_enable_adc(station->expBoard, station->sensorID1);
-    exp_board_enable_dac(station->expBoard, station->sensorID2);
+    exp_board_enable_adc(station->expBoard, id1);
+    exp_board_enable_dac(station->expBoard, id2);
     stopwatch_start(station->watch);
     pulse_start_periods(REPETITIONS);
     pulse_edge_detection_start();
-    while (*station->edgeDetected == false){}      //tjek for om DMA ting har givet en hoej vaerdi
-    stopwatch_read_ns(station->watch, timerVar); //saves time in timerVar
+    while (*station->edgeDetected == false){}       //tjek for om DMA ting har givet en hoej vaerdi
+    stopwatch_read_ns(station->watch, timerVar);    //saves time in timerVar
     exp_board_disable_adc(station->expBoard);
     exp_board_disable_dac(station->expBoard);
-    in[count] = *timerVar;
+    //in[count] = *timerVar; //til test
     *station->edgeDetected = false;
 }
 

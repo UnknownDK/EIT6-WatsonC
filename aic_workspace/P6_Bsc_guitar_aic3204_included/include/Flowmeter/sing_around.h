@@ -43,7 +43,7 @@ typedef SA_station_obj* SA_station_handle;
 
 int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t antalMeas);
 
-void measureOneWay(SA_station_handle station, bool direction, uint32_t *timerVar,uint32_t in[],uint16_t count);
+void measureOneWay(SA_station_handle station, bool direction, uint32_t *timerVar);//,uint32_t in[],uint16_t count);
 
 uint16_t calcFreqQ(uint32_t time, uint16_t Q_outFormat);
 
