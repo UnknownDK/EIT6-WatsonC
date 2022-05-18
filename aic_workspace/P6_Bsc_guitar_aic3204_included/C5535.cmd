@@ -63,7 +63,7 @@ SECTIONS
     .data             >  DARAM7
     .cio              >  DARAM0
     .bss              >> DARAM1_2|DARAM5|SARAM9
-    .const            >> SARAM7|SARAM5
+    .const            >> DARAM3_4|SARAM5
     .switch   		  >  SARAM8                /* Switch statement tables     */
     .args     		  >  SARAM1                /* Arguments to main()         */
     //data_br_buf  	  >  DARAM1_2 /* ADDR = 0x002000, Aligned to addr with 14 least-sig zeros */

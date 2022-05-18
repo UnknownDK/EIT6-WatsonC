@@ -40,7 +40,7 @@ void do_sample_and_gain();
 short max_finder(short array[], short length);
 void crosscorr_test();
 void fft_test();
-void fdzp(short array[], short length);
+void fdzp(short shortArray[], long fdzpArray[], short length, short outLen);
 
 interrupt void DMA_ISR(void);
 void interrupt_init();
@@ -63,8 +63,6 @@ int16_t buffer_read_int16[READ_BUFFER_LEN] = { 0 };
 int32_t sineTable[SEQ_LEN] = { 0 };
 
 #define FFTSIZE 16
-
-long fftSignal[FFTSIZE*2] = { 0 };
 
 bool edge_detected = false;
 uint16_t buffer_index_stop = 0; // Buffer array index at which capturing stopped
@@ -175,16 +173,19 @@ void fft_test()
 }
 #define COMPSIGLEN 21
 #define FAKSIGLEN 128
+#define OUTSIGLEN 512
+#define LONGERSIGLEN (OUTSIGLEN*4)
+//#define FDZPLEN
 #define RSLTCORRLEN (COMPSIGLEN+FAKSIGLEN-1)
 
-ushort offlag = 0;
-short resultCorr[RSLTCORRLEN];
-short fakeSignal[FAKSIGLEN] = { 0 };
-short compareSignal[COMPSIGLEN] = { 0 };
-long  fdzpArray[FAKSIGLEN*4];
 
 void crosscorr_test()
 {
+    ushort offlag = 0;
+    short resultCorr[RSLTCORRLEN];
+    short fakeSignal[FAKSIGLEN] = { 0 };
+    short compareSignal[COMPSIGLEN] = { 0 };
+
     int i = 0;
     generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN);
     //memset(fakeSignal,0,sizeof(fakeSignal));
@@ -208,7 +209,15 @@ void crosscorr_test()
     }
     offlag = 0;
     //fdzp();
-    fdzp(fakeSignal,FAKSIGLEN);
+    //fdzp(fakeSignal,FAKSIGLEN);
+    long fdzpArray[LONGERSIGLEN];
+    fdzp(fakeSignal, fdzpArray, FAKSIGLEN, OUTSIGLEN);
+
+    for(i=0;i<512;i++){ // Reverting to only real
+        fakeSignal[i] = fdzpArray[i*2];
+    }
+
+
     //corr_bias  (DATA *x, DATA *y, DATA *r, ushort nx, ushort ny);
     offlag = corr_raw(compareSignal, fakeSignal, resultCorr, COMPSIGLEN, FAKSIGLEN);
     short corrIndex = max_finder(resultCorr, RSLTCORRLEN);
@@ -216,21 +225,35 @@ void crosscorr_test()
 }
 //766
 
-void fdzp(short shortArray[], short length){
+void fdzp(short shortArray[],long fdzpArray[], short length, short outLen){
+    //long  fdzpArray[FAKSIGLEN*4*INTERF]; // *4 is enough, but makin space for fdzp
+    //short size =
+    if(outLen % length){
+        return;
+    }
+    short interF = outLen/length;
     int i = 0;
-    for(i=0;i<length*2;i++){
+    for(i=0;i<length*2;i++){ // Adding complex 0 values
         //fdzpArray[i] = i % 2 ? 0x00 : shortArray[(int)(i/2)];
         fdzpArray[i] = i % 2 ? 0x00000000 : shortArray[i/2];
     }
-    for(i=length*2;i<length*4;i++){
+    for(i=length*2;i<outLen*4;i++){ // MEMSET 0
         //fdzpArray[i] = i % 2 ? 0x00 : shortArray[(int)(i/2)];
         fdzpArray[i] = 0x00000000;
     }
     //0xFE79 == 0xFFFFFE79
-    cfft32_SCALE(fdzpArray, length);
+    cfft32_NOSCALE(fdzpArray, length);
     cbrev32(fdzpArray, fdzpArray, length);
-    cifft32_SCALE(fdzpArray, length);
-    cbrev32(fdzpArray, fdzpArray, length);
+
+    for(i=(outLen*2)-1;i>(outLen*2)-(length)-1;i--){
+        int swap = i-((2*interF-2)*length);
+        fdzpArray[i] = fdzpArray[swap];
+        fdzpArray[swap] = 0x00000000;
+    }
+
+
+    cifft32_SCALE(fdzpArray, outLen);
+    cbrev32(fdzpArray, fdzpArray, outLen);
 }
 
 short max_finder(short array[], short length){
