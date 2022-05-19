@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
 #include "csl_usbAux.h"
-#include "csl_cdc.h"
+#include <csl_cdc.h>
 
 #include <stdio.h>
 

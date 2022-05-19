@@ -3,7 +3,7 @@
 #include "stdio.h"
 #include "math.h"
 #include "stdint.h"
-#include "string.h"
+//#include "string.h"
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -21,12 +21,23 @@
 #include <Flowmeter/pulse_generator.h>
 #include <Flowmeter/stopwatch.h>
 #include <Flowmeter/expansion_board.h>
+#include <CrossCorrelation/cross_corr.h>
+#include <Dsplib.h>
 
 #define FREQ 40000      // Pulse sine frequency
 #define S_RATE 96000    // Sample rate
-#define SEQ_LEN 24      // Gives 10 periods at 40 kHz
+//#define SEQ_LEN 128      // Gives 10 periods at 40 kHz
 #define READ_BUFFER_LEN 1000
 #define EDGE_THRESHOLD 12000    // Threshold that correspond to approx. positive 366 mVp voltage
+
+/* Crosscorr, FDZP */
+#define INTERP_F 8
+#define SEQ_LEN 128*INTERP_F
+#define INSIGLEN 128 // Incoming signal; We want to know how delayed this is.
+#define OUTSIGLEN  INSIGLEN*INTERP_F// Outgoing signal; Signal after fdzp
+#define COMPSIGLEN 21*INTERP_F // Compare signal; We are looking for this
+#define FDZPARRAYLEN (OUTSIGLEN*4) // Length of FDZP array due to function requirements
+#define RSLTCORRLEN (COMPSIGLEN+OUTSIGLEN-1) // Length of output array for corr_raw
 
 // Get the index of the buffer_read array that is currently being (or hast last been) written to
 #define BUFFER_READ_CURR_INDEX INT32_ARRAY_INDEX_FROM_ADDR(DMA1CH1_WORD_DEST_ADDR - 1, buffer_read) // "-1" is because the DMA (assumably) has already changed destination to the next element, whenever we try to read the address
@@ -35,6 +46,11 @@
 void flowmeter_init();  // init board and codec
 void GPIO_test_init();
 void do_sample_and_gain();
+
+short max_finder(short array[], short length);
+void crosscorr_test();
+void fft_test();
+void fdzp(short shortArray[], long fdzpArray[], short length, short outLen);
 
 interrupt void DMA_ISR(void);
 void interrupt_init();
@@ -56,6 +72,8 @@ int32_t buffer_read[READ_BUFFER_LEN] = { 0 };
 int16_t buffer_read_int16[READ_BUFFER_LEN] = { 0 };
 int32_t sineTable[SEQ_LEN] = { 0 };
 
+#define FFTSIZE 16
+
 bool edge_detected = false;
 uint16_t buffer_index_stop = 0; // Buffer array index at which capturing stopped
 uint16_t buffer_index_edge = 0; // Buffer array index at which an edge was first detected
@@ -73,18 +91,52 @@ exp_board_obj exp_obj = { { CSL_GPIO_PIN8, CSL_GPIO_PIN3, CSL_GPIO_PIN0,
 
 exp_board_handle exp_handle;
 
+//#pragma DATA_SECTION(data_br_buf, "data_br_buf");  //assign to certain memory regions
+//#pragma DATA_SECTION(fft_scratch, "fft_scratch");  //this secures memory allignment
+//int32_t fft_scratch[4096];
+//int32_t data_br_buf[4096];
+
+
+
 
 int main(void)
 {
 
-	flowmeter_init();   // init board and codec
+	//flowmeter_init();   // init board and codec
 
-	edge_detected = false;
-	pulse_edge_detection_start();
-	reader_start(&reader_handle);
+	//edge_detected = false;
+	//pulse_edge_detection_start();
+	//reader_start(&reader_handle);
 
 	//pulse_start_periods(1);
-	pulse_start();
+	//pulse_start();
+
+
+
+    /* Generate fake input for testing */
+    short inSignal[OUTSIGLEN];
+    int i = 0;
+    generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN); // Generate sinetable for compareSignal
+    for(i=0;i<INSIGLEN;i++){
+        inSignal[i] = 0;
+    }
+    for(i=30;i<51;i++){
+        inSignal[i] = (sineTable[i-30])>>16;
+    }
+    /*---------------------------------*/
+
+    long fdzpArray[FDZPARRAYLEN]; // Array for storing fdzp
+    fdzp(inSignal, fdzpArray, INSIGLEN, OUTSIGLEN); // do fdzp
+
+    for(i=0;i<OUTSIGLEN;i++){ // Reverting to only real
+        inSignal[i] = fdzpArray[i*2];
+    }
+
+    short resultCorr[RSLTCORRLEN];
+    crosscorr(inSignal, resultCorr, INSIGLEN, OUTSIGLEN, COMPSIGLEN);
+    //fft_test();
+    i = 0;
+
 
 	volatile unsigned long tick = 0;
 
@@ -94,10 +146,70 @@ int main(void)
 	}
 }
 
+#define NX 16
+void fft_test()
+{
+    //int i = 0;
+    //generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN);
+    //for(i=0;i<FFTSIZE;i++){
+    //    fftSignal[i] = (sineTable[i]);
+    //}
+    //long test[32] = { 0x599a, 0xd99a, 0x199a, 0xc000, 0x4ccd, 0xe666, 0x2666, 0xc000, 0x599a, 0xd99a, 0x199a, 0xc000, 0x4ccd, 0xe666, 0x2666, 0xc000 };
+
+    //long test2[64];
+    //for(i=0;i<FFTSIZE;i++){
+    //    test[i] = (test[i]<<16);
+    //}
+//    for(i=0;i<64;i++){
+//        test2[i] = 0;
+//    }
+    //rfft32(fftSignal,16,SCALE);
+
+    long x[2*NX] ={
+    -18187058, 46331372,
+    54834337, 44286577,
+    27689626, -30515381,
+    7743059, -77363268,
+    22536296, 60019827,
+    -17048265, 13112998,
+    28734391, 681949,
+    9009481, -13622328,
+    20970687, -51502515,
+    -35142830, 7428049,
+    51528547, -46119851,
+    14576909, -28161749,
+    -64328405, -7000883,
+    15768554, 25364231,
+    42760128, 12607556,
+    21425929, -45144568,
+    };
+
+
+
+    cfft32_NOSCALE(x, NX);
+    cbrev32(x, x, NX);
+    cifft32_NOSCALE(x, NX);
+    cbrev32(x, x, NX);
+
+//    short Real_Part[FFTSIZE];
+//    short Imaginary_Part[FFTSIZE];
+//    for (i=0;i<FFTSIZE;i++){
+//        Real_Part[i] = test2[i] >> 16;
+//        Imaginary_Part[i] = test2[i] & 0x0000FFFF;
+//    }
+//    cifft32_SCALE(test, FFTSIZE);
+
+
+
+}
+
+
+
+
 void flowmeter_init()
 {
 	generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
-	memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
+	//memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
 
 	// eZdsp - dev board
 	ezdsp5535_init();
@@ -139,7 +251,8 @@ void generate_sine_table(int32_t *table, float freq, float s_rate,
 	float inc = 2 * M_PI * (freq / s_rate);
 	for (; i < samples; i++)
 	{
-		table[i] = (((int32_t) (0x7fff * sin(i * inc))) & 0xFFFF) << 16;
+		//table[i] = (((int32_t) (0x30 * sin(i * inc))) & 0xFFFF) << 16;
+	    table[i] = (((int32_t) (0x330F * sin(i * inc))) & 0xFFFF) << 16;
 	}
 }
 
