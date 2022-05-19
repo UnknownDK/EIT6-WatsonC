@@ -26,9 +26,18 @@
 
 #define FREQ 40000      // Pulse sine frequency
 #define S_RATE 96000    // Sample rate
-#define SEQ_LEN 128      // Gives 10 periods at 40 kHz
+//#define SEQ_LEN 128      // Gives 10 periods at 40 kHz
 #define READ_BUFFER_LEN 1000
 #define EDGE_THRESHOLD 12000    // Threshold that correspond to approx. positive 366 mVp voltage
+
+/* Crosscorr, FDZP */
+#define INTERP_F 8
+#define SEQ_LEN 128*INTERP_F
+#define INSIGLEN 128 // Incoming signal; We want to know how delayed this is.
+#define OUTSIGLEN  INSIGLEN*INTERP_F// Outgoing signal; Signal after fdzp
+#define COMPSIGLEN 21*INTERP_F // Compare signal; We are looking for this
+#define FDZPARRAYLEN (OUTSIGLEN*4) // Length of FDZP array due to function requirements
+#define RSLTCORRLEN (COMPSIGLEN+OUTSIGLEN-1) // Length of output array for corr_raw
 
 // Get the index of the buffer_read array that is currently being (or hast last been) written to
 #define BUFFER_READ_CURR_INDEX INT32_ARRAY_INDEX_FROM_ADDR(DMA1CH1_WORD_DEST_ADDR - 1, buffer_read) // "-1" is because the DMA (assumably) has already changed destination to the next element, whenever we try to read the address
@@ -101,8 +110,32 @@ int main(void)
 
 	//pulse_start_periods(1);
 	//pulse_start();
-    crosscorr();
+
+
+
+    /* Generate fake input for testing */
+    short inSignal[OUTSIGLEN];
+    int i = 0;
+    generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN); // Generate sinetable for compareSignal
+    for(i=0;i<INSIGLEN;i++){
+        inSignal[i] = 0;
+    }
+    for(i=30;i<51;i++){
+        inSignal[i] = (sineTable[i-30])>>16;
+    }
+    /*---------------------------------*/
+
+    long fdzpArray[FDZPARRAYLEN]; // Array for storing fdzp
+    fdzp(inSignal, fdzpArray, INSIGLEN, OUTSIGLEN); // do fdzp
+
+    for(i=0;i<OUTSIGLEN;i++){ // Reverting to only real
+        inSignal[i] = fdzpArray[i*2];
+    }
+
+    short resultCorr[RSLTCORRLEN];
+    crosscorr(inSignal, resultCorr, INSIGLEN, OUTSIGLEN, COMPSIGLEN);
     //fft_test();
+    i = 0;
 
 
 	volatile unsigned long tick = 0;
@@ -219,7 +252,7 @@ void generate_sine_table(int32_t *table, float freq, float s_rate,
 	for (; i < samples; i++)
 	{
 		//table[i] = (((int32_t) (0x30 * sin(i * inc))) & 0xFFFF) << 16;
-	    table[i] = (((int32_t) (0x30F * sin(i * inc))) & 0xFFFF) << 16;
+	    table[i] = (((int32_t) (0x330F * sin(i * inc))) & 0xFFFF) << 16;
 	}
 }
 

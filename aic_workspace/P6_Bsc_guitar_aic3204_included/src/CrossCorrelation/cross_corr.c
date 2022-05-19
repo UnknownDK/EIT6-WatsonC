@@ -5,21 +5,15 @@
  *      Author: tardi
  */
 
-#define INTERP_F 8
+
 
 #define FREQ 40000      // Pulse sine frequency
 #define S_RATE 96000    // Sample rate
 
 
 /*  Cross Correlation  */
-#define SEQ_LEN 128*INTERP_F
 
-#define INSIGLEN 128 // Incoming signal; We want to know how delayed this is.
-#define OUTSIGLEN  INSIGLEN*INTERP_F// Outgoing signal; Signal after fdzp
-#define COMPSIGLEN 21*INTERP_F // Compare signal; We are looking for this
-#define FDZPARRAYLEN (OUTSIGLEN*4) // Length of FDZP array due to function requirements
-#define RSLTCORRLEN (COMPSIGLEN+OUTSIGLEN-1) // Length of output array for corr_raw
-short sigTable[SEQ_LEN];
+
 
 
 #define M_PI 3.14159265358979323846
@@ -34,52 +28,39 @@ void generate_compare_signal(short *table, float freq, float s_rate,
 
 #include <CrossCorrelation/cross_corr.h>
 
-float crosscorr()
+float crosscorr(short inSignal[], short resultCorr[], short inSigLen, short outSigLen, short compSigLen)
 {
     unsigned short offlag;
-    short resultCorr[RSLTCORRLEN]; // Result of crosscorrelation
-    short inSignal[OUTSIGLEN]; // Incoming signal of size OUTSIGLEN so the real parts of the output will fit back in inSignal
+    //short resultCorr[RSLTCORRLEN]; // Result of crosscorrelation
+    //short inSignal[OUTSIGLEN]; // Incoming signal of size OUTSIGLEN so the real parts of the output will fit back in inSignal
 
     int i = 0; // For loops
-
-
+    short RSLTCORRLEN = (compSigLen+outSigLen-1);
 
     /* Clear resultCorr */
     for(i=0;i<RSLTCORRLEN;i++){
         resultCorr[i] = 0;
     }
 
-    /* Generate fake input for testing */
-    generate_compare_signal(sigTable, FREQ, S_RATE, SEQ_LEN); // Generate sinetable for compareSignal
-    for(i=0;i<INSIGLEN;i++){
-        inSignal[i] = 0;
-    }
-    for(i=30;i<51;i++){
-        inSignal[i] = (sigTable[i-30]);
-    }
-    /*---------------------------------*/
 
     offlag = 0; // Mostly for testing, so it turns yellow if it is *STILL* overflowing after editing something.
 
-    long fdzpArray[FDZPARRAYLEN]; // Array for storing fdzp
-    fdzp(inSignal, fdzpArray, INSIGLEN, OUTSIGLEN); // do fdzp
-
-    for(i=0;i<OUTSIGLEN;i++){ // Reverting to only real
-        inSignal[i] = fdzpArray[i*2];
-    }
 
     /* CROSSCORRELATION */
     /* Compare Signal */
-    short compareSignal[COMPSIGLEN]; // Known signal
-    generate_compare_signal(sigTable, FREQ, S_RATE*(OUTSIGLEN/INSIGLEN), SEQ_LEN); // Generate sinetable for compareSignal
-    for(i=0;i<COMPSIGLEN;i++){
-        compareSignal[i] = (sigTable[i]); // Fill compareSignal
+    short* compareSignal; // Known signal
+    compareSignal = (short*)malloc(compSigLen * sizeof(short));
+    if (!compareSignal){
+        return -999;
     }
 
+    generate_compare_signal(compareSignal, FREQ, S_RATE*(outSigLen/inSigLen), compSigLen); // Generate sinetable for compareSignal
+
+
     //corr_bias  (DATA *x, DATA *y, DATA *r, ushort nx, ushort ny);
-    offlag = corr_unbias(compareSignal, inSignal, resultCorr, COMPSIGLEN, OUTSIGLEN);
+    offlag = corr_unbias(compareSignal, inSignal, resultCorr, compSigLen, outSigLen);
     short corrIndex = max_finder(resultCorr, RSLTCORRLEN);
-    float timeLag = ((float)(corrIndex +1)-COMPSIGLEN)/(S_RATE*INTERP_F); // Magi
+    float timeLag = ((float)(corrIndex +1)-compSigLen)/(S_RATE*(outSigLen/inSigLen)); // Magi
 
     return timeLag;
 }
