@@ -43,15 +43,14 @@ CSL_Status stopwatch_stop(stopwatch_handle * handle)
     return GPT_stop(handle->hGpt);
 }
 
-CSL_Status stopwatch_read_ns(stopwatch_handle * handle, uint32_t * ns) {
+CSL_Status stopwatch_read_ns(stopwatch_handle * handle, float * ns) {
     // By default and using internal 32 kHz clock the SYS_CLK is 36.846 MHz
     uint32_t cnt = 0;
     CSL_Status status = GPT_getCnt(handle->hGpt, &cnt);
 
     if (status != CSL_SOK) return status;
 
-    float nsf = ((0xFFFFFFFF - cnt) * 27.1267361111111111111111 * 2); // The CNT is subtracted from 2^32 as the counter starts at 2^32 and counts down from there. 27.12 ns per clock tick and prescaler is dividing by 2.
-    *ns = (uint32_t) nsf;
+    *ns = ((0xFFFFFFFF - cnt) * 27.1267361111111111111111 * 2); // The CNT is subtracted from 2^32 as the counter starts at 2^32 and counts down from there. 27.12 ns per clock tick and prescaler is dividing by 2.
 
     return CSL_SOK;
 }

@@ -27,7 +27,7 @@
 #define S_RATE 96000    // Sample rate
 #define SEQ_LEN 24      // Gives 10 periods at 40 kHz
 #define READ_BUFFER_LEN 1000
-#define EDGE_THRESHOLD 12000    // Threshold that correspond to approx. positive 366 mVp voltage
+#define EDGE_THRESHOLD ((int16_t) (46347 * 0.3))    // Threshold that correspond to approx. positive 0.3 Vp voltage
 
 // Get the index of the buffer_read array that is currently being (or hast last been) written to
 #define BUFFER_READ_CURR_INDEX INT32_ARRAY_INDEX_FROM_ADDR(DMA1CH1_WORD_DEST_ADDR - 1, buffer_read) // "-1" is because the DMA (assumably) has already changed destination to the next element, whenever we try to read the address
@@ -39,7 +39,7 @@ void AIC3204_init();
 
 interrupt void DMA_ISR(void);
 void interrupt_init();
-void generate_sine_table(int32_t *table, float freq, float s_rate,
+void generate_sine_table(int32_t *table, float scale, float freq, float s_rate,
 							uint16_t samples);
 void edge_detection_stop_callb(void);
 
@@ -57,7 +57,7 @@ int32_t buffer_read[READ_BUFFER_LEN] = { 0 };
 int16_t buffer_read_int16[READ_BUFFER_LEN] = { 0 };
 int32_t sineTable[SEQ_LEN] = { 0 };
 
-bool edgeBegun = false;
+bool propagating = false;
 bool edge_detected = false;
 bool prompt_gen_start = false;
 uint16_t buffer_index_stop = 0; // Buffer array index at which capturing stopped
@@ -80,7 +80,7 @@ SA_station_obj singStationObj = {&tim_handle,
                                  &exp_obj, //hate this
                                  1,
                                  2,
-                                 &edge_detected,
+                                 &propagating,
 								 &prompt_gen_start
 };
 SA_station_handle singStationHandle;
@@ -91,33 +91,11 @@ SA_station_handle singStationHandle;
 
 int main(void)
 {
-//    int test;
-//    int32_t time = 357142;      //0.5 meter
-//    int32_t time2 = 10714285*2; //30 meter
-//
-//
-//    test = calcFreqQ(time,12);
-//    test = calcFreqQ(time,15);
-//    test = calcFreqQ(time,18);
-//    test = calcFreqQ(time,21);
-//    test = calcFreqQ(time,22);
-//    test = calcFreqQ(time,26); //omkring sweetspot
-//    test = calcFreqQ(time,31);
-//
-//    test = calcFreqQ(time2,22);
-//    test = calcFreqQ(time2,26);
-//    test = calcFreqQ(time2,31);
-//    test = calcFreqQ(time2,33); // omkring sweetspot
-//    test = calcFreqQ(time2,35);
-//    test = calcFreqQ(time2,38);
-
-
-
 	flowmeter_init();   // init board and codec
 
 	edge_detected = false;
 	reader_start(&reader_handle);
-
+	//pulse_start();
 	singAround(singStationHandle,128,3);
 //	ezdsp5535_waitusec(40);
 //    singAround(singStationHandle,128,3);
@@ -147,8 +125,13 @@ void flowmeter_init()
 			| (CSL_SYS_EBSR_SP1MODE_MODE2 << CSL_SYS_EBSR_SP1MODE_SHIFT)
 			| (CSL_SYS_EBSR_SP0MODE_MODE2 << CSL_SYS_EBSR_SP0MODE_SHIFT);
 
-	generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
-	//memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
+	generate_sine_table(sineTable, 0.5, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
+
+	// Clear input buffer
+	uint16_t i = 0;
+	for (; i < READ_BUFFER_LEN; i++) {
+		buffer_read[i] = 0;
+	}
 
 	// eZdsp - dev board
 	ezdsp5535_init();
@@ -186,18 +169,19 @@ void flowmeter_init()
  * It might be necessary to generate samples for more than one sinusoidal period,
  * in order to get a clean continuous wave when repeating the sequence.
  * @param table Array for resulting samples.
+ * @param scale A scale between 0 and 1 (max amplitude).
  * @param freq Sinuoidal wave frequency.
  * @param s_rate Sample rate.
  * @param samples The number of samples to generate.
  */
-void generate_sine_table(int32_t *table, float freq, float s_rate,
+void generate_sine_table(int32_t *table, float scale, float freq, float s_rate,
 							uint16_t samples)
 {
 	uint16_t i = 0;
 	float inc = 2 * M_PI * (freq / s_rate);
 	for (; i < samples; i++)
 	{
-		table[i] = (((int32_t) (0x7fff * sin(i * inc))) & 0xFFFF) << 16;
+		table[i] = (((int32_t) (0x7fff * scale * sin(i * inc))) & 0xFFFF) << 16;
 	}
 }
 
@@ -215,12 +199,16 @@ void cpy_int32_array_to_int16(int32_t *src, int16_t *dest, uint16_t len)
 // Callback function for when edge detection is stopping
 void edge_detection_stop_callb(void)
 {
-    edgeBegun = true;
+    propagating = false;
+	edge_detected = false; // Reset edge detection
 	buffer_index_stop = (uint16_t) BUFFER_READ_CURR_INDEX; // Capture current buffer array index before DMA registers change
 	reader_stop(&reader_handle); // Stop capturing
 	cpy_int32_array_to_int16(buffer_read, buffer_read_int16, READ_BUFFER_LEN); // Copy upper 16 bits from the 32 bit dma buffer array into a 16 bit array that can be read easier
-	edge_detected = false; // Reset edge detection
 }
+
+uint16_t full_cnt = 0;
+
+uint16_t transmit_cnt = 0;
 
 interrupt void DMA_ISR(void)
 {
@@ -229,8 +217,12 @@ interrupt void DMA_ISR(void)
 	CSL_SYSCTRL_REGS->DMAIFR = ifr;
 
 	// Check for particular interrupt flag bit and respond to it
-	if (pulse_check_interrupt_flag(ifr)) // DMA (I2S2 transmit) transfer complete interrupt
+	if (pulse_check_interrupt_flag(ifr)) { // DMA (I2S2 transmit) transfer complete interrupt
 		pulse_repetition_ended_callb();
+		if (!(CSL_DMA1_REGS->DMACH1TCR2 & CSL_DMA_DMACH1TCR2_EN_MASK)) {
+			full_cnt = transmit_cnt;
+		}
+	}
 }
 
 bool prompt_stopwatch_start = false;
@@ -238,36 +230,56 @@ bool prompt_stopwatch_start = false;
 interrupt void I2S2_transmit_ISR(void) {
 	if (prompt_stopwatch_start) {
 		stopwatch_start(&tim_handle);
+		transmit_cnt = 0;
 		prompt_stopwatch_start = false;
 	}
 	if (prompt_gen_start) {
 		pulse_start_periods(REPETITIONS);
+		reader_start(&reader_handle);
 		pulse_edge_detection_start();
 		prompt_gen_start = false;
 		prompt_stopwatch_start = true;
 	}
+	transmit_cnt++;
 }
+
+int16_t lastEdgeVal = 0;
+uint32_t edgePtr = 0;
+
+uint32_t highestPtr = 0;
 
 interrupt void I2S2_receive_ISR(void)
 {
+	if (!propagating) return;
 
 	// Copy I2S value and DMA destination addresses before they change
 	short reg = (short) CSL_I2S2_REGS->I2SRXRT1;
+
 	uint16_t curr_index = (uint16_t) BUFFER_READ_CURR_INDEX; // current array index being written to
 
 	// if an edge has been detected, count down until the end of the recording
 	pulse_edge_detection_stop_counter();
 
 	// Check if the current sample is an edge (if the absolute magnitude is above the threshold)
-	if (!edge_detected && (reg > EDGE_THRESHOLD || reg < -EDGE_THRESHOLD))
+	if (!edge_detected  && (reg > EDGE_THRESHOLD || reg < -EDGE_THRESHOLD))
 	{
 		buffer_index_edge = curr_index; // Remember this index as the first edge detected
 	    stopwatch_stop(singStationHandle->watch);
 
+	    edgePtr = (uint32_t) CSL_DMA1_REGS->DMACH1DSAL | ((uint32_t) CSL_DMA1_REGS->DMACH1DSAU << 16);
+
+	    lastEdgeVal = reg;
 
 		edge_detected = true;
 
-		pulse_edge_detection_stop_in_n(SEQ_LEN + 10); // Capture another SEQ_LEN + 10 samples before stopping capturing
+		if (edgePtr > highestPtr) highestPtr = edgePtr;
+		if (highestPtr > 0x15000) {
+			reader_stop(&reader_handle);
+			volatile int hej = 0;
+			hej++;
+		}
+
+		pulse_edge_detection_stop_in_n(REPETITIONS * SEQ_LEN + 10); // Capture another SEQ_LEN + 10 samples before stopping capturing
 	}
 }
 
