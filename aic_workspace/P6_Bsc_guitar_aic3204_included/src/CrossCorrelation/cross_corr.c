@@ -10,6 +10,7 @@
 #define FREQ 40000      // Pulse sine frequency
 #define S_RATE 96000    // Sample rate
 
+#include <CrossCorrelation/cross_corr.h>
 
 /*  Cross Correlation  */
 
@@ -26,7 +27,7 @@ short max_finder(short array[], short length);
 void generate_compare_signal(short *table, float freq, float s_rate,
                             unsigned short samples);
 
-#include <CrossCorrelation/cross_corr.h>
+
 
 float crosscorr(short inSignal[], short resultCorr[], short inSigLen, short outSigLen, short compSigLen)
 {

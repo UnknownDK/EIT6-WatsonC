@@ -26,16 +26,15 @@
 
 #define FREQ 40000      // Pulse sine frequency
 #define S_RATE 96000    // Sample rate
-//#define SEQ_LEN 128      // Gives 10 periods at 40 kHz
+#define SEQ_LEN 24      // Gives 10 periods at 40 kHz Change to 21 to match matlab
 #define READ_BUFFER_LEN 1000
 #define EDGE_THRESHOLD 12000    // Threshold that correspond to approx. positive 366 mVp voltage
 
 /* Crosscorr, FDZP */
 #define INTERP_F 8
-#define SEQ_LEN 128*INTERP_F
 #define INSIGLEN 128 // Incoming signal; We want to know how delayed this is.
 #define OUTSIGLEN  INSIGLEN*INTERP_F// Outgoing signal; Signal after fdzp
-#define COMPSIGLEN 21*INTERP_F // Compare signal; We are looking for this
+#define COMPSIGLEN SEQ_LEN*INTERP_F // Compare signal; We are looking for this
 #define FDZPARRAYLEN (OUTSIGLEN*4) // Length of FDZP array due to function requirements
 #define RSLTCORRLEN (COMPSIGLEN+OUTSIGLEN-1) // Length of output array for corr_raw
 
@@ -97,7 +96,8 @@ exp_board_handle exp_handle;
 //int32_t data_br_buf[4096];
 
 
-
+#define FAKE_SEQ_LEN 128*INTERP_F
+int32_t fakeSineTable[SEQ_LEN] = { 0 };
 
 int main(void)
 {
@@ -116,7 +116,7 @@ int main(void)
     /* Generate fake input for testing */
     short inSignal[OUTSIGLEN];
     int i = 0;
-    generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN); // Generate sinetable for compareSignal
+    generate_sine_table(fakeSineTable, FREQ, S_RATE, FAKE_SEQ_LEN); // Generate sinetable for compareSignal
     for(i=0;i<INSIGLEN;i++){
         inSignal[i] = 0;
     }
@@ -133,7 +133,8 @@ int main(void)
     }
 
     short resultCorr[RSLTCORRLEN];
-    crosscorr(inSignal, resultCorr, INSIGLEN, OUTSIGLEN, COMPSIGLEN);
+    float timeRslt;
+    timeRslt = crosscorr(inSignal, resultCorr, INSIGLEN, OUTSIGLEN, COMPSIGLEN);
     //fft_test();
     i = 0;
 
