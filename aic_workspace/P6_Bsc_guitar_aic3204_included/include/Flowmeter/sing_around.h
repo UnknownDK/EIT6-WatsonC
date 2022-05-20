@@ -47,6 +47,13 @@ typedef struct {
 } SA_round_result;
 
 typedef struct {
+	SA_direction direction;
+	float edge_prop_time; // Propagation time for initially recognized pulse edge
+	uint16_t edge_index;
+	uint16_t end_index;
+} SA_pulse_result;
+
+typedef struct {
     stopwatch_handle *watch;
     exp_board_handle expBoard;
     uint16_t sensor_upstream;
@@ -54,6 +61,8 @@ typedef struct {
     bool *propagating;
     bool *prompt_gen_start;
     bool *timeout_flag;
+    uint16_t edge_index;
+    uint16_t end_index;
 } SA_station_obj;
 
 

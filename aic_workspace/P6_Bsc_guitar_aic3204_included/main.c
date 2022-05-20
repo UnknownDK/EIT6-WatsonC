@@ -73,7 +73,6 @@ int16_t buffer_read_int16[READ_BUFFER_LEN] = { 0 };
 int32_t sineTable[SEQ_LEN] = { 0 };
 
 bool propagating = false;
-#define FFTSIZE 16
 
 bool edge_detected = false;
 bool prompt_gen_start = false;
@@ -94,8 +93,7 @@ exp_board_obj exp_obj = { { CSL_GPIO_PIN8, CSL_GPIO_PIN3, CSL_GPIO_PIN0,
 
 exp_board_handle exp_handle;
 
-SA_station_obj singStationObj = { &tim_handle, &exp_obj,
-									1, 2, &propagating, &prompt_gen_start, &SA_timeout_flag };
+SA_station_obj singStationObj = { &tim_handle, &exp_obj, 1, 2, &propagating, &prompt_gen_start, &SA_timeout_flag, &buffer_index_edge, &buffer_index_stop };
 SA_station_handle singStationHandle;
 
 
@@ -116,7 +114,7 @@ int main(void)
     /* Generate fake input for testing */
     short inSignal[OUTSIGLEN];
     int i = 0;
-    generate_sine_table(fakeSineTable, FREQ, S_RATE, FAKE_SEQ_LEN); // Generate sinetable for compareSignal
+    generate_sine_table(fakeSineTable, 1, FREQ, S_RATE, FAKE_SEQ_LEN); // Generate sinetable for compareSignal
     for(i=0;i<INSIGLEN;i++){
         inSignal[i] = 0;
     }
@@ -147,70 +145,16 @@ int main(void)
 	}
 }
 
-#define NX 16
-void fft_test()
-{
-    //int i = 0;
-    //generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN);
-    //for(i=0;i<FFTSIZE;i++){
-    //    fftSignal[i] = (sineTable[i]);
-    //}
-    //long test[32] = { 0x599a, 0xd99a, 0x199a, 0xc000, 0x4ccd, 0xe666, 0x2666, 0xc000, 0x599a, 0xd99a, 0x199a, 0xc000, 0x4ccd, 0xe666, 0x2666, 0xc000 };
-
-    //long test2[64];
-    //for(i=0;i<FFTSIZE;i++){
-    //    test[i] = (test[i]<<16);
-    //}
-//    for(i=0;i<64;i++){
-//        test2[i] = 0;
-//    }
-    //rfft32(fftSignal,16,SCALE);
-
-    long x[2*NX] ={
-    -18187058, 46331372,
-    54834337, 44286577,
-    27689626, -30515381,
-    7743059, -77363268,
-    22536296, 60019827,
-    -17048265, 13112998,
-    28734391, 681949,
-    9009481, -13622328,
-    20970687, -51502515,
-    -35142830, 7428049,
-    51528547, -46119851,
-    14576909, -28161749,
-    -64328405, -7000883,
-    15768554, 25364231,
-    42760128, 12607556,
-    21425929, -45144568,
-    };
-
-
-
-    cfft32_NOSCALE(x, NX);
-    cbrev32(x, x, NX);
-    cifft32_NOSCALE(x, NX);
-    cbrev32(x, x, NX);
-
-//    short Real_Part[FFTSIZE];
-//    short Imaginary_Part[FFTSIZE];
-//    for (i=0;i<FFTSIZE;i++){
-//        Real_Part[i] = test2[i] >> 16;
-//        Imaginary_Part[i] = test2[i] & 0x0000FFFF;
-//    }
-//    cifft32_SCALE(test, FFTSIZE);
-
-
-
-}
-
-
-
-
 void flowmeter_init()
 {
-	generate_sine_table(sineTable, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
-	memset(buffer_read, 0, sizeof(buffer_read)); // clear read buffer
+	generate_sine_table(sineTable, 1, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
+
+	// Clear input buffer
+	uint16_t i = 0;
+	for (; i < READ_BUFFER_LEN; i++)
+	{
+		buffer_read[i] = 0;
+	}
 
 	/* The EBSR register must be set in order to enable I2S2 and desired GPIO pins.
 	 * Before modifying the values in the EBSR register, you must clock gate all affected peripherals through the PCGCR register.
@@ -223,7 +167,6 @@ void flowmeter_init()
 			| (CSL_SYS_EBSR_SP1MODE_MODE2 << CSL_SYS_EBSR_SP1MODE_SHIFT)
 			| (CSL_SYS_EBSR_SP0MODE_MODE2 << CSL_SYS_EBSR_SP0MODE_SHIFT);
 
-	generate_sine_table(sineTable, 1, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
 
 	// Reset DMA clocks
 	DMA_init();

@@ -78,19 +78,17 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
 }
 
 
-SA_status sing_one_way(SA_station_handle station, SA_direction dir, float *prop_time){
+SA_status sing_one_way(SA_station_handle station, SA_pulse_result * result){
 
 	// Choose which sensor is transmitter and receiver depending on whether we're sending up- or downstream.
-    //uint16_t sensor_transmitter = 1; //(dir == DOWNSTREAM) ? station->sensor_upstream : station->sensor_downstream;
-    //uint16_t sensor_receiver = 2; //(dir == DOWNSTREAM) ? station->sensor_downstream : station->sensor_upstream;
 	uint16_t sensor_transmitter = 0;
 	uint16_t sensor_receiver = 0;
 
-	if (dir == DOWNSTREAM) {
+	if (result->direction == DOWNSTREAM) {
 		sensor_transmitter = station->sensor_upstream;
 		sensor_receiver = station->sensor_downstream;
 	}
-	if (dir == UPSTREAM) {
+	if (result->direction == UPSTREAM) {
 		sensor_transmitter = station->sensor_downstream;
 		sensor_receiver = station->sensor_upstream;
 	}
@@ -112,7 +110,10 @@ SA_status sing_one_way(SA_station_handle station, SA_direction dir, float *prop_
     }
 
     // Read from the stopwatch the propagation time + system delay
-    stopwatch_read_ns(station->watch, prop_time);    //saves time in timerVar
+    stopwatch_read_ns(station->watch, &result->edge_prop_time);    //saves time in timerVar
+
+    result->edge_index = station->edge_index;
+    result->end_index = station->end_index;
 
     // Disable receivers ADC and transmitters power amplifier
     exp_board_disable_dac(station->expBoard);
@@ -122,28 +123,29 @@ SA_status sing_one_way(SA_station_handle station, SA_direction dir, float *prop_
 }
 
 SA_status sing_one_round(SA_station_handle station, SA_round_result * result) {
+
 	SA_status status = SA_SUCCES;
 
 	/* Results are first written to local variables on the stack, and later moved to the dynamically allocated result array.
 	 * It appears that this is more time consistent. A hypothesis is that this is caused by bus congestion as the DMA is reading and writing alot on
 	 * DARAM and maybe there is delay as well on dynamically allocated memory like the result array.
 	 */
-//	float a = 0;
-//	float b = 0;
 
-	status = sing_one_way(station, DOWNSTREAM, &result->prop_time_downstream);
+	SA_pulse_result pulse_down = { DOWNWARD };
+	SA_pulse_result pulse_up = { UPWARD };
+
+
+
+	status = sing_one_way(station, &pulse_down);
+
 	if (status != SA_SUCCES) return status;
 	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
 
-	status = sing_one_way(station, UPSTREAM, &result->prop_time_upstream);
+	status = sing_one_way(station, &pulse_up);
 	if (status != SA_SUCCES) return status;
 	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
 
 	//result->delta_freq = 1.0 / (result->prop_time_downstream) - 1.0 / (result->prop_time_upstream);
-
-//	result->prop_time_downstream = a;
-//	result->prop_time_upstream = b;
-
 	return status;
 }
 
