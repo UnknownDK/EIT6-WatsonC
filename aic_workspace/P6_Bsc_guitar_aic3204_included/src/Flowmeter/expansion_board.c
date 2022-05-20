@@ -22,9 +22,11 @@ CSL_Status exp_board_init(exp_board_handle handle)
 		return CSL_ESYS_INVPARAMS; // The configuration is trying to access GPIO pins that are not enabled in the PPMODE field of the EBSR register yet.
 
 	// Enable GPIO outputs instead of alternative pin functionality
-	CSL_SYSCTRL_REGS->EBSR |= (CSL_SYS_EBSR_SP1MODE_MODE2
-			<< CSL_SYS_EBSR_SP1MODE_SHIFT)
-			| (CSL_SYS_EBSR_SP0MODE_MODE2 << CSL_SYS_EBSR_SP0MODE_SHIFT);
+	// Ensure that EBSR has set SPI1_MODE2 and SP0_MODE2 to enable necessary GPIO
+	if ((CSL_SYSCTRL_REGS->EBSR & CSL_SYS_EBSR_SP0MODE_MASK) != (CSL_SYS_EBSR_SP0MODE_MODE2 << CSL_SYS_EBSR_SP0MODE_SHIFT)
+			|| (CSL_SYSCTRL_REGS->EBSR & CSL_SYS_EBSR_SP1MODE_MASK) != (CSL_SYS_EBSR_SP1MODE_MODE2 << CSL_SYS_EBSR_SP1MODE_SHIFT)) {
+		return CSL_ESYS_FAIL;
+	}
 
 	CSL_Status status = 0;
 	handle->gpio_handle = GPIO_open(&handle->gpio_obj, &status);

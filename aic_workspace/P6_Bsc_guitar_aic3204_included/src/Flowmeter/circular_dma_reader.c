@@ -11,6 +11,7 @@ CSL_Status reader_init(circular_dma_reader_handle * handle, circular_dma_reader_
     handle->dmaConfig.srcAddr = (uint32_t) config->src_addr;
     handle->dmaConfig.destAddr = (uint32_t) config->dest_addr;
     handle->dmaConfig.dataLen = config->buffer_len * 4; // DMA works in "byte-addressing space" and does not use CPU 16-bit addressing intervals. A 32 bit array element is therefore counted as 4 * 8 bits.
+    handle->dmaConfig.dmaInt = CSL_DMA_INTERRUPT_ENABLE;
 
     // Check for invalid parameters
     if (handle->dmaChNum == CSL_DMA_CHAN_INV
@@ -33,6 +34,12 @@ CSL_Status reader_init(circular_dma_reader_handle * handle, circular_dma_reader_
 }
 
 CSL_Status reader_start(circular_dma_reader_handle * handle) {
+	// --------------------------- VERY IMPORTANT! -----------------------------
+	// Reset DMA destination address every time we start - Otherwise the DMA will chew further and further through memory for every DMA restart
+	CSL_Status status = DMA_config(handle->dmaHandle, &handle->dmaConfig);
+
+	if (status != CSL_SOK) return status;
+
     return DMA_start(handle->dmaHandle);
 }
 
