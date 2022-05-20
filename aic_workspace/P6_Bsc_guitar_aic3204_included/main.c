@@ -98,6 +98,35 @@ void delay(){
 int main(void)
  {
 	flowmeter_init();   // init board and codec
+	uint32_t i = 1;
+	uint32_t index = 0;
+	for (; 1; i++)	 {
+		reader_start(&reader_handle);
+
+		delay();
+
+		reader_stop(&reader_handle);
+
+		index = (uint32_t) BUFFER_READ_CURR_INDEX;
+
+		// Clear
+		uint16_t j = 0;
+		for (j = 0; j < READ_BUFFER_LEN; j++) {
+			buffer_read[j] = 0;
+		}
+
+		//CSL_DMA1_REGS->DMACH1DSAL = 0x30D4 + 256 * i;
+	}
+
+
+
+
+	volatile unsigned long tick = 0;
+
+	while (1)
+	{
+		tick++;
+	}
 
 	reader_start(&reader_handle);
 
@@ -107,9 +136,31 @@ int main(void)
 
 	delay();
 
-	DMA_init();
+	//DMA_init();
 
-	reader_init(&reader_handle, &reader_config);
+	// Setup DMA configuration struct
+//	reader_handle.dmaChNum = reader_config.chan;
+//	reader_handle.dmaHandle = &reader_handle.dmaChObj;
+//	reader_handle.dmaConfig.dmaEvt = reader_config.evtType;
+//	reader_handle.dmaConfig.srcAddr = (uint32_t) reader_config.src_addr;
+//	reader_handle.dmaConfig.destAddr = (uint32_t) reader_config.dest_addr;
+//	reader_handle.dmaConfig.dataLen = 256;//config->buffer_len * 4; // DMA works in "byte-addressing space" and does not use CPU 16-bit addressing intervals. A 32 bit array element is therefore counted as 4 * 8 bits.
+//
+//	// Check for invalid parameters
+//	if (reader_handle.dmaChNum == CSL_DMA_CHAN_INV
+//			|| reader_handle.dmaConfig.dmaEvt == CSL_DMA_EVT_INVALID
+//			|| reader_handle.dmaConfig.srcAddr == 0
+//			|| reader_handle.dmaConfig.destAddr == 0
+//			|| reader_handle.dmaConfig.dataLen == 0) return CSL_ESYS_INVPARAMS;
+//
+//	CSL_Status status = CSL_SOK;
+//
+//	reader_handle.dmaHandle = DMA_open(reader_handle.dmaChNum, reader_handle.dmaHandle, &status);
+//
+//	status = ;
+	//DMA_config(reader_handle.dmaHandle, &reader_handle.dmaConfig);
+
+	CSL_DMA1_REGS->DMACH1DSAU = 0x30D4;
 
 	reader_start(&reader_handle);
 
@@ -123,12 +174,7 @@ int main(void)
 //    singAround(singStationHandle,128,3);
 	//pulse_start();
 
-	volatile unsigned long tick = 0;
 
-	while (1)
-	{
-		tick++;
-	}
 }
 
 void flowmeter_init()
