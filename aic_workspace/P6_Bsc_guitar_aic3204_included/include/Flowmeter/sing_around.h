@@ -29,6 +29,7 @@ extern "C" {
 #define Q_DIF Q-FREQ_Q
 #define REPETITIONS 2
 #define CALIB_FACTOR 383000   //kan evt traekkes fra
+#define TIMEOUT // Number of samples to wait for the receival of a pulse before calling timeout
 
 typedef enum {
 	DOWNSTREAM,

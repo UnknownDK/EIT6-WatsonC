@@ -33,7 +33,6 @@ CSL_DMA_Config dmaConfig = {
 void set_i2s_output_value(uint32_t val);
 
 CSL_Status pulse_generator_init(int32_t *src_addr, uint16_t src_len) {
-    DMA_init();
 
     CSL_Status status = 0;
     dmaHandle = DMA_open(dmaChNum, &dmaChanObj, &status);

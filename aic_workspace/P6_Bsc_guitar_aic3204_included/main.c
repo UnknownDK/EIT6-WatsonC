@@ -139,6 +139,7 @@ void flowmeter_init()
 	exp_board_init(exp_handle);
 	singStationHandle = &singStationObj;
 
+	DMA_init();
 
 	pulse_generator_init(sineTable, SEQ_LEN);
 	pulse_detector_init(&edge_detection_stop_callb);
@@ -196,14 +197,20 @@ void cpy_int32_array_to_int16(int32_t *src, int16_t *dest, uint16_t len)
 	}
 }
 
+uint32_t dma_stop_address = 0;
+
 // Callback function for when edge detection is stopping
 void edge_detection_stop_callb(void)
 {
     propagating = false;
 	edge_detected = false; // Reset edge detection
 	buffer_index_stop = (uint16_t) BUFFER_READ_CURR_INDEX; // Capture current buffer array index before DMA registers change
-	reader_stop(&reader_handle); // Stop capturing
-	cpy_int32_array_to_int16(buffer_read, buffer_read_int16, READ_BUFFER_LEN); // Copy upper 16 bits from the 32 bit dma buffer array into a 16 bit array that can be read easier
+	reader_stop(&reader_handle);
+	if (buffer_index_stop > 1000) {
+		dma_stop_address = (CSL_DMA1_REGS->DMACH1DSAL | ((uint32_t) CSL_DMA1_REGS->DMACH1DSAU << 16));
+		volatile hej = 0;
+	}
+	//cpy_int32_array_to_int16(buffer_read, buffer_read_int16, READ_BUFFER_LEN); // Copy upper 16 bits from the 32 bit dma buffer array into a 16 bit array that can be read easier
 }
 
 uint16_t full_cnt = 0;
@@ -260,24 +267,24 @@ interrupt void I2S2_receive_ISR(void)
 	// if an edge has been detected, count down until the end of the recording
 	pulse_edge_detection_stop_counter();
 
+//	edgePtr = (uint32_t) CSL_DMA1_REGS->DMACH1DSAL | ((uint32_t) CSL_DMA1_REGS->DMACH1DSAU << 16);
+//	if (edgePtr > highestPtr) highestPtr = edgePtr;
+//	if (highestPtr > 0x15000) {
+//		//reader_stop(&reader_handle);
+//		volatile int hej = 0;
+//		hej++;
+//	}
+
 	// Check if the current sample is an edge (if the absolute magnitude is above the threshold)
 	if (!edge_detected  && (reg > EDGE_THRESHOLD || reg < -EDGE_THRESHOLD))
 	{
 		buffer_index_edge = curr_index; // Remember this index as the first edge detected
 	    stopwatch_stop(singStationHandle->watch);
 
-	    edgePtr = (uint32_t) CSL_DMA1_REGS->DMACH1DSAL | ((uint32_t) CSL_DMA1_REGS->DMACH1DSAU << 16);
 
 	    lastEdgeVal = reg;
 
 		edge_detected = true;
-
-		if (edgePtr > highestPtr) highestPtr = edgePtr;
-		if (highestPtr > 0x15000) {
-			reader_stop(&reader_handle);
-			volatile int hej = 0;
-			hej++;
-		}
 
 		pulse_edge_detection_stop_in_n(REPETITIONS * SEQ_LEN + 10); // Capture another SEQ_LEN + 10 samples before stopping capturing
 	}
