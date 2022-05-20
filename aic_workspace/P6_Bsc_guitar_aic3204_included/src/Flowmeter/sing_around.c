@@ -9,11 +9,11 @@
 
 #define NR_ROUNDS 128; // Hardcoded in order to be able to make static arrays that are faster on the bus
 
-SA_round_result round_results[128];
+//SA_round_result round_results[128];
 
 int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t antalMeas){
 
-	nrRounds = NR_ROUNDS; // Hardcode number of rounds
+	//nrRounds = NR_ROUNDS; // Hardcode number of rounds
 
     exp_board_disable_adc(sa_station->expBoard); //disable
     exp_board_disable_dac(sa_station->expBoard);
@@ -23,9 +23,9 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
     }
   
     //memory allocation
-    //SA_round_result *round_results; // Array holding the "delta frequency" of each sing around round.
+    SA_round_result *round_results; // Array holding the "delta frequency" of each sing around round.
     float *resultArray;
-    //round_results = (SA_round_result*) malloc(nrRounds * sizeof(SA_round_result));
+    round_results = (SA_round_result*) malloc(nrRounds * sizeof(SA_round_result));
     if (!round_results){
         //fejlhaandtering
         return 0;
@@ -72,7 +72,7 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
 
     }
     resultHolder = averageSpeed(resultArray, antalMeas);
-    //free(round_results);
+    free(round_results);
     free(resultArray);
     return resultHolder;
 }
