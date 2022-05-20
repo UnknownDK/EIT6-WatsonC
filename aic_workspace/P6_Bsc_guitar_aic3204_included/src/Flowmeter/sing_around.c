@@ -48,7 +48,9 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
 
         int16_t j = 0; //counts sing around rounds
         for (j = 0; j < nrRounds ; j++){
-        	SA_status status = sing_one_round(sa_station, &round_results[j]);
+        	SA_round_result res;
+        	SA_status status = sing_one_round(sa_station, &res);
+        	round_results[j] = res;
         	if (status != SA_SUCCES) j--; // Retry if the sing around was not succesful
         }
 
@@ -137,7 +139,7 @@ SA_status sing_one_round(SA_station_handle station, SA_round_result * result) {
 	if (status != SA_SUCCES) return status;
 	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
 
-	result->delta_freq = 1.0 / (result->prop_time_downstream) - 1.0 / (result->prop_time_upstream);
+	//result->delta_freq = 1.0 / (result->prop_time_downstream) - 1.0 / (result->prop_time_upstream);
 
 //	result->prop_time_downstream = a;
 //	result->prop_time_upstream = b;
