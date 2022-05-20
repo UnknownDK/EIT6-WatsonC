@@ -20,6 +20,7 @@ extern "C" {
 #include "expansion_board.h"
 #include "stopwatch.h"
 #include "ezdsp5535.h"
+#include "circular_dma_reader.h"
 
 #define MAX_MALLOC 4096
 #define ANGLE_LOOKUP 1      //til cos vaerdi der passer til sensorer. 1 Svarer til at sensorer står på en linje midt i strømmen
@@ -49,6 +50,7 @@ typedef struct {
     uint16_t sensor_downstream;
     bool *propagating;
     bool *prompt_gen_start;
+    circular_dma_reader_handle reader_handle;
 } SA_station_obj;
 
 

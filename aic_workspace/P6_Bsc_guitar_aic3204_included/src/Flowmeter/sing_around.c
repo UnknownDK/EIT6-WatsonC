@@ -7,8 +7,6 @@
  */
 #include "Flowmeter/sing_around.h"
 
-
-
 int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t antalMeas){
     exp_board_disable_adc(sa_station->expBoard); //disable
     exp_board_disable_dac(sa_station->expBoard);
@@ -87,6 +85,10 @@ void sing_one_way(SA_station_handle station, SA_direction dir, float *prop_time)
 
     // Wait until a pulse edge has been detected on the receiver end
     while (*station->propagating == true){}
+
+    reader_stop(&station->reader_handle);
+
+    while ((CSL_DMA1_REGS->DMACH1TCR2 & CSL_DMA_DMACH1TCR2_EN_MASK)) {}
 
     // Read from the stopwatch the propagation time + system delay
     stopwatch_read_ns(station->watch, prop_time);    //saves time in timerVar

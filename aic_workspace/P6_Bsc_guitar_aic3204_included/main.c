@@ -94,7 +94,7 @@ int main(void)
 	flowmeter_init();   // init board and codec
 
 	edge_detected = false;
-	reader_start(&reader_handle);
+	//reader_start(&reader_handle);
 	//pulse_start();
 	singAround(singStationHandle,128,3);
 //	ezdsp5535_waitusec(40);
@@ -149,7 +149,7 @@ void flowmeter_init()
 	CSL_I2S2_REGS->I2SRXRT0 = 0;
 	CSL_I2S2_REGS->I2SRXRT1 = 0;
 
-    CSL_I2S2_REGS->I2SINTMASK |= CSL_I2S_I2SINTMASK_XMITST_MASK; // Disable I2S2 stereo left/right receive data interrupt
+    CSL_I2S2_REGS->I2SINTMASK |= CSL_I2S_I2SINTMASK_XMITST_MASK; // Enable I2S2 stereo left/right transmit data interrupt
 
 	stopwatch_configure(&tim_handle);
 
@@ -205,7 +205,6 @@ void edge_detection_stop_callb(void)
     propagating = false;
 	edge_detected = false; // Reset edge detection
 	buffer_index_stop = (uint16_t) BUFFER_READ_CURR_INDEX; // Capture current buffer array index before DMA registers change
-	reader_stop(&reader_handle);
 	if (buffer_index_stop > 1000) {
 		dma_stop_address = (CSL_DMA1_REGS->DMACH1DSAL | ((uint32_t) CSL_DMA1_REGS->DMACH1DSAU << 16));
 		volatile hej = 0;
