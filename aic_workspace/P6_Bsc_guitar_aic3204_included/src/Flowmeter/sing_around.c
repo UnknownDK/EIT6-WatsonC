@@ -115,6 +115,8 @@ SA_status sing_one_way(SA_station_handle station, SA_direction dir, float *prop_
 SA_status sing_one_round(SA_station_handle station, SA_round_result * result) {
 	SA_status status = SA_SUCCES;
 
+	//SA_round_result r = {0};
+
 	float a = 0;
 	float b = 0;
 	float c = 0;
@@ -122,7 +124,7 @@ SA_status sing_one_round(SA_station_handle station, SA_round_result * result) {
 	if (status != SA_SUCCES) return status;
 	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
 
-	status = sing_one_way(station, DOWNSTREAM, &b);
+	status = sing_one_way(station, UPSTREAM, &b);
 	if (status != SA_SUCCES) return status;
 	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
 
@@ -130,8 +132,21 @@ SA_status sing_one_round(SA_station_handle station, SA_round_result * result) {
 	if (status != SA_SUCCES) return status;
 	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
 
+//	status = sing_one_way(station, UPSTREAM, &r.prop_time_upstream);
+//	if (status != SA_SUCCES) return status;
+//	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
+//
+//	status = sing_one_way(station, DOWNSTREAM, &r.prop_time_downstream);
+//	if (status != SA_SUCCES) return status;
+//	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
+
 
 	result->delta_freq = 1.0 / (result->prop_time_downstream) - 1.0 / (result->prop_time_upstream);
+
+	//result->prop_time_downstream = r.prop_time_downstream;
+	//result->prop_time_upstream = r.prop_time_upstream;
+	result->prop_time_downstream = a;
+	result->prop_time_upstream = b;
 
 	return status;
 }
