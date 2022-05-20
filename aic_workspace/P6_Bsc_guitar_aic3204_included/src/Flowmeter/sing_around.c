@@ -16,97 +16,81 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
     }
   
     //memory allocation
-    SA_round_result *round_results; // Array holding the "delta frequency" of each sing around round.
-    float *resultArray;
-    round_results = (SA_round_result*) malloc(nrRounds * sizeof(SA_round_result));
-    if (!round_results){
+    int16_t *singArray;
+    int16_t *resultArray;
+    singArray = (int16_t*) malloc(nrRounds * sizeof(int16_t));
+    if (!singArray){
         //fejlhaandtering
         return 0;
     }
-    resultArray = (float*) malloc(antalMeas * sizeof(float));
+    resultArray = (int16_t*) malloc(antalMeas * sizeof(int16_t));
     if (!resultArray){
-        free(resultArray);
+        free(singArray);
         //fejlhaandtering
         return 0;
     }
-
-
-
-    const float factor = (SOUNDPATH_LENGTH/(2.0*ANGLE_LOOKUP));
-    float round_avg_velocity = 0; //half scratch var
-    float resultHolder = 0;
+    uint16_t qOmregner = (uint16_t)1 << Q;
+    //(int16_t)(1 << Q))
+    const float factor = (SOUNDPATH_LENGTH/(2*ANGLE_LOOKUP)) / qOmregner;
+    float singResultHolder; //half scratch var
+    int16_t resultHolder;
+    uint32_t watchVar;
 
     int32_t i = 0;                      //counts measuring number
+    for (;i<3000000;i++){}
     for(i = 0; i < antalMeas ; i++){    //loop for hver maaling
+        //uint32_t test[256];
 
-
-        int16_t j = 0; //counts sing around rounds
+        int16_t j = 0;                  //counts sing arounds
         for (j = 0; j < nrRounds ; j++){
-        	sing_one_round(sa_station, &round_results[j]);
+//            int k = 0;
+//            for(;k<3;k++){}
+            measureOneWay(sa_station, false, &watchVar);//, test,j);
+            singArray[j] = calcFreqQ(watchVar, Q);  //upstream freq
+
+            //sender lyd tilbage
+            measureOneWay(sa_station, true, &watchVar);//,test,(j+nrRounds));
+            singArray[j] -= calcFreqQ(watchVar, Q); //subtracts downstream freq
         }
 
-
-        float round_avg_delta_freq = 0.0;
-
-        // Calculate average delta frequencies of all rounds.
         for (j = 0; j < nrRounds ; j++){
-        	round_avg_delta_freq += round_results[j].delta_freq; // find the average of delta freq
+            singResultHolder += (factor * (float) singArray[j]);
         }
-
-        // Calculate average water velocity along the propagation path
-        round_avg_velocity = round_avg_delta_freq * factor / nrRounds;
-
-
+        singResultHolder /= nrRounds;
         //Error handling here - increase nrRounds hvis to maalinger er meget forskellige
-        //resultArray[i] = (int16_t) (singResultHolder*(qOmregner>>Q_DIF));
+        resultArray[i] = (int16_t) (singResultHolder*(qOmregner>>Q_DIF));
 
 
     }
     resultHolder = averageSpeed(resultArray, antalMeas);
-    free(round_results);
+    free(singArray);
     free(resultArray);
     return resultHolder;
 }
 
 
-void sing_one_way(SA_station_handle station, SA_direction dir, float *prop_time){
-
-	// Choose which sensor is transmitter and receiver depending on whether we're sending up- or downstream.
-    uint16_t sensor_transmitter = (dir == DOWNSTREAM) ? station->sensor_upstream : station->sensor_downstream;
-    uint16_t sensor_receiver = (dir == DOWNSTREAM) ? station->sensor_downstream : station->sensor_upstream;
-
-    // Enable receiver ADC and transmitter power amplifier
-    exp_board_enable_adc(station->expBoard, sensor_receiver);
-    exp_board_enable_dac(station->expBoard, sensor_transmitter);
-
-    // Prompt the pulse generator to start sending a pulse
+void measureOneWay(SA_station_handle station, bool direction, uint32_t *timerVar){//,uint32_t in[],uint16_t count){ //til test
+    uint16_t id1 = station->sensorID1;;
+    uint16_t id2 = station->sensorID2;
+    if (direction == true){//change dir
+        id1 = station->sensorID2;
+        id2 = station->sensorID1;
+    }
+    exp_board_enable_adc(station->expBoard, id1);
+    exp_board_enable_dac(station->expBoard, id2);
+    //stopwatch_start(station->watch);
     *station->prompt_gen_start = true;
     *station->propagating = true;
-
-    // Wait until a pulse edge has been detected on the receiver end
     while (*station->propagating == true){}
-
-
-
-    //while ((CSL_DMA1_REGS->DMACH1TCR2 & CSL_DMA_DMACH1TCR2_EN_MASK)) {}
-
-    // Read from the stopwatch the propagation time + system delay
+    // Wait until a pulse edge has been detected on the receiver end
     stopwatch_read_ns(station->watch, prop_time);    //saves time in timerVar
-
-    // Disable receivers ADC and transmitters power amplifier
+    // Read from the stopwatch the propagation time + system delay
     exp_board_disable_dac(station->expBoard);
+    // Disable receivers ADC and transmitters power amplifier
     exp_board_disable_adc(station->expBoard);
-}
-
-void sing_one_round(SA_station_handle station, SA_round_result * result) {
-	sing_one_way(station, DOWNSTREAM, &result->prop_time_downstream);
-	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
-
-	sing_one_way(station, UPSTREAM, &result->prop_time_upstream);
-	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
-
-
-	result->delta_freq = 1.0 / (result->prop_time_downstream) - 1.0 / (result->prop_time_upstream);
+    exp_board_disable_dac(station->expBoard);
+    //in[count] = *timerVar; //til test
+    //*station->edgeDetected = false;
 }
 
 uint16_t calcFreqQ(uint32_t time, uint16_t Q_outFormat){
@@ -133,8 +117,8 @@ uint16_t calcFreqQ(uint32_t time, uint16_t Q_outFormat){
     }
 }
 
-float averageSpeed(float speedResults[], uint16_t nrOfMeasures){
-    float sum = 0; //evt make it 32 bit
+int16_t averageSpeed(int16_t speedResults[], uint16_t nrOfMeasures){
+    int32_t sum = 0; //evt make it 32 bit
     uint16_t i;
     for (i = 0 ; i < nrOfMeasures ; i++){
         sum += speedResults[i];

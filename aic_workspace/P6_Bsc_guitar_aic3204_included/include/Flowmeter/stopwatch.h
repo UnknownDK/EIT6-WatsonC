@@ -45,6 +45,6 @@ CSL_Status stopwatch_stop(stopwatch_handle * handle);
  * @param ns The amount of nanoseconds that the stopwatch has counted. It can count to a maximum 2^32 nanoseconds, meaning approximately 4.29 seconds.
  * @return CSL success or error codes found in csl_error.h
  */
-CSL_Status stopwatch_read_ns(stopwatch_handle * handle, float * ns);
+CSL_Status stopwatch_read_ns(stopwatch_handle * handle, uint32_t * ns);
 
 #endif /* INCLUDE_FLOWMETER_STOPWATCH_H_ */

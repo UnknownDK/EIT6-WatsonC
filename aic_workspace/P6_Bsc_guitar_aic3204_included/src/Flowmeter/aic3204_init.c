@@ -36,10 +36,10 @@ CSL_Status AIC3204_init()
     AIC3204_rset( 5, 1<<7 | 1<<4 | 1 ); // PLL power up P = 1, R = 1
 
     // Program and power up NDAC & MDAC
-	AIC3204_rset( 11, 1<<7 | 4 ); // NDAC power up
-	AIC3204_rset( 12, 1<<7 | 8 ); // MDAC power up (MACD is the same, if not powered up) ADC_MOD_CLK = DAC_MOD_CLK -
-	AIC3204_rset( 18, 1<<7 | 7 );  // Power up NADC and set NADC value to 7
-	AIC3204_rset( 19, 1<<7 | 2 );  // Power up MADC and set MADC value to 2
+        AIC3204_rset( 11, 1<<7 | 4 ); // NDAC power up
+        AIC3204_rset( 12, 1<<7 | 8 ); // MDAC power up (MACD is the same, if not powered up) ADC_MOD_CLK = DAC_MOD_CLK -
+        AIC3204_rset( 18, 1<<7 | 7 );  // Power up NADC and set NADC value to 7
+        AIC3204_rset( 19, 1<<7 | 2 );  // Power up MADC and set MADC value to 2
 
 
     // Program OSR value
@@ -48,7 +48,8 @@ CSL_Status AIC3204_init()
     AIC3204_rset( 20, 64 ); // AOSR = DOSR = 64
 
     //Program the processing block to be used
-    AIC3204_rset( 61, 10 ); // ADC Signal Processing Block PRB_R10 is chosen
+    AIC3204_rset( 0x3d, 10 ); // ADC Signal Processing Block PRB_R10 is chosen
+    //AIC3204_rset( 0x3d, 4);
     AIC3204_rset( 60, 7 );
 
     /* EXPOSE CLOCK_OUT ON GPIO */
