@@ -35,6 +35,10 @@ CSL_Status reader_init(circular_dma_reader_handle * handle, circular_dma_reader_
 }
 
 CSL_Status reader_start(circular_dma_reader_handle * handle) {
+	CSL_Status status = DMA_config(handle->dmaHandle, &handle->dmaConfig);
+
+	if (status != CSL_SOK) return status;
+
     return DMA_start(handle->dmaHandle);
 }
 

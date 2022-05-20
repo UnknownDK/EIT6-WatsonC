@@ -60,6 +60,7 @@ int32_t sineTable[SEQ_LEN] = { 0 };
 bool propagating = false;
 bool edge_detected = false;
 bool prompt_gen_start = false;
+bool prompt_stopwatch_start = false;
 uint16_t buffer_index_stop = 0; // Buffer array index at which capturing stopped
 uint16_t buffer_index_edge = 0; // Buffer array index at which an edge was first detected
 
@@ -69,57 +70,21 @@ circular_dma_reader_config reader_config = { CSL_DMA_CHAN5, CSL_DMA_EVT_I2S2_RX,
 
 circular_dma_reader_handle reader_handle = CIRCULAR_DMA_READER_HANDLER_RESET;
 
-
 exp_board_obj exp_obj = { { CSL_GPIO_PIN8, CSL_GPIO_PIN3, CSL_GPIO_PIN0,
-									CSL_GPIO_PIN7, CSL_GPIO_PIN9, CSL_GPIO_PIN2,
-									CSL_GPIO_PIN1, CSL_GPIO_PIN6 } };
+							CSL_GPIO_PIN7, CSL_GPIO_PIN9, CSL_GPIO_PIN2,
+							CSL_GPIO_PIN1, CSL_GPIO_PIN6 } };
 
 exp_board_handle exp_handle;
 
-SA_station_obj singStationObj = {&tim_handle,
-                                 &exp_obj, //hate this
-                                 1,
-                                 2,
-                                 &propagating,
-								 &prompt_gen_start
-};
+SA_station_obj singStationObj = { &tim_handle, &exp_obj, //hate this
+									1, 2, &propagating, &prompt_gen_start };
 SA_station_handle singStationHandle;
 
-
-
-void delay(){
-	uint32_t hejsa = 0;
-
-		while (hejsa++ < 1000000) {
-
-		}
-}
-
 int main(void)
- {
+{
 	flowmeter_init();   // init board and codec
-	uint32_t i = 1;
-	uint32_t index = 0;
-	for (; 1; i++)	 {
-		reader_start(&reader_handle);
 
-		delay();
-
-		reader_stop(&reader_handle);
-
-		index = (uint32_t) BUFFER_READ_CURR_INDEX;
-
-		// Clear
-		uint16_t j = 0;
-		for (j = 0; j < READ_BUFFER_LEN; j++) {
-			buffer_read[j] = 0;
-		}
-
-		//CSL_DMA1_REGS->DMACH1DSAL = 0x30D4 + 256 * i;
-	}
-
-
-
+	singAround(singStationHandle, 128, 3);
 
 	volatile unsigned long tick = 0;
 
@@ -127,54 +92,6 @@ int main(void)
 	{
 		tick++;
 	}
-
-	reader_start(&reader_handle);
-
-	delay();
-
-	reader_stop(&reader_handle);
-
-	delay();
-
-	//DMA_init();
-
-	// Setup DMA configuration struct
-//	reader_handle.dmaChNum = reader_config.chan;
-//	reader_handle.dmaHandle = &reader_handle.dmaChObj;
-//	reader_handle.dmaConfig.dmaEvt = reader_config.evtType;
-//	reader_handle.dmaConfig.srcAddr = (uint32_t) reader_config.src_addr;
-//	reader_handle.dmaConfig.destAddr = (uint32_t) reader_config.dest_addr;
-//	reader_handle.dmaConfig.dataLen = 256;//config->buffer_len * 4; // DMA works in "byte-addressing space" and does not use CPU 16-bit addressing intervals. A 32 bit array element is therefore counted as 4 * 8 bits.
-//
-//	// Check for invalid parameters
-//	if (reader_handle.dmaChNum == CSL_DMA_CHAN_INV
-//			|| reader_handle.dmaConfig.dmaEvt == CSL_DMA_EVT_INVALID
-//			|| reader_handle.dmaConfig.srcAddr == 0
-//			|| reader_handle.dmaConfig.destAddr == 0
-//			|| reader_handle.dmaConfig.dataLen == 0) return CSL_ESYS_INVPARAMS;
-//
-//	CSL_Status status = CSL_SOK;
-//
-//	reader_handle.dmaHandle = DMA_open(reader_handle.dmaChNum, reader_handle.dmaHandle, &status);
-//
-//	status = ;
-	//DMA_config(reader_handle.dmaHandle, &reader_handle.dmaConfig);
-
-	CSL_DMA1_REGS->DMACH1DSAU = 0x30D4;
-
-	reader_start(&reader_handle);
-
-	edge_detected = false;
-	//reader_start(&reader_handle);
-	//pulse_start();
-	//singAround(singStationHandle,500,300);
-//	ezdsp5535_waitusec(40);
-//    singAround(singStationHandle,128,3);
-//    ezdsp5535_waitusec(250);
-//    singAround(singStationHandle,128,3);
-	//pulse_start();
-
-
 }
 
 void flowmeter_init()
@@ -186,19 +103,20 @@ void flowmeter_init()
 	 * Continuously changing the EBSR configuration is not supported.
 	 * Setting PPMODE_MODE1 is required in order to enable I2S2 on the pins, and SP1MODE_MODE2 and SP0MODE_MODE2 is set in order to enable necessary GPIO.
 	 */
-	CSL_SYSCTRL_REGS->EBSR =
-			(CSL_SYS_EBSR_PPMODE_MODE1 << CSL_SYS_EBSR_PPMODE_SHIFT)
+	CSL_SYSCTRL_REGS->EBSR = (CSL_SYS_EBSR_PPMODE_MODE1
+			<< CSL_SYS_EBSR_PPMODE_SHIFT)
 			| (CSL_SYS_EBSR_SP1MODE_MODE2 << CSL_SYS_EBSR_SP1MODE_SHIFT)
 			| (CSL_SYS_EBSR_SP0MODE_MODE2 << CSL_SYS_EBSR_SP0MODE_SHIFT);
 
 	generate_sine_table(sineTable, 0.5, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
 
+	// Reset DMA clocks
 	DMA_init();
 
 	// Clear input buffer
 	uint16_t i = 0;
-	//for(;i<30000;i++){}
-	for (i = 0; i < READ_BUFFER_LEN; i++) {
+	for (; i < READ_BUFFER_LEN; i++)
+	{
 		buffer_read[i] = 0;
 	}
 
@@ -208,7 +126,6 @@ void flowmeter_init()
 	exp_board_init(exp_handle);
 	singStationHandle = &singStationObj;
 
-
 	pulse_generator_init(sineTable, SEQ_LEN);
 	pulse_detector_init(&edge_detection_stop_callb);
 	reader_init(&reader_handle, &reader_config);
@@ -217,13 +134,10 @@ void flowmeter_init()
 	CSL_I2S2_REGS->I2SRXRT0 = 0;
 	CSL_I2S2_REGS->I2SRXRT1 = 0;
 
-    //CSL_I2S2_REGS->I2SINTMASK |= CSL_I2S_I2SINTMASK_XMITST_MASK; // Enable I2S2 stereo left/right transmit data interrupt
+	// Enable I2S2 stereo left/right transmit data interrupt
+	CSL_I2S2_REGS->I2SINTMASK |= CSL_I2S_I2SINTMASK_XMITST_MASK;
 
 	stopwatch_configure(&tim_handle);
-
-
-
-
 
 	// AIC3204 - audio codec
 	aic3204_hardware_init();
@@ -265,25 +179,14 @@ void cpy_int32_array_to_int16(int32_t *src, int16_t *dest, uint16_t len)
 	}
 }
 
-uint32_t dma_stop_address = 0;
-
 // Callback function for when edge detection is stopping
 void edge_detection_stop_callb(void)
 {
-    propagating = false;
+	propagating = false;
 	edge_detected = false; // Reset edge detection
 	buffer_index_stop = (uint16_t) BUFFER_READ_CURR_INDEX; // Capture current buffer array index before DMA registers change
 	reader_stop(&reader_handle);
-	if (buffer_index_stop > 1000) {
-		dma_stop_address = (CSL_DMA1_REGS->DMACH1DSAL | ((uint32_t) CSL_DMA1_REGS->DMACH1DSAU << 16));
-		volatile hej = 0;
-	}
-	//cpy_int32_array_to_int16(buffer_read, buffer_read_int16, READ_BUFFER_LEN); // Copy upper 16 bits from the 32 bit dma buffer array into a 16 bit array that can be read easier
 }
-
-uint16_t full_cnt = 0;
-
-uint16_t transmit_cnt = 0;
 
 interrupt void DMA_ISR(void)
 {
@@ -292,40 +195,34 @@ interrupt void DMA_ISR(void)
 	CSL_SYSCTRL_REGS->DMAIFR = ifr;
 
 	// Check for particular interrupt flag bit and respond to it
-	if (pulse_check_interrupt_flag(ifr)) { // DMA (I2S2 transmit) transfer complete interrupt
+	if (pulse_check_interrupt_flag(ifr))
+	{ // DMA (I2S2 transmit) transfer complete interrupt
 		pulse_repetition_ended_callb();
-		if (!(CSL_DMA1_REGS->DMACH1TCR2 & CSL_DMA_DMACH1TCR2_EN_MASK)) {
-			full_cnt = transmit_cnt;
-		}
 	}
 }
 
-bool prompt_stopwatch_start = false;
-
-interrupt void I2S2_transmit_ISR(void) {
-	if (prompt_stopwatch_start) {
+interrupt void I2S2_transmit_ISR(void)
+{
+	if (prompt_stopwatch_start)
+	{
 		stopwatch_start(&tim_handle);
-		transmit_cnt = 0;
 		prompt_stopwatch_start = false;
 	}
-	if (prompt_gen_start) {
+
+	if (prompt_gen_start)
+	{
 		pulse_start_periods(REPETITIONS);
 		reader_start(&reader_handle);
 		pulse_edge_detection_start();
 		prompt_gen_start = false;
 		prompt_stopwatch_start = true;
 	}
-	transmit_cnt++;
 }
-
-int16_t lastEdgeVal = 0;
-uint32_t edgePtr = 0;
-
-uint32_t highestPtr = 0;
 
 interrupt void I2S2_receive_ISR(void)
 {
-	if (!propagating) return;
+	if (!propagating)
+		return;
 
 	// Copy I2S value and DMA destination addresses before they change
 	short reg = (short) CSL_I2S2_REGS->I2SRXRT1;
@@ -335,22 +232,11 @@ interrupt void I2S2_receive_ISR(void)
 	// if an edge has been detected, count down until the end of the recording
 	pulse_edge_detection_stop_counter();
 
-//	edgePtr = (uint32_t) CSL_DMA1_REGS->DMACH1DSAL | ((uint32_t) CSL_DMA1_REGS->DMACH1DSAU << 16);
-//	if (edgePtr > highestPtr) highestPtr = edgePtr;
-//	if (highestPtr > 0x15000) {
-//		//reader_stop(&reader_handle);
-//		volatile int hej = 0;
-//		hej++;
-//	}
-
 	// Check if the current sample is an edge (if the absolute magnitude is above the threshold)
-	if (!edge_detected  && (reg > EDGE_THRESHOLD || reg < -EDGE_THRESHOLD))
+	if (!edge_detected && (reg > EDGE_THRESHOLD || reg < -EDGE_THRESHOLD))
 	{
 		buffer_index_edge = curr_index; // Remember this index as the first edge detected
-	    stopwatch_stop(singStationHandle->watch);
-
-
-	    lastEdgeVal = reg;
+		stopwatch_stop(singStationHandle->watch);
 
 		edge_detected = true;
 

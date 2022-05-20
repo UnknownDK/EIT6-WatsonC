@@ -86,10 +86,6 @@ void sing_one_way(SA_station_handle station, SA_direction dir, float *prop_time)
     // Wait until a pulse edge has been detected on the receiver end
     while (*station->propagating == true){}
 
-
-
-    //while ((CSL_DMA1_REGS->DMACH1TCR2 & CSL_DMA_DMACH1TCR2_EN_MASK)) {}
-
     // Read from the stopwatch the propagation time + system delay
     stopwatch_read_ns(station->watch, prop_time);    //saves time in timerVar
 
