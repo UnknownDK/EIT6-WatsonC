@@ -61,6 +61,7 @@ bool propagating = false;
 bool edge_detected = false;
 bool prompt_gen_start = false;
 bool prompt_stopwatch_start = false;
+bool SA_timeout_flag = false;
 uint16_t buffer_index_stop = 0; // Buffer array index at which capturing stopped
 uint16_t buffer_index_edge = 0; // Buffer array index at which an edge was first detected
 
@@ -76,8 +77,8 @@ exp_board_obj exp_obj = { { CSL_GPIO_PIN8, CSL_GPIO_PIN3, CSL_GPIO_PIN0,
 
 exp_board_handle exp_handle;
 
-SA_station_obj singStationObj = { &tim_handle, &exp_obj, //hate this
-									1, 2, &propagating, &prompt_gen_start };
+SA_station_obj singStationObj = { &tim_handle, &exp_obj,
+									1, 2, &propagating, &prompt_gen_start, &SA_timeout_flag };
 SA_station_handle singStationHandle;
 
 int main(void)
@@ -108,7 +109,7 @@ void flowmeter_init()
 			| (CSL_SYS_EBSR_SP1MODE_MODE2 << CSL_SYS_EBSR_SP1MODE_SHIFT)
 			| (CSL_SYS_EBSR_SP0MODE_MODE2 << CSL_SYS_EBSR_SP0MODE_SHIFT);
 
-	generate_sine_table(sineTable, 0.5, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
+	generate_sine_table(sineTable, 1, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
 
 	// Reset DMA clocks
 	DMA_init();
@@ -179,14 +180,19 @@ void cpy_int32_array_to_int16(int32_t *src, int16_t *dest, uint16_t len)
 	}
 }
 
+void stop_edge_detection() {
+	propagating = false;
+	edge_detected = false; // Reset edge detection
+	reader_stop(&reader_handle);
+}
+
 // Callback function for when edge detection is stopping
 void edge_detection_stop_callb(void)
 {
-	propagating = false;
-	edge_detected = false; // Reset edge detection
 	buffer_index_stop = (uint16_t) BUFFER_READ_CURR_INDEX; // Capture current buffer array index before DMA registers change
-	reader_stop(&reader_handle);
+	stop_edge_detection();
 }
+
 
 interrupt void DMA_ISR(void)
 {
@@ -198,6 +204,10 @@ interrupt void DMA_ISR(void)
 	if (pulse_check_interrupt_flag(ifr))
 	{ // DMA (I2S2 transmit) transfer complete interrupt
 		pulse_repetition_ended_callb();
+	}
+	if (ifr & CSL_SYS_DMAIFR_DMA1CH1IF_MASK) {
+		stop_edge_detection();
+		SA_timeout_flag = true;
 	}
 }
 

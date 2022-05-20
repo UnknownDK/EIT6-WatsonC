@@ -39,10 +39,10 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
     int32_t i = 0;                      //counts measuring number
     for(i = 0; i < antalMeas ; i++){    //loop for hver maaling
 
-
         int16_t j = 0; //counts sing around rounds
         for (j = 0; j < nrRounds ; j++){
-        	sing_one_round(sa_station, &round_results[j]);
+        	SA_status status = sing_one_round(sa_station, &round_results[j]);
+        	if (status != SA_SUCCES) j--; // Retry if the sing around was not succesful
         }
 
 
@@ -69,22 +69,38 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
 }
 
 
-void sing_one_way(SA_station_handle station, SA_direction dir, float *prop_time){
+SA_status sing_one_way(SA_station_handle station, SA_direction dir, float *prop_time){
 
 	// Choose which sensor is transmitter and receiver depending on whether we're sending up- or downstream.
-    uint16_t sensor_transmitter = (dir == DOWNSTREAM) ? station->sensor_upstream : station->sensor_downstream;
-    uint16_t sensor_receiver = (dir == DOWNSTREAM) ? station->sensor_downstream : station->sensor_upstream;
+    //uint16_t sensor_transmitter = 1; //(dir == DOWNSTREAM) ? station->sensor_upstream : station->sensor_downstream;
+    //uint16_t sensor_receiver = 2; //(dir == DOWNSTREAM) ? station->sensor_downstream : station->sensor_upstream;
+	uint16_t sensor_transmitter = 0;
+	uint16_t sensor_receiver = 0;
+
+	if (dir == DOWNSTREAM) {
+		sensor_transmitter = station->sensor_upstream;
+		sensor_receiver = station->sensor_downstream;
+	}
+	if (dir == UPSTREAM) {
+		sensor_transmitter = station->sensor_downstream;
+		sensor_receiver = station->sensor_upstream;
+	}
 
     // Enable receiver ADC and transmitter power amplifier
     exp_board_enable_adc(station->expBoard, sensor_receiver);
     exp_board_enable_dac(station->expBoard, sensor_transmitter);
 
     // Prompt the pulse generator to start sending a pulse
-    *station->prompt_gen_start = true;
     *station->propagating = true;
+    *station->prompt_gen_start = true;
 
     // Wait until a pulse edge has been detected on the receiver end
     while (*station->propagating == true){}
+
+    if (*station->timeout_flag == true) {
+    	*station->timeout_flag = false;
+    	return SA_TIMEOUT;
+    }
 
     // Read from the stopwatch the propagation time + system delay
     stopwatch_read_ns(station->watch, prop_time);    //saves time in timerVar
@@ -92,17 +108,32 @@ void sing_one_way(SA_station_handle station, SA_direction dir, float *prop_time)
     // Disable receivers ADC and transmitters power amplifier
     exp_board_disable_dac(station->expBoard);
     exp_board_disable_adc(station->expBoard);
+
+    return SA_SUCCES;
 }
 
-void sing_one_round(SA_station_handle station, SA_round_result * result) {
-	sing_one_way(station, DOWNSTREAM, &result->prop_time_downstream);
+SA_status sing_one_round(SA_station_handle station, SA_round_result * result) {
+	SA_status status = SA_SUCCES;
+
+	float a = 0;
+	float b = 0;
+	float c = 0;
+	status = sing_one_way(station, DOWNSTREAM, &a);
+	if (status != SA_SUCCES) return status;
 	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
 
-	sing_one_way(station, UPSTREAM, &result->prop_time_upstream);
+	status = sing_one_way(station, DOWNSTREAM, &b);
+	if (status != SA_SUCCES) return status;
+	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
+
+	status = sing_one_way(station, DOWNSTREAM, &c);
+	if (status != SA_SUCCES) return status;
 	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
 
 
 	result->delta_freq = 1.0 / (result->prop_time_downstream) - 1.0 / (result->prop_time_upstream);
+
+	return status;
 }
 
 uint16_t calcFreqQ(uint32_t time, uint16_t Q_outFormat){
