@@ -87,16 +87,36 @@ SA_station_handle singStationHandle;
 
 
 
+void delay(){
+	uint32_t hejsa = 0;
 
+		while (hejsa++ < 1000000) {
+
+		}
+}
 
 int main(void)
-{
+ {
 	flowmeter_init();   // init board and codec
+
+	reader_start(&reader_handle);
+
+	delay();
+
+	reader_stop(&reader_handle);
+
+	delay();
+
+	DMA_init();
+
+	reader_init(&reader_handle, &reader_config);
+
+	reader_start(&reader_handle);
 
 	edge_detected = false;
 	//reader_start(&reader_handle);
 	//pulse_start();
-	singAround(singStationHandle,128,3);
+	//singAround(singStationHandle,500,300);
 //	ezdsp5535_waitusec(40);
 //    singAround(singStationHandle,128,3);
 //    ezdsp5535_waitusec(250);
@@ -127,9 +147,12 @@ void flowmeter_init()
 
 	generate_sine_table(sineTable, 0.5, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
 
+	DMA_init();
+
 	// Clear input buffer
 	uint16_t i = 0;
-	for (; i < READ_BUFFER_LEN; i++) {
+	//for(;i<30000;i++){}
+	for (i = 0; i < READ_BUFFER_LEN; i++) {
 		buffer_read[i] = 0;
 	}
 
@@ -139,7 +162,6 @@ void flowmeter_init()
 	exp_board_init(exp_handle);
 	singStationHandle = &singStationObj;
 
-	DMA_init();
 
 	pulse_generator_init(sineTable, SEQ_LEN);
 	pulse_detector_init(&edge_detection_stop_callb);
@@ -149,7 +171,7 @@ void flowmeter_init()
 	CSL_I2S2_REGS->I2SRXRT0 = 0;
 	CSL_I2S2_REGS->I2SRXRT1 = 0;
 
-    CSL_I2S2_REGS->I2SINTMASK |= CSL_I2S_I2SINTMASK_XMITST_MASK; // Enable I2S2 stereo left/right transmit data interrupt
+    //CSL_I2S2_REGS->I2SINTMASK |= CSL_I2S_I2SINTMASK_XMITST_MASK; // Enable I2S2 stereo left/right transmit data interrupt
 
 	stopwatch_configure(&tim_handle);
 
@@ -205,6 +227,7 @@ void edge_detection_stop_callb(void)
     propagating = false;
 	edge_detected = false; // Reset edge detection
 	buffer_index_stop = (uint16_t) BUFFER_READ_CURR_INDEX; // Capture current buffer array index before DMA registers change
+	reader_stop(&reader_handle);
 	if (buffer_index_stop > 1000) {
 		dma_stop_address = (CSL_DMA1_REGS->DMACH1DSAL | ((uint32_t) CSL_DMA1_REGS->DMACH1DSAU << 16));
 		volatile hej = 0;
