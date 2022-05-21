@@ -90,7 +90,6 @@ SA_station_obj singStationObj = { &tim_handle, &exp_obj, 1, 2, &propagating, &pr
 SA_station_handle singStationHandle;
 
 
-#define FAKE_SEQ_LEN 128*INTERP_F
 int32_t fakeSineTable[SEQ_LEN] = { 0 };
 
 int main(void)
@@ -119,12 +118,12 @@ int main(void)
     /* Generate fake input for testing */
     short inSignal[OUTSIGLEN];
     int i = 0;
-    generate_sine_table(fakeSineTable, 1, FREQ, S_RATE, FAKE_SEQ_LEN); // Generate sinetable for compareSignal
+    generate_sine_table(fakeSineTable, 0.1, FREQ, S_RATE, SEQ_LEN); // Generate sinetable for compareSignal
     for(i=0;i<INSIGLEN;i++){
         inSignal[i] = 0;
     }
-    for(i=30;i<51;i++){
-        inSignal[i] = (sineTable[i-30])>>16;
+    for(i=30;i<30+SEQ_LEN;i++){
+        inSignal[i] = (fakeSineTable[i-30])>>16;
     }
     /*---------------------------------*/
 
@@ -132,7 +131,7 @@ int main(void)
     fdzp(inSignal, fdzpArray, INSIGLEN, OUTSIGLEN); // do fdzp
 
     for(i=0;i<OUTSIGLEN;i++){ // Reverting to only real
-        inSignal[i] = fdzpArray[i*2];
+        inSignal[i] = (short)(fdzpArray[i*2]);
     }
 
     short resultCorr[RSLTCORRLEN];

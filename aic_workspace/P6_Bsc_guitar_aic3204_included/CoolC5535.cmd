@@ -15,35 +15,35 @@
 
 MEMORY
 {
-    MMR:     o = 0x000000  l = 0x0000c0  /* 192B Memory Mapped Registers */
-    DARAM0:  o = 0x0000C0  l = 0x001F40  /* 8kB Dual Access RAM 0 */
-    DARAM1_2:  o = 0x002000  l = 0x004000  /* 8kB Dual Access RAM 1 - stjaeler lige fra DARAM 2 */
+    MMR(RWIX):     o = 0x000000  l = 0x0000c0  /* 192B Memory Mapped Registers */
+    DARAM0(RWIX):  o = 0x0000C0  l = 0x001F40  /* 8kB Dual Access RAM 0 */
+    DARAM1_2(RWIX):  o = 0x002000  l = 0x004000  /* 8kB Dual Access RAM 1 - stjaeler lige fra DARAM 2 */
     //DARAM2:  o = 0x004000  l = 0x002000  /* 8kB Dual Access RAM 2 */
-    DARAM3_4:  o = 0x006000  l = 0x004000  /* 8kB Dual Access RAM 3 */
+    DARAM3_4(RWIX):  o = 0x006000  l = 0x004000  /* 8kB Dual Access RAM 3 */
     //DARAM4:  o = 0x008000  l = 0x002000  /* 8kB Dual Access RAM 4 */
-    DARAM_BIG: o = 0x00A000 l = 0x006000
+    DARAM_BIG(RWIX): o = 0x00A000 l = 0x006000
     //DARAM5:  o = 0x00A000  l = 0x002000  /* 8kB Dual Access RAM 5 */
     //DARAM6:  o = 0x00C000  l = 0x002000  /* 8kB Dual Access RAM 6 */
     //DARAM7:  o = 0x00E000  l = 0x002000  /* 8kB Dual Access RAM 7 */
   
-    SARAM0:   o = 0x010000  l = 0x002000  /* 8kB Single Access RAM 0 */
-    SARAM1:   o = 0x012000  l = 0x002000  /* 8kB Single Access RAM 1 */
-    SARAM2:   o = 0x014000  l = 0x002000  /* 8kB Single Access RAM 2 + det samme fra ram3 */
-    SARAM3:   o = 0x016000  l = 0x002000  /* 8kB Single Access RAM 3 */
-    SARAM4:   o = 0x018000  l = 0x002000  /* 8kB Single Access RAM 4 */
-    SARAM5:   o = 0x01A000  l = 0x002000  /* 8kB Single Access RAM 5 */
-    SARAM6:   o = 0x01C000  l = 0x002000  /* 8kB Single Access RAM 6 */
-    SARAM7:   o = 0x01E000  l = 0x002000  /* 8kB Single Access RAM 7 */
-    SARAM8:   o = 0x020000  l = 0x002000  /* 8kB Single Access RAM 8 */
-    SARAM9:   o = 0x022000  l = 0x002000  /* 8kB Single Access RAM 9 */
-    SARAM_40: o = 0x024000  l = 0x00A000
+    SARAM0(RWIX):   o = 0x010000  l = 0x002000  /* 8kB Single Access RAM 0 */
+    SARAM1(RWIX):   o = 0x012000  l = 0x002000  /* 8kB Single Access RAM 1 */
+    SARAM2(RWIX):   o = 0x014000  l = 0x002000  /* 8kB Single Access RAM 2 + det samme fra ram3 */
+    SARAM3(RWIX):   o = 0x016000  l = 0x002000  /* 8kB Single Access RAM 3 */
+    SARAM4(RWIX):   o = 0x018000  l = 0x002000  /* 8kB Single Access RAM 4 */
+    SARAM5(RWIX):   o = 0x01A000  l = 0x002000  /* 8kB Single Access RAM 5 */
+    SARAM6(RWIX):   o = 0x01C000  l = 0x002000  /* 8kB Single Access RAM 6 */
+    SARAM7(RWIX):   o = 0x01E000  l = 0x002000  /* 8kB Single Access RAM 7 */
+    SARAM8(RWIX):   o = 0x020000  l = 0x002000  /* 8kB Single Access RAM 8 */
+    SARAM9(RWIX):   o = 0x022000  l = 0x002000  /* 8kB Single Access RAM 9 */
+    SARAM_40(RWIX): 	o = 0x024000  l = 0x00A000
     //SARAM10:  o = 0x024000  l = 0x002000  /* 8kB Single Access RAM 10 */
     //SARAM11:  o = 0x026000  l = 0x002000  /* 8kB Single Access RAM 11 */
     //SARAM12:  o = 0x028000  l = 0x002000  /* 8kB Single Access RAM 12 */
     //SARAM13:  o = 0x02A000  l = 0x002000  /* 8kB Single Access RAM 13 */
     //SARAM14:  o = 0x02C000  l = 0x002000  /* 8kB Single Access RAM 14 */
-    SARAMREST:o = 0x02E000  l = 0x020000  /* 16 * 8kB Single Access RAM 15-30 */
-    SARAM31:  o = 0x04E000  l = 0x001e00  /* 8kB Single Access RAM 31 - minus lidt til VECS */
+    SARAMREST(RWIX):	o = 0x02E000  l = 0x020000  /* 16 * 8kB Single Access RAM 15-30 */
+    SARAM31(RWIX):		o = 0x04E000  l = 0x001e00  /* 8kB Single Access RAM 31 - minus lidt til VECS */
                     
     ROM(RIX):     o = 0xFE0000  l = 0x01FF00  /* 128kB ROM (MPNMC=0) or CS5 (MPNMC=1) */
     VECS: 	 o = 0x04FE00  l = 0x000200  /*  512B */

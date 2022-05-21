@@ -84,8 +84,9 @@ void fdzp(short shortArray[],long fdzpArray[], short length, short outLen){
     //0xFE79 == 0xFFFFFE79
     cfft32_NOSCALE(fdzpArray, length);
     cbrev32(fdzpArray, fdzpArray, length);
-
-    for(i=(outLen*2)-1;i>(outLen*2)-(length)-1;i--){
+    int iStart = (outLen*2)-1;
+    int iSmallerThan = (outLen*2)-(length)-1;
+    for(i=iStart;i>iSmallerThan;i--){
         int swap = i-((2*interF-2)*length);
         fdzpArray[i] = fdzpArray[swap];
         fdzpArray[swap] = 0x00000000;
