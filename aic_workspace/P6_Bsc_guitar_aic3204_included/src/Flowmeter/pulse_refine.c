@@ -7,7 +7,11 @@
 
 #include "Flowmeter/pulse_refine.h"
 
-int16_t in_sig_array[IN_SIG_LEN];
+int16_t in_sig_array[OUTSIGLEN];
+
+int32_t fdzp_array[FDZPARRAYLEN];
+
+int16_t result_corr[RSLTCORRLEN];
 
 int32_t * source_buffer = NULL;
 uint16_t source_buffer_len = 0;
@@ -30,10 +34,21 @@ PR_Status refine_pulse_time(SA_pulse_result pulse, float *refined_prop_time) {
 	cpy_source_buffer(start_index, end_index);
 
 	// FDZP
+	fdzp(in_sig_array, fdzp_array, INSIGLEN, FDZPARRAYLEN);
+
+	// Pick out real (and not imaginary) values
+	uint16_t i = 0;
+	for (i = 0; i < OUTSIGLEN; i++)
+	{
+		// Reverting to only real
+		in_sig_array[i] = (short) (fdzp_array[i * 2]);
+	}
 
 	// Cross correlation
+	uint16_t sample_offset = crosscorr(in_sig_array, result_corr, INSIGLEN, OUTSIGLEN, COMPSIGLEN);
 
-	*refined_prop_time = 0;
+	// Calculate the more accurate propagation time
+	*refined_prop_time = (pulse->edge_prop_time - (float) PULSE_SAMPLES_START_MARGIN / S_RATE) + ((float) sample_offset / (S_RATE * INTERP_F));
 }
 
 void cpy_source_buffer(uint16_t start_index, uint16_t end_index) {

@@ -16,8 +16,6 @@
 #define PR_SUCCES	(int16_t) (0)
 #define PR_FAIL		(int16_t) (-1)
 
-#define IN_SIG_LEN 1024
-
 typedef int16_t PR_Status;
 
 void refine_init(int32_t * src_buffer, uint16_t src_buffer_len);

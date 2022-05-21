@@ -32,14 +32,6 @@
 #define READ_BUFFER_LEN 1000
 #define EDGE_THRESHOLD ((int16_t) (46347 * 0.3))    // Threshold that correspond to approx. positive 0.3 Vp voltage
 
-/* Crosscorr, FDZP */
-#define INTERP_F 8
-#define INSIGLEN 128 // Incoming signal; We want to know how delayed this is.
-#define OUTSIGLEN  INSIGLEN*INTERP_F// Outgoing signal; Signal after fdzp
-#define COMPSIGLEN SEQ_LEN*INTERP_F // Compare signal; We are looking for this
-#define FDZPARRAYLEN (OUTSIGLEN*4) // Length of FDZP array due to function requirements
-#define RSLTCORRLEN (COMPSIGLEN+OUTSIGLEN-1) // Length of output array for corr_raw
-
 // Get the index of the buffer_read array that is currently being (or hast last been) written to
 #define BUFFER_READ_CURR_INDEX INT32_ARRAY_INDEX_FROM_ADDR(DMA1CH1_WORD_DEST_ADDR - 1, buffer_read) // "-1" is because the DMA (assumably) has already changed destination to the next element, whenever we try to read the address
 
@@ -318,7 +310,7 @@ interrupt void I2S2_receive_ISR(void)
 
 
 
-		pulse_edge_detection_stop_in_n(REPETITIONS * SEQ_LEN + PULSE_SAMPLE_MARGIN); // Capture another SEQ_LEN + 10 samples before stopping capturing
+		pulse_edge_detection_stop_in_n(PULSE_SAMPLE_LENGTH + PULSE_SAMPLES_END_MARGIN); // Capture another SEQ_LEN + 10 samples before stopping capturing
 	}
 }
 

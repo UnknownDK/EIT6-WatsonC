@@ -20,8 +20,6 @@
 #define M_PI 3.14159265358979323846
 
 
-
-void fdzp(short shortArray[],long fdzpArray[], short length, short outLen);
 //void crosscorr_test();
 short max_finder(short array[], short length);
 void generate_compare_signal(short *table, float freq, float s_rate,
@@ -29,7 +27,7 @@ void generate_compare_signal(short *table, float freq, float s_rate,
 
 
 
-float crosscorr(short inSignal[], short resultCorr[], short inSigLen, short outSigLen, short compSigLen)
+short crosscorr(short inSignal[], short resultCorr[], short inSigLen, short outSigLen, short compSigLen)
 {
     unsigned short offlag;
     //short resultCorr[RSLTCORRLEN]; // Result of crosscorrelation
@@ -61,9 +59,9 @@ float crosscorr(short inSignal[], short resultCorr[], short inSigLen, short outS
     //corr_bias  (DATA *x, DATA *y, DATA *r, ushort nx, ushort ny);
     offlag = corr_unbias(compareSignal, inSignal, resultCorr, compSigLen, outSigLen);
     short corrIndex = max_finder(resultCorr, RSLTCORRLEN);
-    float timeLag = ((float)(corrIndex +1)-compSigLen)/(S_RATE*(outSigLen/inSigLen)); // Magi
+    //float timeLag = ((float)(corrIndex +1)-compSigLen)/(S_RATE*(outSigLen/inSigLen)); // Magi
 
-    return timeLag;
+    return corrIndex;
 }
 //766
 
