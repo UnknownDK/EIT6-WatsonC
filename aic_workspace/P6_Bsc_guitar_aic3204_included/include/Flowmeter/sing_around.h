@@ -8,10 +8,6 @@
 #ifndef INCLUDE_FLOWMETER_SING_AROUND_H_
 #define INCLUDE_FLOWMETER_SING_AROUND_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "stdint.h"
 #include "stdlib.h"
 #include "stdbool.h"
@@ -20,6 +16,7 @@ extern "C" {
 #include "expansion_board.h"
 #include "stopwatch.h"
 #include "ezdsp5535.h"
+#include "pulse_refine.h"
 
 #define MAX_MALLOC 4096
 #define ANGLE_LOOKUP 1      //til cos vaerdi der passer til sensorer. 1 Svarer til at sensorer står på en linje midt i strømmen
@@ -80,9 +77,5 @@ uint16_t calcFreqQ(uint32_t time, uint16_t Q_outFormat);
 
 float averageSpeed(float speedResults[], uint16_t nrOfMeasures);
 
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* INCLUDE_FLOWMETER_SING_AROUND_H_ */

@@ -61,6 +61,7 @@ SECTIONS
 	/* Can be expanded or reduced observing limitations of SPRAA46  - not our comment*/
     .stack            >  DARAM_BIG
     .sysstack         >  DARAM_BIG
+//    .heap 			  >  DARAM3_4
     .sysmem           >  DARAM3_4
     .data             >  DARAM3_4
     .cio              >  SARAM9

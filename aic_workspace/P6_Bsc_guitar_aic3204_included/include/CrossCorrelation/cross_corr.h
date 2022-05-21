@@ -13,7 +13,7 @@
 //#include <stdio.h>
 #include <stdlib.h>
 
-short crosscorr(short inSignal[], short resultCorr[], short INSIGLEN, short OUTSIGLEN, short COMPSIGLEN);
+short crosscorr(short inSignal[], short resultCorr[], short inSigLen, short outSigLen, short compSigLen);
 
 void fdzp(short shortArray[],long fdzpArray[], short length, short outLen);
 

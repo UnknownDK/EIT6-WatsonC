@@ -60,7 +60,7 @@ short crosscorr(short inSignal[], short resultCorr[], short inSigLen, short outS
     offlag = corr_unbias(compareSignal, inSignal, resultCorr, compSigLen, outSigLen);
     short corrIndex = max_finder(resultCorr, RSLTCORRLEN);
     //float timeLag = ((float)(corrIndex +1)-compSigLen)/(S_RATE*(outSigLen/inSigLen)); // Magi
-
+    free(compareSignal);
     return corrIndex;
 }
 //766

@@ -138,11 +138,15 @@ SA_status sing_one_round(SA_station_handle station, SA_round_result * result) {
 
 	status = sing_one_way(station, &pulse_down);
 
+	float refined_time_down = 0;
 	if (status != SA_SUCCES) return status;
+	refine_pulse_time(pulse_down.edge_index, pulse_down.end_index, pulse_down.edge_prop_time ,&refined_time_down);
 	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
 
 	status = sing_one_way(station, &pulse_up);
+	float refined_time_up = 0;
 	if (status != SA_SUCCES) return status;
+    refine_pulse_time(pulse_up.edge_index, pulse_up.end_index, pulse_up.edge_prop_time ,&refined_time_up);
 	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
 
 	//result->delta_freq = 1.0 / (result->prop_time_downstream) - 1.0 / (result->prop_time_upstream);

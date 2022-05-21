@@ -26,11 +26,8 @@
 #include <Dsplib.h>
 #include "Flowmeter/pulse_refine.h"
 
-#define FREQ 40000      // Pulse sine frequency
-#define S_RATE 96000    // Sample rate
-#define SEQ_LEN 24      // Gives 10 periods at 40 kHz Change to 21 to match matlab
 #define READ_BUFFER_LEN 1000
-#define EDGE_THRESHOLD ((int16_t) (46347 * 0.3))    // Threshold that correspond to approx. positive 0.3 Vp voltage
+#define EDGE_THRESHOLD ((int16_t) (46347 * 0.3 * 0.1))    // Threshold that correspond to approx. positive 0.3 Vp voltage
 
 // Get the index of the buffer_read array that is currently being (or hast last been) written to
 #define BUFFER_READ_CURR_INDEX INT32_ARRAY_INDEX_FROM_ADDR(DMA1CH1_WORD_DEST_ADDR - 1, buffer_read) // "-1" is because the DMA (assumably) has already changed destination to the next element, whenever we try to read the address
@@ -96,49 +93,46 @@ int main(void)
 {
 	flowmeter_init();   // init board and codec
 
-	uint32_t j = 0;
-	for (; j < READ_BUFFER_LEN; j++) {
-		buffer_read[j] = j << 16;
-	}
+
+
+
+	SA_pulse_result res = {DOWNSTREAM};
+
+
+    /* Generate fake input for testing */
+//    int32_t inSignal[100];
+//    memory_set((uint16_t *) inSignal, 0, sizeof(inSignal));
+//
+//    int i = 0;
+    //generate_sine_table(inSignal + 20, 0.1, FREQ, S_RATE, PULSE_SAMPLE_LENGTH); // Generate sinetable for compareSignal
+
+	//refine_init(inSignal, 100);
+
+	//float refined_time = 0;
+	//refine_pulse_time(22, 22 + PULSE_SAMPLE_LENGTH, 100.0, &refined_time);
 
 	refine_init(buffer_read, READ_BUFFER_LEN);
-
-	SA_pulse_result res = {0};
-
-	float hejsa = 0;
-	refine_pulse_time(res, &hejsa);
-
-	//singAround(singStationHandle, 128, 3);
+	singAround(singStationHandle, 128, 3);
 
 	//pulse_start_periods(1);
 	//pulse_start();
 
 
 
-    /* Generate fake input for testing */
-    short inSignal[OUTSIGLEN];
-    int i = 0;
-    generate_sine_table(fakeSineTable, 0.1, FREQ, S_RATE, SEQ_LEN); // Generate sinetable for compareSignal
-    for(i=0;i<INSIGLEN;i++){
-        inSignal[i] = 0;
-    }
-    for(i=30;i<30+SEQ_LEN;i++){
-        inSignal[i] = (fakeSineTable[i-30])>>16;
-    }
-    /*---------------------------------*/
 
-    long fdzpArray[FDZPARRAYLEN]; // Array for storing fdzp
-    fdzp(inSignal, fdzpArray, INSIGLEN, OUTSIGLEN); // do fdzp
 
-    for(i=0;i<OUTSIGLEN;i++){ // Reverting to only real
-        inSignal[i] = (short)(fdzpArray[i*2]);
-    }
-
-    short resultCorr[RSLTCORRLEN];
-    float timeRslt;
-    timeRslt = crosscorr(inSignal, resultCorr, INSIGLEN, OUTSIGLEN, COMPSIGLEN);
-    //fft_test();
-    i = 0;
+//    long fdzpArray[FDZPARRAYLEN]; // Array for storing fdzp
+//    fdzp(inSignal, fdzpArray, INSIGLEN, OUTSIGLEN); // do fdzp
+//
+//    for(i=0;i<OUTSIGLEN;i++){ // Reverting to only real
+//        inSignal[i] = (short)(fdzpArray[i*2]);
+//    }
+//
+//    short resultCorr[RSLTCORRLEN];
+//    float timeRslt;
+//    timeRslt = crosscorr(inSignal, resultCorr, INSIGLEN, OUTSIGLEN, COMPSIGLEN);
+//    //fft_test();
+//    i = 0;
 
 
 	volatile unsigned long tick = 0;
@@ -151,7 +145,7 @@ int main(void)
 
 void flowmeter_init()
 {
-	generate_sine_table(sineTable, 1, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
+	generate_sine_table(sineTable, 0.1, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
 
 	// Clear input buffer
 	memory_set((uint16_t *) buffer_read, 0, sizeof(buffer_read));
