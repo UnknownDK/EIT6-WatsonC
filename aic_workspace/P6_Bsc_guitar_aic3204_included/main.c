@@ -126,7 +126,7 @@ int main(void)
     /* Generate fake input for testing */
     short inSignal[OUTSIGLEN];
     int i = 0;
-    generate_sine_table(fakeSineTable, 1, FREQ, S_RATE, FAKE_SEQ_LEN); // Generate sinetable for compareSignal
+    generate_sine_table(fakeSineTable, 0.1, FREQ, S_RATE, SEQ_LEN); // Generate sinetable for compareSignal
     for(i=0;i<INSIGLEN;i++){
         inSignal[i] = 0;
     }
