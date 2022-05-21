@@ -6,7 +6,7 @@
  */
 
 #include <Flowmeter/pulse_generator.h>
-#include "stdint.h"
+
 
 bool counting_repetitions = false;
 uint32_t periods_left = 0;
@@ -33,7 +33,6 @@ CSL_DMA_Config dmaConfig = {
 void set_i2s_output_value(uint32_t val);
 
 CSL_Status pulse_generator_init(int32_t *src_addr, uint16_t src_len) {
-    DMA_init();
 
     CSL_Status status = 0;
     dmaHandle = DMA_open(dmaChNum, &dmaChanObj, &status);
@@ -44,6 +43,9 @@ CSL_Status pulse_generator_init(int32_t *src_addr, uint16_t src_len) {
     dmaConfig.srcAddr = (uint32_t) src_addr;
 
     status = DMA_config(dmaHandle, &dmaConfig);
+
+    // Sets the I2S2 output value to 0 so that the DAC is not continuously outputting some arbitrary DC voltage.
+	set_i2s_output_value(0);
 
     return status;
 }

@@ -8,6 +8,8 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include <stdint.h>
+
 #define M_PI 3.14159265358979323846
 
 #define STATUS_CHECK(TARGET) status = TARGET; if (status != CSL_SOK) return status; // The target function call is checked for CSL_Status and returns if it is not CSL_SOK
@@ -34,5 +36,12 @@
 // Get element index in a 32 bit array using the address of that element
 #define INT32_ARRAY_INDEX_FROM_ADDR(addr, arr) ((((uint32_t) addr) - ((uint32_t) arr)) >> 1) // Subtract address by array address, bit shift to divide by two, as each element is 2 (16 bit) words
 
+// The number of margin samples desired before and after the pulse sequence
+#define PULSE_SAMPLE_MARGIN 128
+
+
+void cpy_int32_array_to_int16(int32_t *src, int16_t *dest, uint16_t len);
+
+void memory_set(uint16_t * start, uint16_t val, uint16_t size);
 
 #endif /* MAIN_H_ */
