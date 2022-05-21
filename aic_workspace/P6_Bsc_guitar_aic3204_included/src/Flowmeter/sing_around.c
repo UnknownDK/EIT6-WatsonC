@@ -112,8 +112,8 @@ SA_status sing_one_way(SA_station_handle station, SA_pulse_result * result){
     // Read from the stopwatch the propagation time + system delay
     stopwatch_read_ns(station->watch, &result->edge_prop_time);    //saves time in timerVar
 
-    result->edge_index = station->edge_index;
-    result->end_index = station->end_index;
+    result->edge_index = *station->edge_index;
+    result->end_index = *station->end_index;
 
     // Disable receivers ADC and transmitters power amplifier
     exp_board_disable_dac(station->expBoard);
@@ -131,8 +131,8 @@ SA_status sing_one_round(SA_station_handle station, SA_round_result * result) {
 	 * DARAM and maybe there is delay as well on dynamically allocated memory like the result array.
 	 */
 
-	SA_pulse_result pulse_down = { DOWNWARD };
-	SA_pulse_result pulse_up = { UPWARD };
+	SA_pulse_result pulse_down = { DOWNSTREAM };
+	SA_pulse_result pulse_up = { UPSTREAM };
 
 
 

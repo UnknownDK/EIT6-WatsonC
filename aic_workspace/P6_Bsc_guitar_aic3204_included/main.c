@@ -24,6 +24,7 @@
 #include <Flowmeter/expansion_board.h>
 #include <CrossCorrelation/cross_corr.h>
 #include <Dsplib.h>
+#include "Flowmeter/pulse_refine.h"
 
 #define FREQ 40000      // Pulse sine frequency
 #define S_RATE 96000    // Sample rate
@@ -104,7 +105,19 @@ int main(void)
 {
 	flowmeter_init();   // init board and codec
 
-	singAround(singStationHandle, 128, 3);
+	uint32_t j = 0;
+	for (; j < READ_BUFFER_LEN; j++) {
+		buffer_read[j] = j << 16;
+	}
+
+	refine_init(buffer_read, READ_BUFFER_LEN);
+
+	SA_pulse_result res = {0};
+
+	float hejsa = 0;
+	refine_pulse_time(res, &hejsa);
+
+	//singAround(singStationHandle, 128, 3);
 
 	//pulse_start_periods(1);
 	//pulse_start();
@@ -150,11 +163,7 @@ void flowmeter_init()
 	generate_sine_table(sineTable, 1, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
 
 	// Clear input buffer
-	uint16_t i = 0;
-	for (; i < READ_BUFFER_LEN; i++)
-	{
-		buffer_read[i] = 0;
-	}
+	memory_set((uint16_t *) buffer_read, 0, sizeof(buffer_read));
 
 	/* The EBSR register must be set in order to enable I2S2 and desired GPIO pins.
 	 * Before modifying the values in the EBSR register, you must clock gate all affected peripherals through the PCGCR register.
@@ -170,13 +179,6 @@ void flowmeter_init()
 
 	// Reset DMA clocks
 	DMA_init();
-
-	// Clear input buffer
-	uint16_t i = 0;
-	for (; i < READ_BUFFER_LEN; i++)
-	{
-		buffer_read[i] = 0;
-	}
 
 	// eZdsp - dev board
 	ezdsp5535_init();
@@ -268,6 +270,13 @@ interrupt void DMA_ISR(void)
 	}
 }
 
+void memory_set(uint16_t * start, uint16_t val, uint16_t size) {
+	uint16_t i = 0;
+	for (;i < size; i++) {
+		start[i] = val;
+	}
+}
+
 interrupt void I2S2_transmit_ISR(void)
 {
 	if (prompt_stopwatch_start)
@@ -307,7 +316,9 @@ interrupt void I2S2_receive_ISR(void)
 
 		edge_detected = true;
 
-		pulse_edge_detection_stop_in_n(REPETITIONS * SEQ_LEN + 10); // Capture another SEQ_LEN + 10 samples before stopping capturing
+
+
+		pulse_edge_detection_stop_in_n(REPETITIONS * SEQ_LEN + PULSE_SAMPLE_MARGIN); // Capture another SEQ_LEN + 10 samples before stopping capturing
 	}
 }
 

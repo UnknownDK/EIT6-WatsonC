@@ -61,8 +61,8 @@ typedef struct {
     bool *propagating;
     bool *prompt_gen_start;
     bool *timeout_flag;
-    uint16_t edge_index;
-    uint16_t end_index;
+    uint16_t * edge_index;
+    uint16_t * end_index;
 } SA_station_obj;
 
 
@@ -72,7 +72,7 @@ typedef int16_t SA_status;
 
 int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t antalMeas);
 
-SA_status sing_one_way(SA_station_handle station, SA_direction dir, float *prop_time);
+SA_status sing_one_way(SA_station_handle station, SA_pulse_result * result);
 
 SA_status sing_one_round(SA_station_handle station, SA_round_result * result);
 
