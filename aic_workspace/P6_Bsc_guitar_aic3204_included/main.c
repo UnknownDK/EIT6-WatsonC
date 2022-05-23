@@ -27,7 +27,7 @@
 #include "Flowmeter/pulse_refine.h"
 
 #define READ_BUFFER_LEN 1000
-#define EDGE_THRESHOLD ((int16_t) (46347 * 0.3 * 0.1))    // Threshold that correspond to approx. positive 0.3 Vp voltage
+#define EDGE_THRESHOLD ((int16_t) (46347 * 0.3))    // Threshold that correspond to approx. positive 0.3 Vp voltage
 
 // Get the index of the buffer_read array that is currently being (or hast last been) written to
 #define BUFFER_READ_CURR_INDEX INT32_ARRAY_INDEX_FROM_ADDR(DMA1CH1_WORD_DEST_ADDR - 1, buffer_read) // "-1" is because the DMA (assumably) has already changed destination to the next element, whenever we try to read the address
@@ -93,59 +93,46 @@ int main(void)
 {
 	flowmeter_init();   // init board and codec
 
+	SA_pulse_result res = { UPSTREAM };
+	SA_status status = 0;
 
+//	exp_board_enable_adc(exp_handle, 1);
+//	exp_board_enable_dac(exp_handle, 2);
 
-
-	SA_pulse_result res = {DOWNSTREAM};
-
-
-    /* Generate fake input for testing */
-//    int32_t inSignal[100];
-//    memory_set((uint16_t *) inSignal, 0, sizeof(inSignal));
+//	float time[100];
 //
-//    int i = 0;
-    //generate_sine_table(inSignal + 20, 0.1, FREQ, S_RATE, PULSE_SAMPLE_LENGTH); // Generate sinetable for compareSignal
-
-	//refine_init(inSignal, 100);
-
-	//float refined_time = 0;
-	//refine_pulse_time(22, 22 + PULSE_SAMPLE_LENGTH, 100.0, &refined_time);
-
-	refine_init(buffer_read, READ_BUFFER_LEN);
-	singAround(singStationHandle, 128, 3);
-
-	//pulse_start_periods(1);
-	//pulse_start();
-
-
-
-
-
-//    long fdzpArray[FDZPARRAYLEN]; // Array for storing fdzp
-//    fdzp(inSignal, fdzpArray, INSIGLEN, OUTSIGLEN); // do fdzp
+//	memory_set((uint16_t *) time, 0, sizeof(time));
 //
-//    for(i=0;i<OUTSIGLEN;i++){ // Reverting to only real
-//        inSignal[i] = (short)(fdzpArray[i*2]);
-//    }
-//
-//    short resultCorr[RSLTCORRLEN];
-//    float timeRslt;
-//    timeRslt = crosscorr(inSignal, resultCorr, INSIGLEN, OUTSIGLEN, COMPSIGLEN);
-//    //fft_test();
-//    i = 0;
-
+//	int16_t i = 0;
+//	uint16_t error = 0;
+//	for (; i < 100; i++) {
+//		status = sing_one_way(singStationHandle, &res);
+//		time[i] = res.edge_prop_time;
+//		if (status != 0) {
+//			error++;
+//			i--;
+//		}
+//		ezdsp5535_waitusec(2000);
+//	}
 
 	volatile unsigned long tick = 0;
 
+	refine_init(buffer_read, READ_BUFFER_LEN);
+
 	while (1)
 	{
+		SA_round_result result = {0};
+		sing_one_round(singStationHandle, &result);
+		//pulse_start_periods(REPETITIONS);
+		//ezdsp5535_waitusec(2000);
+
 		tick++;
 	}
 }
 
 void flowmeter_init()
 {
-	generate_sine_table(sineTable, 0.1, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
+	generate_sine_table(sineTable, 1, FREQ, S_RATE, SEQ_LEN); // generate sine table for pulse generation. This is 10 periods of 40 kHz sine wave. 10 periods are necessary as one 40 kHz period at 96 ksps would only be 2.4 samples per period and the table can therefore not be repeated.
 
 	// Clear input buffer
 	memory_set((uint16_t *) buffer_read, 0, sizeof(buffer_read));
@@ -300,8 +287,6 @@ interrupt void I2S2_receive_ISR(void)
 		stopwatch_stop(singStationHandle->watch);
 
 		edge_detected = true;
-
-
 
 		pulse_edge_detection_stop_in_n(PULSE_SAMPLE_LENGTH + PULSE_SAMPLES_END_MARGIN); // Capture another SEQ_LEN + 10 samples before stopping capturing
 	}

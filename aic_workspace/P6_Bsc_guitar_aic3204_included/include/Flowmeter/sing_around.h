@@ -20,7 +20,7 @@
 
 #define MAX_MALLOC 4096
 #define ANGLE_LOOKUP 1      //til cos vaerdi der passer til sensorer. 1 Svarer til at sensorer står på en linje midt i strømmen
-#define SOUNDPATH_LENGTH  20    //Length between sensors
+#define SOUNDPATH_LENGTH  200    //Length between sensors
 #define Q 15
 #define FREQ_Q 13
 #define Q_DIF Q-FREQ_Q

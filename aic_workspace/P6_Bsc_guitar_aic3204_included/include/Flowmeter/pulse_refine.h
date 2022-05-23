@@ -16,6 +16,7 @@
 
 #define PR_SUCCES	(int16_t) (0)
 #define PR_FAIL		(int16_t) (-1)
+#define PR_OVERFLOW	(int16_t) (-2)
 
 typedef int16_t PR_Status;
 

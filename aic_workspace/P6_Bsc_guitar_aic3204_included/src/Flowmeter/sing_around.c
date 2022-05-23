@@ -11,6 +11,8 @@
 
 SA_round_result round_results[128];
 
+const float velocity_factor = (SOUNDPATH_LENGTH/(2.0*ANGLE_LOOKUP));
+
 int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t antalMeas){
 
 	nrRounds = NR_ROUNDS; // Hardcode number of rounds
@@ -38,8 +40,6 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
     }
 
 
-
-    const float factor = (SOUNDPATH_LENGTH/(2.0*ANGLE_LOOKUP));
     float round_avg_velocity = 0; //half scratch var
     float resultHolder = 0;
 
@@ -63,7 +63,7 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
         }
 
         // Calculate average water velocity along the propagation path
-        round_avg_velocity = round_avg_delta_freq * factor / nrRounds;
+        round_avg_velocity = round_avg_delta_freq * velocity_factor / nrRounds;
 
 
         //Error handling here - increase nrRounds hvis to maalinger er meget forskellige
@@ -104,6 +104,10 @@ SA_status sing_one_way(SA_station_handle station, SA_pulse_result * result){
     // Wait until a pulse edge has been detected on the receiver end
     while (*station->propagating == true){}
 
+    // Disable receivers ADC and transmitters power amplifier
+	exp_board_disable_dac(station->expBoard);
+	exp_board_disable_adc(station->expBoard);
+
     if (*station->timeout_flag == true) {
     	*station->timeout_flag = false;
     	return SA_TIMEOUT;
@@ -115,9 +119,7 @@ SA_status sing_one_way(SA_station_handle station, SA_pulse_result * result){
     result->edge_index = *station->edge_index;
     result->end_index = *station->end_index;
 
-    // Disable receivers ADC and transmitters power amplifier
-    exp_board_disable_dac(station->expBoard);
-    exp_board_disable_adc(station->expBoard);
+
 
     return SA_SUCCES;
 }
@@ -137,19 +139,21 @@ SA_status sing_one_round(SA_station_handle station, SA_round_result * result) {
 
 
 	status = sing_one_way(station, &pulse_down);
-
 	float refined_time_down = 0;
 	if (status != SA_SUCCES) return status;
 	refine_pulse_time(pulse_down.edge_index, pulse_down.end_index, pulse_down.edge_prop_time ,&refined_time_down);
-	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
+	//ezdsp5535_waitusec(2000); // Wait to let WaveForms catch up
 
 	status = sing_one_way(station, &pulse_up);
 	float refined_time_up = 0;
 	if (status != SA_SUCCES) return status;
     refine_pulse_time(pulse_up.edge_index, pulse_up.end_index, pulse_up.edge_prop_time ,&refined_time_up);
-	ezdsp5535_waitusec(1000); // Wait to let WaveForms catch up
+	//ezdsp5535_waitusec(2000); // Wait to let WaveForms catch up
 
+    //result->delta_freq = 1.0 / (refined_time_down) - 1.0 / (refined_time_up);
 	//result->delta_freq = 1.0 / (result->prop_time_downstream) - 1.0 / (result->prop_time_upstream);
+	//result->delta_freq = 1.0 / (pulse_down.edge_prop_time) - 1.0 / (pulse_up.edge_prop_time);
+	float velocity = result->delta_freq * velocity_factor; // TODO: Remove this after test
 	return status;
 }
 
