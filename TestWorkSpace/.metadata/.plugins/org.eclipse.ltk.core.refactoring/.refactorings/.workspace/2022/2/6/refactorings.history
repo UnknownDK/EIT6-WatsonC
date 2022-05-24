@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;helloWorld/src/lcdc_panel.c&apos;" deleteContents="false" description="Delete resource &apos;helloWorld/src/lcdc_panel.c&apos;" element1="/helloWorld/src/lcdc_panel.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1644238599206"/>&#x0A;<refactoring comment="Delete resource &apos;helloWorld/include/lcdc_panel.h&apos;" deleteContents="false" description="Delete resource &apos;helloWorld/include/lcdc_panel.h&apos;" element1="/helloWorld/include/lcdc_panel.h" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1644238605523"/>
-</session>
