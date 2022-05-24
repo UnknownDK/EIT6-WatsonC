@@ -36,4 +36,4 @@ This GitHub repo contains code related to EIT6-640s bachelor project.
                 └── stopwatch.h
 ```
 
-The rest of the files are Matlab scripts for plotting, helper scripts for extracting data from memory of the ezDSP, PCB files and LTSpice
+The rest of the files are Matlab scripts for plotting, helper scripts for e.g. extracting data from memory of the ezDSP, PCB files, LTSpice simulations and libraries for the ezDSP.
