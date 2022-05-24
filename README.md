@@ -10,6 +10,7 @@ This GitHub repo contains code related to EIT6-640s bachelor project.
     └── P6_Acoustic_water_flow_meas/
         ├── main.c
         ├── main.h
+        ├── CoolC5535.cmd
         ├── src/
         │   ├── CrossCorrelation/
         │   │   └── cross_corr.c
