@@ -93,39 +93,11 @@ int main(void)
 {
 	flowmeter_init();   // init board and codec
 
-	SA_pulse_result res = { UPSTREAM };
-	SA_status status = 0;
-
-//	exp_board_enable_adc(exp_handle, 1);
-//	exp_board_enable_dac(exp_handle, 2);
-
-//	float time[100];
-//
-//	memory_set((uint16_t *) time, 0, sizeof(time));
-//
-//	int16_t i = 0;
-//	uint16_t error = 0;
-//	for (; i < 100; i++) {
-//		status = sing_one_way(singStationHandle, &res);
-//		time[i] = res.edge_prop_time;
-//		if (status != 0) {
-//			error++;
-//			i--;
-//		}
-//		ezdsp5535_waitusec(2000);
-//	}
-
 	volatile unsigned long tick = 0;
-
-	refine_init(buffer_read, READ_BUFFER_LEN);
 
 	while (1)
 	{
-		SA_round_result result = {0};
-		sing_one_round(singStationHandle, &result);
-		//pulse_start_periods(REPETITIONS);
-		//ezdsp5535_waitusec(2000);
-
+		singAround(singStationHandle, 128, 3);
 		tick++;
 	}
 }
@@ -170,6 +142,8 @@ void flowmeter_init()
 	CSL_I2S2_REGS->I2SINTMASK |= CSL_I2S_I2SINTMASK_XMITST_MASK;
 
 	stopwatch_configure(&tim_handle);
+
+	refine_init(buffer_read, READ_BUFFER_LEN);
 
 	// AIC3204 - audio codec
 	aic3204_hardware_init();
