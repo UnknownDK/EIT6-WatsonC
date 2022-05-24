@@ -8,52 +8,45 @@
 #include "Flowmeter/sing_around.h"
 
 #define NR_ROUNDS 128; // Hardcoded in order to be able to make static arrays that are faster on the bus
+#define SYSTEM_DELAY 357937.282 // ns
 
-SA_round_result round_results[128];
+SA_round_result round_results[NR_ROUNDS];
 
 const float velocity_factor = (SOUNDPATH_LENGTH/(2.0*ANGLE_LOOKUP));
 
-int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t antalMeas){
+int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t nrMeas){
 
-	nrRounds = NR_ROUNDS; // Hardcode number of rounds
-
-    exp_board_disable_adc(sa_station->expBoard); //disable
+	// Disable ADC inputs and piezo power amplifiers
+    exp_board_disable_adc(sa_station->expBoard);
     exp_board_disable_dac(sa_station->expBoard);
 
-    if((antalMeas+nrRounds) > MAX_MALLOC){
+    // Rough memory check
+    if((nrMeas+nrRounds) > MAX_MALLOC){
         return 0;
     }
   
     //memory allocation
-    //SA_round_result *round_results; // Array holding the "delta frequency" of each sing around round.
-    float *resultArray;
-    //round_results = (SA_round_result*) malloc(nrRounds * sizeof(SA_round_result));
-    if (!round_results){
-        //fejlhaandtering
-        return 0;
-    }
-    resultArray = (float*) malloc(antalMeas * sizeof(float));
+    float *resultArray = (float*) malloc(nrMeas * sizeof(float));
     if (!resultArray){
         free(resultArray);
-        //fejlhaandtering
+        // Error handling
         return 0;
     }
 
-
-    float round_avg_velocity = 0; //half scratch var
     float resultHolder = 0;
 
+    // Iterate over a number of "Measurements", each consisting of a number of sing around rounds
     int32_t i = 0;                      //counts measuring number
-    for(i = 0; i < antalMeas ; i++){    //loop for hver maaling
+    for(i = 0; i < nrMeas; i++){    //loop for hver maaling
 
-        int16_t j = 0; //counts sing around rounds
+    	// Perform a number of sing around rounds
+        int16_t j = 0;
         for (j = 0; j < nrRounds ; j++){
         	SA_round_result res;
         	SA_status status = sing_one_round(sa_station, &res);
         	round_results[j] = res;
-        	if (status != SA_SUCCES) j--; // Retry if the sing around was not succesful
+        	if (status != SA_SUCCES) j--; // Retry if the sing around was not successful
         }
-
 
         float round_avg_delta_freq = 0.0;
 
@@ -63,16 +56,9 @@ int16_t singAround(SA_station_handle sa_station, uint16_t nrRounds,uint16_t anta
         }
 
         // Calculate average water velocity along the propagation path
-        round_avg_velocity = round_avg_delta_freq * velocity_factor / nrRounds;
-
-
-        //Error handling here - increase nrRounds hvis to maalinger er meget forskellige
-        //resultArray[i] = (int16_t) (singResultHolder*(qOmregner>>Q_DIF));
-
-
+        resultArray[i] = round_avg_delta_freq * velocity_factor / nrRounds;
     }
-    resultHolder = averageSpeed(resultArray, antalMeas);
-    //free(round_results);
+    resultHolder = averageSpeed(resultArray, nrMeas);
     free(resultArray);
     return resultHolder;
 }
@@ -137,23 +123,30 @@ SA_status sing_one_round(SA_station_handle station, SA_round_result * result) {
 	SA_pulse_result pulse_up = { UPSTREAM };
 
 
-
+	// Measure downstream transit time
 	status = sing_one_way(station, &pulse_down);
+	if (status != SA_SUCCES) return status;
+	//ezdsp5535_waitusec(2000); // Wait to let WaveForms catch up
+
+	// Refine downstream transit time using FDZP and cross correlation
 	float refined_time_down = 0;
-	if (status != SA_SUCCES) return status;
 	refine_pulse_time(pulse_down.edge_index, pulse_down.end_index, pulse_down.edge_prop_time ,&refined_time_down);
-	//ezdsp5535_waitusec(2000); // Wait to let WaveForms catch up
 
+	// Measure upstream transit time
 	status = sing_one_way(station, &pulse_up);
-	float refined_time_up = 0;
 	if (status != SA_SUCCES) return status;
-    refine_pulse_time(pulse_up.edge_index, pulse_up.end_index, pulse_up.edge_prop_time ,&refined_time_up);
 	//ezdsp5535_waitusec(2000); // Wait to let WaveForms catch up
 
-    //result->delta_freq = 1.0 / (refined_time_down) - 1.0 / (refined_time_up);
-	//result->delta_freq = 1.0 / (result->prop_time_downstream) - 1.0 / (result->prop_time_upstream);
-	//result->delta_freq = 1.0 / (pulse_down.edge_prop_time) - 1.0 / (pulse_up.edge_prop_time);
-	float velocity = result->delta_freq * velocity_factor; // TODO: Remove this after test
+	// Refine upstream transit time using FDZP and cross correlation
+	float refined_time_up = 0;
+    refine_pulse_time(pulse_up.edge_index, pulse_up.end_index, pulse_up.edge_prop_time ,&refined_time_up);
+
+    result->prop_time_downstream = refined_time_down;
+    result->prop_time_upstream = refined_time_up;
+
+    // Calculate delta frequency
+	result->delta_freq = 1.0 / (result->prop_time_downstream - SYSTEM_DELAY) - 1.0 / (result->prop_time_upstream - SYSTEM_DELAY);
+
 	return status;
 }
 
@@ -182,12 +175,12 @@ uint16_t calcFreqQ(uint32_t time, uint16_t Q_outFormat){
 }
 
 float averageSpeed(float speedResults[], uint16_t nrOfMeasures){
-    float sum = 0; //evt make it 32 bit
+    float sum = 0;
     uint16_t i;
     for (i = 0 ; i < nrOfMeasures ; i++){
         sum += speedResults[i];
     }
-    return (int16_t) (sum / nrOfMeasures);
+    return (sum / nrOfMeasures);
 }
 
 
