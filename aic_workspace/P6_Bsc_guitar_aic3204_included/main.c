@@ -26,19 +26,8 @@
 #include <Dsplib.h>
 #include "Flowmeter/pulse_refine.h"
 
-#define FREQ 40000      // Pulse sine frequency
-#define S_RATE 96000    // Sample rate
-#define SEQ_LEN 24      // Gives 10 periods at 40 kHz Change to 21 to match matlab
 #define READ_BUFFER_LEN 1000
 #define EDGE_THRESHOLD ((int16_t) (46347 * 0.3))    // Threshold that correspond to approx. positive 0.3 Vp voltage
-
-/* Crosscorr, FDZP */
-#define INTERP_F 8
-#define INSIGLEN 128 // Incoming signal; We want to know how delayed this is.
-#define OUTSIGLEN  INSIGLEN*INTERP_F// Outgoing signal; Signal after fdzp
-#define COMPSIGLEN SEQ_LEN*INTERP_F // Compare signal; We are looking for this
-#define FDZPARRAYLEN (OUTSIGLEN*4) // Length of FDZP array due to function requirements
-#define RSLTCORRLEN (COMPSIGLEN+OUTSIGLEN-1) // Length of output array for corr_raw
 
 // Get the index of the buffer_read array that is currently being (or hast last been) written to
 #define BUFFER_READ_CURR_INDEX INT32_ARRAY_INDEX_FROM_ADDR(DMA1CH1_WORD_DEST_ADDR - 1, buffer_read) // "-1" is because the DMA (assumably) has already changed destination to the next element, whenever we try to read the address
@@ -104,55 +93,11 @@ int main(void)
 {
 	flowmeter_init();   // init board and codec
 
-	uint32_t j = 0;
-	for (; j < READ_BUFFER_LEN; j++) {
-		buffer_read[j] = j << 16;
-	}
-
-	refine_init(buffer_read, READ_BUFFER_LEN);
-
-	SA_pulse_result res = {0};
-
-	float hejsa = 0;
-	refine_pulse_time(res, &hejsa);
-
-	//singAround(singStationHandle, 128, 3);
-
-	//pulse_start_periods(1);
-	//pulse_start();
-
-
-
-    /* Generate fake input for testing */
-    short inSignal[OUTSIGLEN];
-    int i = 0;
-    generate_sine_table(fakeSineTable, 0.1, FREQ, S_RATE, SEQ_LEN); // Generate sinetable for compareSignal
-    for(i=0;i<INSIGLEN;i++){
-        inSignal[i] = 0;
-    }
-    for(i=30;i<30+SEQ_LEN;i++){
-        inSignal[i] = (fakeSineTable[i-30])>>16;
-    }
-    /*---------------------------------*/
-
-    long fdzpArray[FDZPARRAYLEN]; // Array for storing fdzp
-    fdzp(inSignal, fdzpArray, INSIGLEN, OUTSIGLEN); // do fdzp
-
-    for(i=0;i<OUTSIGLEN;i++){ // Reverting to only real
-        inSignal[i] = (short)(fdzpArray[i*2]);
-    }
-
-    short resultCorr[RSLTCORRLEN];
-    float timeRslt;
-    timeRslt = crosscorr(inSignal, resultCorr, INSIGLEN, OUTSIGLEN, COMPSIGLEN);
-    //fft_test();
-    i = 0;
-
-
 	volatile unsigned long tick = 0;
 
 	while (1)
 	{
+		singAround(singStationHandle, 128, 3);
 		tick++;
 	}
 }
@@ -197,6 +142,8 @@ void flowmeter_init()
 	CSL_I2S2_REGS->I2SINTMASK |= CSL_I2S_I2SINTMASK_XMITST_MASK;
 
 	stopwatch_configure(&tim_handle);
+
+	refine_init(buffer_read, READ_BUFFER_LEN);
 
 	// AIC3204 - audio codec
 	aic3204_hardware_init();
@@ -315,9 +262,7 @@ interrupt void I2S2_receive_ISR(void)
 
 		edge_detected = true;
 
-
-
-		pulse_edge_detection_stop_in_n(REPETITIONS * SEQ_LEN + PULSE_SAMPLE_MARGIN); // Capture another SEQ_LEN + 10 samples before stopping capturing
+		pulse_edge_detection_stop_in_n(PULSE_SAMPLE_LENGTH + PULSE_SAMPLES_END_MARGIN); // Capture another SEQ_LEN + 10 samples before stopping capturing
 	}
 }
 
